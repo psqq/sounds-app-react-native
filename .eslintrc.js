@@ -5,5 +5,6 @@ module.exports = {
   plugins: ['@typescript-eslint'],
   rules: {
     'prettier/prettier': 'warn',
+    '@typescript-eslint/no-unused-vars': 'warn',
   },
 };

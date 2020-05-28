@@ -6,9 +6,9 @@
  */
 
 module.exports = {
-  resolver: {
-    assetExts: ['ogg'],
-  },
+  // resolver: {
+  //   assetExts: ['ogg'],
+  // },
   transformer: {
     getTransformOptions: async () => ({
       transform: {
