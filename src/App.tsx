@@ -16,6 +16,7 @@ import {
   View,
   Text,
   StatusBar,
+  Button,
 } from 'react-native';
 
 import {
@@ -25,10 +26,12 @@ import {
   DebugInstructions,
   ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
+import {playSound, stopSound} from './sounds';
 
 declare const global: {HermesInternal: null | {}};
 
 const App = () => {
+  const rain_01 = require('./assets/rain_01.mp3');
   return (
     <>
       <StatusBar barStyle="dark-content" />
@@ -44,7 +47,22 @@ const App = () => {
           )}
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Step One</Text>
+              <Button
+                title={'Play sound!'}
+                onPress={() =>
+                  playSound({
+                    url: rain_01,
+                    isRequire: true,
+                  })
+                }
+              />
+              <Button
+                title={'Stop sound!'}
+                onPress={() => stopSound(rain_01)}
+              />
+            </View>
+            <View style={styles.sectionContainer}>
+              <Text style={styles.sectionTitle}>Step 1</Text>
               <Text style={styles.sectionDescription}>
                 Edit <Text style={styles.highlight}>App.tsx</Text> to change
                 this screen and then come back to see your edits.
