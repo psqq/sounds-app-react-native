@@ -7,10 +7,10 @@ import {
   TouchableOpacity,
   StatusBar,
 } from 'react-native';
-
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import LinearGradient from 'react-native-linear-gradient';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useStorage} from './hooks/use-storage';
 
 const FirstScreen = () => {
   const buttons = [
@@ -47,13 +47,18 @@ const FirstScreen = () => {
       },
     ],
   ];
-  const [checked, setChecked] = useState<{[key: string]: boolean}>({});
+  const {value: checked, setValue: setChecked, save: saveChecked} = useStorage<{
+    [key: string]: boolean;
+  }>({}, 'first-screen-checked-buttons');
   const toggle = (id: string) => {
     if (!checked[id]) {
       setChecked({...checked, [id]: true});
     } else {
       setChecked({...checked, [id]: false});
     }
+  };
+  const clickOnContinue = () => {
+    saveChecked();
   };
   return (
     <LinearGradient
@@ -87,7 +92,7 @@ const FirstScreen = () => {
           </Col>
         ))}
       </Grid>
-      <Button title="Продолжить" onPress={() => 0} />
+      <Button title="Продолжить" onPress={clickOnContinue} />
     </LinearGradient>
   );
 };
