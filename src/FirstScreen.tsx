@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {
   StyleSheet,
   Text,
@@ -11,8 +11,14 @@ import {Col, Row, Grid} from 'react-native-easy-grid';
 import LinearGradient from 'react-native-linear-gradient';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 import {useStorage} from './hooks/use-storage';
+import {FirstScreenNavigationProp, FirstScreennRouteProp} from './router';
 
-const FirstScreen = () => {
+type Props = {
+  navigation: FirstScreenNavigationProp;
+  route: FirstScreennRouteProp;
+};
+
+const FirstScreen = ({navigation}: Props) => {
   const buttons = [
     [
       {
@@ -59,6 +65,7 @@ const FirstScreen = () => {
   };
   const clickOnContinue = () => {
     saveChecked();
+    navigation.navigate('SoundsScreen');
   };
   return (
     <LinearGradient

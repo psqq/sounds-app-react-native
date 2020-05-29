@@ -1,20 +1,24 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text} from 'react-native';
+
+import {NavigationContainer} from '@react-navigation/native';
 
 import FirstScreen from './FirstScreen';
 import SoundsScreen from './SoundsScreen';
+
+import {Stack} from './router';
 
 const App = () => {
   return (
     // <View>
     // <TestSound />
     // </View>
-    // <View style={styles.container}>
-    //   <SoundsScreen />
-    // </View>
-    <View style={styles.container}>
-      <FirstScreen />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="FirstScreen" headerMode="none">
+        <Stack.Screen name="SoundsScreen" component={SoundsScreen} />
+        <Stack.Screen name="FirstScreen" component={FirstScreen} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 
