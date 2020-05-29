@@ -20,6 +20,7 @@ import {
 
 import {playSound, stopSound} from './sounds';
 import Sound from 'react-native-sound';
+import FirstScreen from './FirstScreen';
 
 declare const global: {HermesInternal: null | {}};
 
@@ -47,12 +48,7 @@ const App = () => {
     // <TestSound />
     // </View>
     <>
-      <StatusBar barStyle="dark-content" />
-      <SafeAreaView>
-        <ScrollView contentInsetAdjustmentBehavior="automatic">
-          <TestSound />
-        </ScrollView>
-      </SafeAreaView>
+      <FirstScreen />
     </>
   );
 };
