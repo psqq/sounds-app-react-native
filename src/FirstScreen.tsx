@@ -1,8 +1,16 @@
 import React, {useState} from 'react';
-import {StyleSheet, Text, Button, Image, TouchableOpacity} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  Button,
+  Image,
+  TouchableOpacity,
+  StatusBar,
+} from 'react-native';
 
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import LinearGradient from 'react-native-linear-gradient';
+import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const FirstScreen = () => {
   const buttons = [
@@ -51,6 +59,7 @@ const FirstScreen = () => {
     <LinearGradient
       colors={['#4c669f', '#3b5998', '#192f6a']}
       style={styles.container}>
+      <StatusBar translucent backgroundColor="transparent" />
       <Text style={styles.title}>Я хочу...</Text>
       <Grid style={styles.grid}>
         {buttons.map((col, i) => (
@@ -87,6 +96,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 15,
+    paddingTop: getStatusBarHeight(),
   },
   title: {
     fontSize: 40,

@@ -9,14 +9,7 @@
  */
 
 import React from 'react';
-import {
-  SafeAreaView,
-  StyleSheet,
-  ScrollView,
-  View,
-  StatusBar,
-  Button,
-} from 'react-native';
+import {StyleSheet, View, Button} from 'react-native';
 
 import {playSound, stopSound} from './sounds';
 import Sound from 'react-native-sound';
@@ -47,12 +40,16 @@ const App = () => {
     // <View>
     // <TestSound />
     // </View>
-    <>
+    <View style={styles.container}>
       <FirstScreen />
-    </>
+    </View>
   );
 };
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
+});
 
 export default App;
