@@ -1,23 +1,24 @@
 import React, {FunctionComponent} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
+import {ICON_DAY, ICON_COFFEE_CUP, ICON_EYE, ICON_YOGA} from './assets';
 
 export const TopButtons: FunctionComponent = () => {
   const topButtons = [
     {
       title: 'Сон',
-      img: require('./assets/002-day.png'),
+      img: ICON_DAY,
     },
     {
       title: 'Расслабиться',
-      img: require('./assets/003-coffee-cup.png'),
+      img: ICON_COFFEE_CUP,
     },
     {
       title: 'Работа',
-      img: require('./assets/004-eye.png'),
+      img: ICON_EYE,
     },
     {
       title: 'Медитация',
-      img: require('./assets/001-yoga.png'),
+      img: ICON_YOGA,
     },
   ];
   return (

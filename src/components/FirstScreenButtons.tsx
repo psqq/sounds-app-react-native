@@ -2,6 +2,7 @@ import React, {useState, FunctionComponent} from 'react';
 import {StyleSheet, Text, Image, TouchableOpacity} from 'react-native';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 import LinearGradient from 'react-native-linear-gradient';
+import {ICON_DAY, ICON_COFFEE_CUP, ICON_EYE, ICON_YOGA} from '../assets';
 
 export type CheckedButtons = {[key: string]: boolean};
 
@@ -17,14 +18,14 @@ export const FirstScreenButtons: FunctionComponent<Props> = ({onChange}) => {
         checkedGradient: ['#3a3ac2', '#3f40d1'],
         title: 'лучше засыпать',
         id: 'лучше засыпать',
-        img: require('../assets/002-day.png'),
+        img: ICON_DAY,
       },
       {
         gradient: ['#5664c7', '#596ad4'],
         checkedGradient: ['#2e41c7', '#2f45d4'],
         title: 'снизить стресс',
         id: 'снизить стресс',
-        img: require('../assets/003-coffee-cup.png'),
+        img: ICON_COFFEE_CUP,
       },
     ],
     [
@@ -33,14 +34,14 @@ export const FirstScreenButtons: FunctionComponent<Props> = ({onChange}) => {
         checkedGradient: ['#544894', '#5c4fa1'],
         title: 'концентрировать внимание',
         id: 'концентрировать внимание',
-        img: require('../assets/004-eye.png'),
+        img: ICON_EYE,
       },
       {
         gradient: ['#6d55a4', '#725db5'],
         checkedGradient: ['#5634a3', '#5638b5'],
         title: 'научиться медитировать',
         id: 'научиться медитировать',
-        img: require('../assets/001-yoga.png'),
+        img: ICON_YOGA,
       },
     ],
   ];
