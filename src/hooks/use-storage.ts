@@ -1,5 +1,6 @@
 import {useState} from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import {isEqual} from 'lodash';
 
 export const useStorage = <T extends Object>(initialValue: T, key: string) => {
   const [value, setValue] = useState(initialValue);
@@ -20,7 +21,9 @@ export const useStorage = <T extends Object>(initialValue: T, key: string) => {
         data = await AsyncStorage.getItem(key);
         if (data) {
           let parsedData = JSON.parse(data);
-          setValue(parsedData);
+          if (!isEqual(value, parsedData)) {
+            setValue(parsedData);
+          }
         }
       } catch (err) {
         console.error(err);
