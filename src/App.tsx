@@ -3,8 +3,8 @@ import {StyleSheet, View, Text} from 'react-native';
 
 import {NavigationContainer} from '@react-navigation/native';
 
-import FirstScreen from './FirstScreen';
-import SoundsScreen from './SoundsScreen';
+import {FirstScreen} from './FirstScreen';
+import {SoundsScreen} from './SoundsScreen';
 
 import {Stack} from './router';
 

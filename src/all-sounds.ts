@@ -1,4 +1,14 @@
-const allSounds = [
+export type SoundInfo = {
+  title: string;
+  sound: string;
+  soundUrl?: any;
+  icon: string;
+  iconUrl?: any;
+  previewImg?: string;
+  previewImgUrl?: any;
+};
+
+const allSounds: SoundInfo[] = [
   {
     title: 'Дождь',
     sound: 'sound-01-rain.mp3',
@@ -19,12 +29,13 @@ const allSounds = [
   },
 ];
 
-export function getAllSounds() {
+export function getAllSounds(): SoundInfo[] {
   return allSounds.map((sound) => {
-    sound.sound = require('./assets/' + sound.sound);
-    sound.icon = require('./assets/' + sound.icon);
+    sound.soundUrl = require('./assets/' + sound.sound);
+    sound.iconUrl = require('./assets/' + sound.icon);
     if (sound.previewImg) {
-      sound.previewImg = require('./assets/' + sound.previewImg);
+      sound.previewImgUrl = require('./assets/' + sound.previewImg);
     }
+    return sound;
   });
 }
