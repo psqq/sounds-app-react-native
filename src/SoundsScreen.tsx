@@ -2,16 +2,34 @@ import React, {FunctionComponent} from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import Wrapper from './Wrapper';
 import {TopButtons} from './TopButtons';
-import {getAllSounds} from './all-sounds';
 import {Previews} from './Previews';
+import {
+  SOUNDS_03_THUNDER_PREVIEW,
+  ASSETS_TREE,
+  SOUNDS_01_RAIN_PREVIEW,
+  SOUNDS_02_STRONG_WIND_PREVIEW,
+} from './assets';
 
 export const SoundsScreen: FunctionComponent = () => {
-  const allSound = getAllSounds();
+  const items = [
+    {
+      img: SOUNDS_01_RAIN_PREVIEW,
+      title: 'Дождь',
+    },
+    {
+      img: SOUNDS_02_STRONG_WIND_PREVIEW,
+      title: 'Сильный ветер',
+    },
+    {
+      img: SOUNDS_03_THUNDER_PREVIEW,
+      title: 'Гром',
+    },
+  ];
   return (
     <Wrapper containerStyle={styles.container}>
       <Text style={styles.title}>Звуки дождя</Text>
       <TopButtons />
-      <Previews allSounds={allSound} />
+      <Previews items={items} />
     </Wrapper>
   );
 };
