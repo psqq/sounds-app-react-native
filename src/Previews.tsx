@@ -16,7 +16,7 @@ type Props = {
 
 export const Previews: FunctionComponent<Props> = ({items}) => {
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView style={styles.container} bounces={false} overScrollMode="never">
       <FixedGrid
         cols={2}
         items={items.map((item) => (

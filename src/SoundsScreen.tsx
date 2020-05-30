@@ -24,11 +24,37 @@ export const SoundsScreen: FunctionComponent = () => {
       img: SOUNDS_03_THUNDER_PREVIEW,
       title: 'Гром',
     },
+    {
+      img: SOUNDS_01_RAIN_PREVIEW,
+      title: 'Дождь',
+    },
+    {
+      img: SOUNDS_02_STRONG_WIND_PREVIEW,
+      title: 'Сильный ветер',
+    },
+    {
+      img: SOUNDS_03_THUNDER_PREVIEW,
+      title: 'Гром',
+    },
+    {
+      img: SOUNDS_01_RAIN_PREVIEW,
+      title: 'Дождь',
+    },
+    {
+      img: SOUNDS_02_STRONG_WIND_PREVIEW,
+      title: 'Сильный ветер',
+    },
+    {
+      img: SOUNDS_03_THUNDER_PREVIEW,
+      title: 'Гром',
+    },
   ];
   return (
     <Wrapper containerStyle={styles.container}>
       <Text style={styles.title}>Звуки дождя</Text>
-      <TopButtons />
+      <View style={styles.topButtonsContainer}>
+        <TopButtons />
+      </View>
       <Previews items={items} />
     </Wrapper>
   );
@@ -37,7 +63,9 @@ export const SoundsScreen: FunctionComponent = () => {
 const styles = StyleSheet.create({
   container: {
     padding: 15,
+    paddingBottom: 0,
   },
+  topButtonsContainer: {},
   title: {
     fontSize: 25,
     fontWeight: 'bold',
