@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {StyleSheet, View, Text} from 'react-native';
-
+import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 
 import {FirstScreen} from './FirstScreen';
@@ -9,6 +9,9 @@ import {SoundsScreen} from './SoundsScreen';
 import {Stack} from './router';
 
 const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
   return (
     // <View>
     // <TestSound />
