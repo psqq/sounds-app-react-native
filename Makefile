@@ -7,6 +7,6 @@
 # 	npx shx cp ./src/assets/* ./android/app/src/main/res/raw
 
 assets_consts:
-	npx node .\tools\make-assets-consts.js
+	npx node .\tools\make-assets-consts.js > .\src\assets\index.ts
 
 all: assets_consts

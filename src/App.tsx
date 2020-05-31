@@ -1,34 +1,21 @@
 import React, {useEffect} from 'react';
-import {StyleSheet, View, Text} from 'react-native';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
 
-import {FirstScreen} from './FirstScreen';
-import {SoundsScreen} from './SoundsScreen';
-
 import {Stack} from './router';
+import {UserWishes} from './screens/UserWishes';
 
 const App = () => {
   useEffect(() => {
     SplashScreen.hide();
   }, []);
   return (
-    // <View>
-    // <TestSound />
-    // </View>
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="FirstScreen" headerMode="none">
-        <Stack.Screen name="SoundsScreen" component={SoundsScreen} />
-        <Stack.Screen name="FirstScreen" component={FirstScreen} />
+      <Stack.Navigator initialRouteName="UserWishes" headerMode="none">
+        <Stack.Screen name="UserWishes" component={UserWishes} />
       </Stack.Navigator>
     </NavigationContainer>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
 
 export default App;

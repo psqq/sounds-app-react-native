@@ -6,17 +6,14 @@ import {RouteProp} from '@react-navigation/native';
 
 export type RootStackParamList = {
   SoundsScreen: undefined;
-  FirstScreen: {userId: string};
+  UserWishes: {userId: string};
 };
 
-export type FirstScreenNavigationProp = StackNavigationProp<
+export type UserWishesNavigationProp = StackNavigationProp<
   RootStackParamList,
-  'FirstScreen'
+  'UserWishes'
 >;
 
-export type FirstScreennRouteProp = RouteProp<
-  RootStackParamList,
-  'FirstScreen'
->;
+export type UserWishesnRouteProp = RouteProp<RootStackParamList, 'UserWishes'>;
 
 export const Stack = createStackNavigator<RootStackParamList>();
