@@ -8,16 +8,17 @@ import {ContainerWithoutStatusBar} from '../../components/ContainerWithoutStatus
 import {UserWishesButtons} from '../../components/UserWishesButtons';
 import {Title} from '../../components/Title';
 import {ContinueButton} from '../../components/ContinueButton';
+import {ICON_DAY, ICON_EYE, ICON_COFFEE_CUP, ICON_YOGA} from 'src/assets';
 
 type Props = {
   navigation: UserWishesNavigationProp;
 };
 
 const wishButtons = [
-  {title: 'Лучше засыпать'},
-  {title: 'Концентрировать внимание'},
-  {title: 'Снизить стресс'},
-  {title: 'Научиться медитировать'},
+  {title: 'Лучше засыпать', icon: ICON_DAY},
+  {title: 'Концентрировать внимание', icon: ICON_EYE},
+  {title: 'Снизить стресс', icon: ICON_COFFEE_CUP},
+  {title: 'Научиться медитировать', icon: ICON_YOGA},
 ];
 
 export const UserWishes: FunctionComponent<Props> = ({navigation}) => {

@@ -4,7 +4,7 @@ import {FixedGrid} from '../FixedGrid';
 import {SwitchableWishButton} from '../SwitchableWishButton';
 
 type Props = {
-  buttons: {title: string}[];
+  buttons: {title: string; icon: number}[];
 };
 
 export const UserWishesButtons: FunctionComponent<Props> = ({buttons}) => {
@@ -13,7 +13,11 @@ export const UserWishesButtons: FunctionComponent<Props> = ({buttons}) => {
       gridStyle={styles.container}
       cols={2}
       items={buttons.map((btn) => (
-        <SwitchableWishButton key={btn.title} title={btn.title} />
+        <SwitchableWishButton
+          key={btn.title}
+          title={btn.title}
+          icon={btn.icon}
+        />
       ))}
     />
   );
