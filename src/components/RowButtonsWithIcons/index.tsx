@@ -3,8 +3,8 @@ import {StyleSheet, Image, View, Text} from 'react-native';
 import {FixedGrid} from '../FixedGrid';
 
 type Props = {
-  buttons: {id: string; title: string; icon: number}[];
-  onPress?: (id: string) => void;
+  buttons: readonly {title: string; icon: number}[];
+  onPress?: (index: number) => void;
 };
 
 export const RowButtonsWithIcons: FunctionComponent<Props> = ({
