@@ -1,3 +1,6 @@
+//---
+// State
+//---
 export enum PossibleUserWishes {
   WISH_TO_SLEEP_BETTER,
   WISH_TO_CONCENTRATE,
@@ -7,8 +10,12 @@ export enum PossibleUserWishes {
 
 export interface UserWishesState {
   wishes: PossibleUserWishes[];
+  saved: boolean;
 }
 
+//---
+// Add wish action
+//---
 export const ADD_WISH = 'ADD_WISH';
 
 export interface AddWishAction {
@@ -16,4 +23,29 @@ export interface AddWishAction {
   payload: PossibleUserWishes;
 }
 
-export type UserWishesActionTypes = AddWishAction;
+//---
+//Save to storage action
+//---
+export const SAVE_TO_STORAGE = 'SAVE_TO_STORAGE';
+
+export interface SaveToStorageAction {
+  type: typeof SAVE_TO_STORAGE;
+}
+
+//---
+// Add wish action
+//---
+export const SET_SAVED = 'SET_SAVED';
+
+export interface SetSavedAction {
+  type: typeof SET_SAVED;
+  payload: boolean;
+}
+
+//---
+// All actions
+//---
+export type UserWishesActionTypes =
+  | AddWishAction
+  | SaveToStorageAction
+  | SetSavedAction;

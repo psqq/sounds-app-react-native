@@ -1,0 +1,1 @@
+export {userWishes} from './reducers';

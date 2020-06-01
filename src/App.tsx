@@ -1,9 +1,11 @@
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {NavigationContainer} from '@react-navigation/native';
+import {Provider} from 'react-redux';
 
 import {Stack} from './router';
 import {UserWishes} from './screens/UserWishes';
+import {store} from './store';
 
 const App = () => {
   useEffect(() => {
@@ -18,4 +20,8 @@ const App = () => {
   );
 };
 
-export default App;
+export default () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
