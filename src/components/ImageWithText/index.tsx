@@ -7,11 +7,16 @@ type Props = {
   size: number;
 };
 
-export const Previews: FunctionComponent<Props> = ({img, text, size}) => {
+const containerMargin = 10;
+
+export const ImageWithText: FunctionComponent<Props> = ({img, text, size}) => {
   return (
     <ImageBackground
       resizeMode="cover"
-      style={[styles.container, {width: size, height: size}]}
+      style={[
+        styles.container,
+        {width: size - containerMargin * 2, height: size - containerMargin * 2},
+      ]}
       imageStyle={styles.img}
       source={img}>
       <View style={styles.textContainer}>
@@ -23,7 +28,7 @@ export const Previews: FunctionComponent<Props> = ({img, text, size}) => {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    margin: containerMargin,
     flexDirection: 'column-reverse',
   },
   img: {
