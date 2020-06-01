@@ -2,11 +2,10 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
 
 export type RootStackParamList = {
-  SoundsScreen: undefined;
-  UserWishes: {userId: string};
+  Main: undefined;
+  UserWishes: undefined;
 };
 
 export type UserWishesNavigationProp = StackNavigationProp<
@@ -14,6 +13,9 @@ export type UserWishesNavigationProp = StackNavigationProp<
   'UserWishes'
 >;
 
-export type UserWishesnRouteProp = RouteProp<RootStackParamList, 'UserWishes'>;
+export type MainNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  'Main'
+>;
 
 export const Stack = createStackNavigator<RootStackParamList>();

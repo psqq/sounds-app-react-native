@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react';
 
-import {UserWishesNavigationProp, UserWishesnRouteProp} from '../../router';
+import {UserWishesNavigationProp} from '../../router';
 import {GradientBackground} from '../../components/GradientBackground';
 import {config} from '../../config';
 import {TransparentStatusBar} from '../../components/TransparentStatusBar';
@@ -11,7 +11,6 @@ import {ContinueButton} from '../../components/ContinueButton';
 
 type Props = {
   navigation: UserWishesNavigationProp;
-  route: UserWishesnRouteProp;
 };
 
 const wishButtons = [
@@ -22,13 +21,16 @@ const wishButtons = [
 ];
 
 export const UserWishes: FunctionComponent<Props> = ({navigation}) => {
+  function onContinuePress() {
+    navigation.navigate('Main');
+  }
   return (
     <GradientBackground colors={config.backgroundGradient}>
       <TransparentStatusBar />
       <ContainerWithoutStatusBar>
         <Title text="Я хочу..." />
         <UserWishesButtons buttons={wishButtons} />
-        <ContinueButton />
+        <ContinueButton onPress={onContinuePress} />
       </ContainerWithoutStatusBar>
     </GradientBackground>
   );

@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import {Stack} from './router';
 import {UserWishes} from './screens/UserWishes';
 import {store} from './store';
+import {Main} from './screens/Main';
 
 const App = () => {
   useEffect(() => {
@@ -15,6 +16,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator initialRouteName="UserWishes" headerMode="none">
         <Stack.Screen name="UserWishes" component={UserWishes} />
+        <Stack.Screen name="Main" component={Main} />
       </Stack.Navigator>
     </NavigationContainer>
   );

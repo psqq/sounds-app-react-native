@@ -5,7 +5,9 @@ type Props = {
   onPress?: () => void;
 };
 
-export const ContinueButton: FunctionComponent<Props> = ({onPress}) => {
+export const ContinueButton: FunctionComponent<Props> = ({
+  onPress = () => undefined,
+}) => {
   return (
     <View style={styles.container}>
       <Button title="Продолжить" onPress={onPress} />

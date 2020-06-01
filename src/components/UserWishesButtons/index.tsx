@@ -13,7 +13,7 @@ export const UserWishesButtons: FunctionComponent<Props> = ({buttons}) => {
       gridStyle={styles.container}
       cols={2}
       items={buttons.map((btn) => (
-        <SwitchableWishButton title={btn.title} />
+        <SwitchableWishButton key={btn.title} title={btn.title} />
       ))}
     />
   );
