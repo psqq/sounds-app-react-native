@@ -2,8 +2,6 @@ import React, {FunctionComponent} from 'react';
 import {ViewStyle} from 'react-native';
 import {Col, Row, Grid} from 'react-native-easy-grid';
 
-export type CheckedButtons = {[key: string]: boolean};
-
 type Props = {
   cols: number;
   rows?: number;

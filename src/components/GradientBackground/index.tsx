@@ -7,7 +7,7 @@ type Props = {
   style?: ViewStyle;
 };
 
-export const Background: FunctionComponent<Props> = ({
+export const GradientBackground: FunctionComponent<Props> = ({
   colors,
   style,
   children,
