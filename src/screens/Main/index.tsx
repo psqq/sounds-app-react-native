@@ -37,7 +37,10 @@ export const Main: FunctionComponent<Props> = ({}) => {
       {key: 'settings', title: 'Настройки'},
     ],
   });
-  const _handleIndexChange = (index: number) => setState({...state, index});
+  const _handleIndexChange = (index: number) => goto(index);
+  function goto(index: number) {
+    setState({...state, index});
+  }
   const _renderScene = SceneMap({
     sounds: SoundsTab,
     discoveries: DiscoveriesTab,
@@ -51,9 +54,13 @@ export const Main: FunctionComponent<Props> = ({}) => {
         tabBarPosition="bottom"
         renderTabBar={() => null}
         onIndexChange={_handleIndexChange}
-        // swipeEnabled={false}
+        swipeEnabled={false}
       />
-      <MainTabBar buttons={buttons} />
+      <MainTabBar
+        buttons={buttons}
+        current={state.index}
+        onPress={(i) => goto(i)}
+      />
     </>
   );
 };
