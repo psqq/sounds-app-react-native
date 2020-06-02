@@ -7,18 +7,14 @@ type Props = {
   onPress?: (index: number) => void;
 };
 
-export const RowButtonsWithIcons: FunctionComponent<Props> = ({
-  buttons = [],
-}) => {
+export const MainTabBar: FunctionComponent<Props> = ({buttons = []}) => {
   return (
     <View style={styles.container}>
       <FixedGrid
         cols={buttons.length}
         items={buttons.map((btn) => (
           <View style={styles.btnContainer}>
-            <View style={styles.iconContainer}>
-              <Image source={btn.icon} style={styles.icon} />
-            </View>
+            <Image source={btn.icon} style={styles.icon} />
             <Text style={styles.text}>{btn.title}</Text>
           </View>
         ))}
@@ -29,25 +25,22 @@ export const RowButtonsWithIcons: FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 25,
-    marginBottom: 25,
+    paddingTop: 10,
+    paddingBottom: 10,
+    backgroundColor: 'rgba(25, 47, 106, 0.95)',
+    position: 'absolute',
+    bottom: 0,
+    left: 0,
+    right: 0,
   },
   btnContainer: {
+    flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
   },
   icon: {
-    width: 35,
-    height: 35,
-  },
-  iconContainer: {
-    backgroundColor: '#192f6a',
-    width: 60,
-    height: 60,
-    borderRadius: 30,
-    marginBottom: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 20,
+    height: 20,
   },
   text: {
     fontSize: 12,

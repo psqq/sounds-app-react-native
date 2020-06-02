@@ -6,10 +6,27 @@ import {SoundsTab} from './SoundsTab';
 import {DiscoveriesTab} from './DiscoveriesTab';
 import {SettingsTab} from './SettingsTab';
 import {View, Text, StyleSheet} from 'react-native';
+import {MainTabBar} from 'src/components/MainTabBar';
+import {ICON_HOME, ICON_COMPASS, ICON_SETTINGS} from 'src/assets';
 
 type Props = {
   navigation: MainNavigationProp;
 };
+
+const buttons = [
+  {
+    title: 'Звуки',
+    icon: ICON_HOME,
+  },
+  {
+    title: 'Открытия',
+    icon: ICON_COMPASS,
+  },
+  {
+    title: 'Настройки',
+    icon: ICON_SETTINGS,
+  },
+];
 
 export const Main: FunctionComponent<Props> = ({}) => {
   const [state, setState] = useState({
@@ -36,20 +53,7 @@ export const Main: FunctionComponent<Props> = ({}) => {
         onIndexChange={_handleIndexChange}
         // swipeEnabled={false}
       />
-      <View style={styles.tabBar}>
-        <Text>Tab bar</Text>
-      </View>
+      <MainTabBar buttons={buttons} />
     </>
   );
 };
-
-const styles = StyleSheet.create({
-  tabBar: {
-    flexDirection: 'row',
-    opacity: 0.5,
-    position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-  },
-});
