@@ -5,13 +5,26 @@ import {config} from 'src/config';
 import {DefaultScrollView} from 'src/components/DefaultScrollView';
 import {TransparentStatusBar} from 'src/components/TransparentStatusBar';
 import {ContainerWithoutStatusBar} from 'src/components/ContainerWithoutStatusBar';
+import {View} from 'react-native';
 
-export const MainTabPage: FunctionComponent = ({children}) => {
+type Props = {
+  paddingForTabbar?: boolean;
+};
+
+export const MainTabPage: FunctionComponent<Props> = ({
+  children,
+  paddingForTabbar = true,
+}) => {
   return (
     <GradientBackground colors={config.backgroundGradient}>
       <TransparentStatusBar />
       <ContainerWithoutStatusBar>
-        <DefaultScrollView>{children}</DefaultScrollView>
+        <DefaultScrollView>
+          {children}
+          {paddingForTabbar && (
+            <View style={{height: config.paddingForTabBar}} />
+          )}
+        </DefaultScrollView>
       </ContainerWithoutStatusBar>
     </GradientBackground>
   );
