@@ -22,10 +22,13 @@ export const FixedGrid: FunctionComponent<Props> = ({
     if (i / cols > rows) {
       break;
     }
+    const keyRow = `${Math.floor(i / cols)}`;
     body.push(
-      <Row>
-        {items.slice(i, i + cols).map((item) => (
-          <Col style={itemStyle}>{item}</Col>
+      <Row key={keyRow}>
+        {items.slice(i, i + cols).map((item, index) => (
+          <Col key={`${keyRow}-${(i + index) % cols}`} style={itemStyle}>
+            {item}
+          </Col>
         ))}
       </Row>,
     );
