@@ -1,1 +1,2 @@
-export {userWishes} from './reducers';
+export {userWishes as rootReducer} from './reducers';
+export {rootSaga} from './sagas';

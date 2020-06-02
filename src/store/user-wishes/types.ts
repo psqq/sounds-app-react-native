@@ -24,7 +24,17 @@ export interface AddWishAction {
 }
 
 //---
-//Save to storage action
+// Add wish by name
+//---
+export const ADD_WISH_BY_NAME = 'ADD_WISH_BY_NAME';
+
+export interface AddWishByNameAction {
+  type: typeof ADD_WISH_BY_NAME;
+  payload: string;
+}
+
+//---
+// Save to storage action
 //---
 export const SAVE_TO_STORAGE = 'SAVE_TO_STORAGE';
 
@@ -33,7 +43,7 @@ export interface SaveToStorageAction {
 }
 
 //---
-// Add wish action
+// Set saved flag action
 //---
 export const SET_SAVED = 'SET_SAVED';
 
@@ -48,4 +58,5 @@ export interface SetSavedAction {
 export type UserWishesActionTypes =
   | AddWishAction
   | SaveToStorageAction
+  | AddWishByNameAction
   | SetSavedAction;
