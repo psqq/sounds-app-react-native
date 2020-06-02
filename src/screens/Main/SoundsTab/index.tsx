@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react';
-import {ImageBackground, View, Text, Dimensions} from 'react-native';
+import {Dimensions} from 'react-native';
 
 import {RowButtonsWithIcons} from 'src/components/RowButtonsWithIcons';
 import {Title} from 'src/components/Title';
