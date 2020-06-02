@@ -1,6 +1,16 @@
 import {put, takeEvery, takeLatest, all, select} from 'redux-saga/effects';
+import Sound from 'react-native-sound';
+
 import {RootState} from '..';
-import {PLAY_SOUND} from './types';
+import {
+  PLAY_SOUND,
+  PlaySoundAction,
+  PAUSE_SOUND,
+  PauseSoundAction,
+} from './types';
+import {getOrLoadSound} from 'src/z-modules/sounds-cache';
+
+Sound.setCategory('Playback');
 
 //---
 // Get store state for type resolving
@@ -13,7 +23,10 @@ function* getState() {
 //---
 // Play sound
 //---
-function* playSound() {}
+function* playSound(action: PlaySoundAction) {
+  const sound: Sound = yield getOrLoadSound(action.payload);
+  sound.play();
+}
 
 export function* watchPlaySound() {
   yield takeEvery(PLAY_SOUND, playSound);
@@ -22,10 +35,13 @@ export function* watchPlaySound() {
 //---
 // Pause sound
 //---
-function* pauseSound() {}
+function* pauseSound(action: PauseSoundAction) {
+  const sound: Sound = yield getOrLoadSound(action.payload);
+  sound.play();
+}
 
 export function* watchPauseSound() {
-  yield takeEvery(PLAY_SOUND, pauseSound);
+  yield takeEvery(PAUSE_SOUND, pauseSound);
 }
 
 //---

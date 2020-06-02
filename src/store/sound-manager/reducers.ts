@@ -1,7 +1,8 @@
 import {SoundManagerActionTypes, SoundManagerState} from './types';
+import {playlist} from './playlist';
 
 const initialState: SoundManagerState = {
-  sounds: [],
+  sounds: playlist,
 };
 
 export function soundManager(

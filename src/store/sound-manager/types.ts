@@ -1,12 +1,12 @@
 //---
 // State
 //---
-type SoundId = string;
 type SoundResource = number;
 
-interface OneSound {
-  id: SoundId;
+export interface OneSound {
   resource: SoundResource;
+  title: string;
+  isPlaying: boolean;
 }
 
 export interface SoundManagerState {
@@ -20,7 +20,7 @@ export const PLAY_SOUND = 'PLAY_SOUND';
 
 export interface PlaySoundAction {
   type: typeof PLAY_SOUND;
-  payload: SoundId;
+  payload: SoundResource;
 }
 
 //---
@@ -30,7 +30,16 @@ export const PAUSE_SOUND = 'PAUSE_SOUND';
 
 export interface PauseSoundAction {
   type: typeof PAUSE_SOUND;
-  payload: SoundId;
+  payload: SoundResource;
+}
+
+//---
+// Stop all sounds
+//---
+export const STOP_ALL_SOUNDS = 'STOP_ALL_SOUNDS';
+
+export interface StopAllSoundsAction {
+  type: typeof STOP_ALL_SOUNDS;
 }
 
 //---
