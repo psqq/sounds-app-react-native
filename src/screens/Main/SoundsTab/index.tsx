@@ -74,13 +74,20 @@ const items = [
   },
 ];
 
-const imgSize = Dimensions.get('screen').width / 2;
+export type Props = {
+  onTopButtonPress?: (title: string) => void;
+  onPreviewPress?: (title: string) => void;
+};
 
-export const SoundsTab: FunctionComponent = ({}) => {
+export const SoundsTab: FunctionComponent<Props> = ({onTopButtonPress}) => {
+  const imgSize = Dimensions.get('screen').width / 2;
   return (
     <MainTabPage>
       <Title text="Звуки дождя" />
-      <RowButtonsWithIcons buttons={buttons} />
+      <RowButtonsWithIcons
+        buttons={buttons}
+        onPress={(i) => onTopButtonPress && onTopButtonPress(buttons[i].title)}
+      />
       <FixedGrid
         cols={2}
         items={items.map((item) => (

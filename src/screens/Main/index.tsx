@@ -1,11 +1,10 @@
 import React, {FunctionComponent, useState} from 'react';
-import {TabView, SceneMap} from 'react-native-tab-view';
+import {TabView} from 'react-native-tab-view';
 
 import {MainNavigationProp} from 'src/router';
 import {SoundsTab} from './SoundsTab';
 import {DiscoveriesTab} from './DiscoveriesTab';
 import {SettingsTab} from './SettingsTab';
-import {View, Text, StyleSheet} from 'react-native';
 import {MainTabBar} from 'src/components/MainTabBar';
 import {ICON_HOME, ICON_COMPASS, ICON_SETTINGS} from 'src/assets';
 
@@ -13,7 +12,7 @@ type Props = {
   navigation: MainNavigationProp;
 };
 
-const buttons = [
+const tabBarButtons = [
   {
     title: 'Звуки',
     icon: ICON_HOME,
@@ -28,8 +27,19 @@ const buttons = [
   },
 ];
 
-export const Main: FunctionComponent<Props> = ({}) => {
-  const [state, setState] = useState({
+interface TabBarState {
+  index: number;
+  routes: {
+    key: 'sounds' | 'discoveries' | 'settings';
+    title: string;
+  }[];
+}
+
+export const Main: FunctionComponent<Props> = ({navigation}) => {
+  //---
+  // Tab bar state
+  //---
+  const [state, setState] = useState<TabBarState>({
     index: 0,
     routes: [
       {key: 'sounds', title: 'Звуки'},
@@ -41,23 +51,42 @@ export const Main: FunctionComponent<Props> = ({}) => {
   function goto(index: number) {
     setState({...state, index});
   }
-  const _renderScene = SceneMap({
-    sounds: SoundsTab,
-    discoveries: DiscoveriesTab,
-    settings: SettingsTab,
-  });
+
+  //---
+  // TabView tabs renderer
+  //---
+  function playSound(soundName: string) {
+    navigation.navigate('SoundWithTimer', {soundName});
+  }
+  const renderScene = ({route}: {route: typeof state.routes[0]}) => {
+    switch (route.key) {
+      case 'sounds':
+        return <SoundsTab onTopButtonPress={(title) => playSound(title)} />;
+      case 'discoveries':
+        return <DiscoveriesTab />;
+      case 'settings':
+        return <SettingsTab />;
+      default:
+        return null;
+    }
+  };
+
+  //---
+  // Render Main screen
+  //---
   return (
     <>
       <TabView
         navigationState={state}
-        renderScene={_renderScene}
+        renderScene={renderScene}
         tabBarPosition="bottom"
         renderTabBar={() => null}
         onIndexChange={_handleIndexChange}
         swipeEnabled={false}
+        lazy={false}
       />
       <MainTabBar
-        buttons={buttons}
+        buttons={tabBarButtons}
         current={state.index}
         onPress={(i) => goto(i)}
       />
