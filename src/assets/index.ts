@@ -2,8 +2,11 @@
 type rrtfr = number;
 
 export const ICON_COFFEE_CUP: rrtfr = require('./icon/coffee-cup.png');
+export const ICON_COMPASS: rrtfr = require('./icon/compass.png');
 export const ICON_DAY: rrtfr = require('./icon/day.png');
 export const ICON_EYE: rrtfr = require('./icon/eye.png');
+export const ICON_HOME: rrtfr = require('./icon/home.png');
+export const ICON_SETTINGS: rrtfr = require('./icon/settings.png');
 export const ICON_YOGA: rrtfr = require('./icon/yoga.png');
 export const SOUNDS_01_RAIN_ICON: rrtfr = require('./sounds/01-rain/icon.png');
 export const SOUNDS_01_RAIN_PREVIEW: rrtfr = require('./sounds/01-rain/preview.jpg');
@@ -18,8 +21,11 @@ export const SOUNDS_03_THUNDER_SOUND: rrtfr = require('./sounds/03-thunder/sound
 export const ASSETS_TREE = {
   icon: {
     coffee_cup: ICON_COFFEE_CUP,
+    compass: ICON_COMPASS,
     day: ICON_DAY,
     eye: ICON_EYE,
+    home: ICON_HOME,
+    settings: ICON_SETTINGS,
     yoga: ICON_YOGA,
   },
   sounds: {
