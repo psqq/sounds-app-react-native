@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {StyleSheet, Image, View, Text} from 'react-native';
 import {FixedGrid} from '../FixedGrid';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 type Props = {
   buttons: readonly {title: string; icon: number}[];
@@ -9,18 +10,26 @@ type Props = {
 
 export const RowButtonsWithIcons: FunctionComponent<Props> = ({
   buttons = [],
+  onPress = () => null,
 }) => {
   return (
     <View style={styles.container}>
       <FixedGrid
         cols={buttons.length}
-        items={buttons.map((btn) => (
-          <View style={styles.btnContainer}>
-            <View style={styles.iconContainer}>
-              <Image source={btn.icon} style={styles.icon} />
+        items={buttons.map((btn, index) => (
+          <TouchableWithoutFeedback
+            onPress={() => {
+              if (onPress) {
+                onPress(index);
+              }
+            }}>
+            <View style={styles.btnContainer}>
+              <View style={styles.iconContainer}>
+                <Image source={btn.icon} style={styles.icon} />
+              </View>
+              <Text style={styles.text}>{btn.title}</Text>
             </View>
-            <Text style={styles.text}>{btn.title}</Text>
-          </View>
+          </TouchableWithoutFeedback>
         ))}
       />
     </View>

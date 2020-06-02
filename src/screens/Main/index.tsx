@@ -61,7 +61,7 @@ export const Main: FunctionComponent<Props> = ({navigation}) => {
   const renderScene = ({route}: {route: typeof state.routes[0]}) => {
     switch (route.key) {
       case 'sounds':
-        return <SoundsTab onTopButtonPress={(title) => playSound(title)} />;
+        return <SoundsTab onTopButtonPress={playSound} />;
       case 'discoveries':
         return <DiscoveriesTab />;
       case 'settings':

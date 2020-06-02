@@ -86,7 +86,11 @@ export const SoundsTab: FunctionComponent<Props> = ({onTopButtonPress}) => {
       <Title text="Звуки дождя" />
       <RowButtonsWithIcons
         buttons={buttons}
-        onPress={(i) => onTopButtonPress && onTopButtonPress(buttons[i].title)}
+        onPress={(i) => {
+          if (onTopButtonPress) {
+            onTopButtonPress(buttons[i].title);
+          }
+        }}
       />
       <FixedGrid
         cols={2}

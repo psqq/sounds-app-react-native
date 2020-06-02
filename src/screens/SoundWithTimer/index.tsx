@@ -15,7 +15,10 @@ type Props = {
   route: SoundWithTimerRouteProp;
 };
 
-export const UserWishes: FunctionComponent<Props> = ({navigation, route}) => {
+export const SoundWithTimer: FunctionComponent<Props> = ({
+  navigation,
+  route,
+}) => {
   return (
     <GradientBackground colors={config.backgroundGradient}>
       <TransparentStatusBar />
