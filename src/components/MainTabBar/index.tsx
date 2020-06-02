@@ -1,6 +1,7 @@
 import React, {FunctionComponent} from 'react';
 import {StyleSheet, Image, View, Text} from 'react-native';
 import {FixedGrid} from '../FixedGrid';
+import {TouchableNativeFeedback} from 'react-native-gesture-handler';
 
 type Props = {
   buttons: readonly {title: string; icon: number}[];
@@ -11,20 +12,28 @@ type Props = {
 export const MainTabBar: FunctionComponent<Props> = ({
   buttons = [],
   current = 0,
+  onPress,
 }) => {
+  function _onPress(i: number) {
+    if (onPress) {
+      onPress(i);
+    }
+  }
   return (
     <View style={styles.container}>
       <FixedGrid
         cols={buttons.length}
         items={buttons.map((btn, index) => (
-          <View
-            style={[
-              styles.btnContainer,
-              current !== index ? styles.notActive : null,
-            ]}>
-            <Image source={btn.icon} style={styles.icon} />
-            <Text style={styles.text}>{btn.title}</Text>
-          </View>
+          <TouchableNativeFeedback onPress={() => _onPress(index)}>
+            <View
+              style={[
+                styles.btnContainer,
+                current !== index ? styles.notActive : null,
+              ]}>
+              <Image source={btn.icon} style={styles.icon} />
+              <Text style={styles.text}>{btn.title}</Text>
+            </View>
+          </TouchableNativeFeedback>
         ))}
       />
     </View>
@@ -33,8 +42,6 @@ export const MainTabBar: FunctionComponent<Props> = ({
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 10,
-    paddingBottom: 10,
     backgroundColor: 'rgba(25, 47, 106, 0.95)',
     position: 'absolute',
     bottom: 0,
@@ -48,6 +55,8 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
+    paddingTop: 10,
+    paddingBottom: 10,
   },
   icon: {
     width: 20,
