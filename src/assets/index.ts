@@ -6,6 +6,8 @@ export const ICON_COMPASS: rrtfr = require('./icon/compass.png');
 export const ICON_DAY: rrtfr = require('./icon/day.png');
 export const ICON_EYE: rrtfr = require('./icon/eye.png');
 export const ICON_HOME: rrtfr = require('./icon/home.png');
+export const ICON_PAUSE: rrtfr = require('./icon/pause.png');
+export const ICON_PLAY: rrtfr = require('./icon/play.png');
 export const ICON_SETTINGS: rrtfr = require('./icon/settings.png');
 export const ICON_YOGA: rrtfr = require('./icon/yoga.png');
 export const SOUNDS_01_RAIN_ICON: rrtfr = require('./sounds/01-rain/icon.png');
@@ -25,6 +27,8 @@ export const ASSETS_TREE = {
     day: ICON_DAY,
     eye: ICON_EYE,
     home: ICON_HOME,
+    pause: ICON_PAUSE,
+    play: ICON_PLAY,
     settings: ICON_SETTINGS,
     yoga: ICON_YOGA,
   },

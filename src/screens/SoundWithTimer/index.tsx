@@ -11,6 +11,8 @@ import {TransparentStatusBar} from '../../components/TransparentStatusBar';
 import {ContainerWithoutStatusBar} from '../../components/ContainerWithoutStatusBar';
 import {Title} from '../../components/Title';
 import {RootState, TypeOfConnect, playSoundByName} from 'src/store';
+import {PausePlayButton} from 'src/components/PausePlayButton';
+import {View, StyleSheet} from 'react-native';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
@@ -39,6 +41,9 @@ let SoundWithTimer: FunctionComponent<Props> = ({
       <TransparentStatusBar />
       <ContainerWithoutStatusBar>
         <Title text={route.params.soundName} />
+        <View style={styles.pausePlayBtnContainer}>
+          <PausePlayButton type="pause" />
+        </View>
       </ContainerWithoutStatusBar>
     </GradientBackground>
   );
@@ -47,3 +52,10 @@ let SoundWithTimer: FunctionComponent<Props> = ({
 SoundWithTimer = storeEnhancer(SoundWithTimer);
 
 export {SoundWithTimer};
+
+const styles = StyleSheet.create({
+  pausePlayBtnContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+});
