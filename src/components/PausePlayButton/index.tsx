@@ -4,17 +4,21 @@ import {ICON_PAUSE, ICON_PLAY} from 'src/assets';
 import {TouchableNativeFeedback} from 'react-native-gesture-handler';
 
 type Props = {
-  onPress?: () => void;
+  onResume?: () => void;
+  onPause?: () => void;
   type: 'pause' | 'play';
 };
 
 export const PausePlayButton: FunctionComponent<Props> = ({
-  onPress = () => undefined,
+  onResume = () => undefined,
+  onPause = () => undefined,
   type,
 }) => {
   return (
     <View style={styles.container1}>
-      <TouchableNativeFeedback onPress={onPress} useForeground={true}>
+      <TouchableNativeFeedback
+        onPress={type === 'pause' ? onPause : onResume}
+        useForeground={true}>
         <View style={styles.container2}>
           <Image
             source={type === 'pause' ? ICON_PAUSE : ICON_PLAY}

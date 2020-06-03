@@ -1,48 +1,76 @@
+import {createAction} from '@reduxjs/toolkit';
+
 //---
 // State
 //---
 type SoundResource = number;
 
-export interface OneSound {
+export interface PlaylistItem {
   resource: SoundResource;
   title: string;
-  isPlaying: boolean;
+}
+
+export interface PlayableSound {
+  sound: PlaylistItem;
+  volume: number;
 }
 
 export interface SoundManagerState {
-  sounds: OneSound[];
+  playlist: PlaylistItem[];
+  currentMusic?: {
+    isPlaying: boolean;
+    sounds: PlayableSound[];
+  };
 }
 
 //---
-// Play sound action
+// Actions
 //---
-export const PLAY_SOUND = 'PLAY_SOUND';
+export const ClearMusicAction = createAction('ClearMusicAction');
+export const SetMusicIsPlayingAction = createAction<{isPlaying: boolean}>(
+  'SetMusicIsPlayingAction',
+);
+export const SetMusicSoundsAction = createAction<{sounds: PlayableSound[]}>(
+  'SetMusicSoundsAction',
+);
+export const PlayMusicAction = createAction<{name: string}>('PlayMusicAction');
+export const PauseMusicAction = createAction('PauseMusicAction');
 
-export interface PlaySoundAction {
-  type: typeof PLAY_SOUND;
-  payload: SoundResource;
+//---
+// Pause music action
+//---
+export const PAUSE_MUSIC = 'PAUSE_MUSIC';
+
+export interface PauseMusicAction {
+  type: typeof PAUSE_MUSIC;
 }
 
 //---
-// Pause sound action
+// Resume music action
 //---
-export const PAUSE_SOUND = 'PAUSE_SOUND';
+export const RESUME_MUSIC = 'RESUME_MUSIC';
 
-export interface PauseSoundAction {
-  type: typeof PAUSE_SOUND;
-  payload: SoundResource;
+export interface ResumeMusicAction {
+  type: typeof RESUME_MUSIC;
 }
 
 //---
-// Stop all sounds
+// Stop music
 //---
-export const STOP_ALL_SOUNDS = 'STOP_ALL_SOUNDS';
+export const STOP_MUSIC = 'STOP_MUSIC';
 
-export interface StopAllSoundsAction {
-  type: typeof STOP_ALL_SOUNDS;
+export interface StopMusicAction {
+  type: typeof STOP_MUSIC;
 }
 
 //---
 // All actions
 //---
-export type SoundManagerActionTypes = PlaySoundAction | PauseSoundAction;
+export type SoundManagerActionTypes =
+  | SetMusicSoundsAction
+  | SetMusicIsPlayingAction
+  | ClearMusicAction
+  | PlayMusicAction
+  | PauseMusicAction
+  | ResumeMusicAction
+  | StopMusicAction;

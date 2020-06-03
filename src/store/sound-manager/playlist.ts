@@ -1,18 +1,19 @@
-import {OneSound} from './types';
-import shortid from 'shortid';
+import {PlaylistItem} from './types';
 import {ASSETS_TREE} from 'src/assets';
 import {entries} from 'lodash';
 
-type soundNames = keyof typeof ASSETS_TREE.sounds;
+export type soundNames = keyof typeof ASSETS_TREE.sounds;
 
-export const playlist: OneSound[] = entries(ASSETS_TREE.sounds).map(
-  ([_k, v]) => {
+export const playlist: PlaylistItem[] = entries(ASSETS_TREE.sounds).map(
+  ([_k, v]): PlaylistItem => {
     let k: soundNames = _k as soundNames;
     return {
-      id: shortid(),
       title: k,
       resource: v.sound,
-      isPlaying: false,
     };
   },
 );
+
+export function findInPlaylistByName(name: string): PlaylistItem {
+  return playlist[0];
+}

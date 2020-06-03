@@ -1,15 +1,24 @@
 import {
-  PLAY_SOUND,
-  PlaySoundAction,
-  StopAllSoundsAction,
-  STOP_ALL_SOUNDS,
+  PLAY_MUSIC,
+  PlayMusicAction,
+  StopMusicAction,
+  STOP_MUSIC,
+  ResumeMusicAction,
+  RESUME_MUSIC,
 } from './types';
-import {playlist} from './playlist';
 
-export function playSoundByName(soundName: string): PlaySoundAction {
-  return {type: PLAY_SOUND, payload: playlist[0].resource};
+export function playMusic(name: string): PlayMusicAction {
+  return {type: PLAY_MUSIC, payload: {name}};
 }
 
-export function stopAllSounds(): StopAllSoundsAction {
-  return {type: STOP_ALL_SOUNDS};
+export function pauseMusic(): StopMusicAction {
+  return {type: STOP_MUSIC};
+}
+
+export function resumeMusic(): ResumeMusicAction {
+  return {type: RESUME_MUSIC};
+}
+
+export function stopMusic(): StopMusicAction {
+  return {type: STOP_MUSIC};
 }

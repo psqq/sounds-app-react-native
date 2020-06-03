@@ -3,12 +3,16 @@ import Sound from 'react-native-sound';
 
 import {RootState} from '..';
 import {
-  PLAY_SOUND,
-  PlaySoundAction,
-  PAUSE_SOUND,
-  PauseSoundAction,
+  PLAY_MUSIC,
+  PlayMusicAction,
+  PAUSE_MUSIC,
+  PauseMusicAction,
+  CLEAR_MUSIC,
+  RESUME_MUSIC,
+  ResumeMusicAction,
 } from './types';
 import {getOrLoadSound} from 'src/z-modules/sounds-cache';
+import {findInPlaylistByName} from 'src/store/sound-manager/playlist';
 
 Sound.setCategory('Playback');
 
@@ -16,37 +20,73 @@ Sound.setCategory('Playback');
 // Get store state for type resolving
 //---
 function* getState() {
-  const state: RootState = yield select();
-  return state;
+  return (yield select()) as RootState;
 }
 
 //---
-// Play sound
+// Get all sounds of current music
 //---
-function* playSound(action: PlaySoundAction) {
-  const sound: Sound = yield getOrLoadSound(action.payload);
+function* getAllSoundOfCurrentMusic(state: RootState) {
+  let result: Sound[] = [];
+  if (!state.soundManager.currentMusic) {
+    return result;
+  }
+  const promises = [];
+  for (let soundOfMusic of state.soundManager.currentMusic.sounds) {
+    promises.push(getOrLoadSound(soundOfMusic.sound.resource));
+  }
+  result = yield Promise.all(promises);
+  return result;
+}
+
+//---
+// Play music
+//---
+function* playMusic(action: PlayMusicAction) {
+  const state = yield* getState();
+  const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
+  soundsOfCurrentMusic.forEach((sound) => sound.stop());
+  yield put({type: CLEAR_MUSIC});
+  yield put({type: CLEAR_MUSIC});
+  const sound: Sound = yield getOrLoadSound(
+    findInPlaylistByName(action.payload.name).resource,
+  );
   sound.play();
 }
 
-export function* watchPlaySound() {
-  yield takeEvery(PLAY_SOUND, playSound);
+export function* watchPlayMusic() {
+  yield takeEvery(PLAY_MUSIC, playMusic);
 }
 
 //---
-// Pause sound
+// Pause music
 //---
-function* pauseSound(action: PauseSoundAction) {
-  const sound: Sound = yield getOrLoadSound(action.payload);
-  sound.play();
+function* pauseMusic(action: PauseMusicAction) {
+  const state = yield* getState();
+  const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
+  soundsOfCurrentMusic.forEach((sound) => sound.pause());
 }
 
-export function* watchPauseSound() {
-  yield takeEvery(PAUSE_SOUND, pauseSound);
+export function* watchPauseMusic() {
+  yield takeEvery(PAUSE_MUSIC, resumeMusic);
+}
+
+//---
+// Resume music
+//---
+function* resumeMusic(action: ResumeMusicAction) {
+  const state = yield* getState();
+  const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
+  soundsOfCurrentMusic.forEach((sound) => sound.play());
+}
+
+export function* watchResumeMusic() {
+  yield takeEvery(RESUME_MUSIC, resumeMusic);
 }
 
 //---
 // Root saga
 //---
 export function* rootSaga() {
-  yield all([watchPlaySound(), watchPauseSound()]);
+  yield all([watchPlayMusic(), watchPauseMusic(), watchResumeMusic()]);
 }
