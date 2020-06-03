@@ -1,4 +1,5 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useEffect} from 'react';
+import {connect} from 'react-redux';
 
 import {
   SoundWithTimerNavigationProp,
@@ -9,16 +10,30 @@ import {config} from '../../config';
 import {TransparentStatusBar} from '../../components/TransparentStatusBar';
 import {ContainerWithoutStatusBar} from '../../components/ContainerWithoutStatusBar';
 import {Title} from '../../components/Title';
+import {RootState, TypeOfConnect, playSoundByName} from 'src/store';
+
+const storeEnhancer = connect(
+  (state: RootState) => ({
+    ...state,
+  }),
+  {
+    playSound: playSoundByName,
+  },
+);
 
 type Props = {
   navigation: SoundWithTimerNavigationProp;
   route: SoundWithTimerRouteProp;
-};
+} & TypeOfConnect<typeof storeEnhancer>;
 
-export const SoundWithTimer: FunctionComponent<Props> = ({
+let SoundWithTimer: FunctionComponent<Props> = ({
   navigation,
   route,
+  playSound,
 }) => {
+  useEffect(() => {
+    playSound(route.params.soundName);
+  }, [playSound, route.params.soundName]);
   return (
     <GradientBackground colors={config.backgroundGradient}>
       <TransparentStatusBar />
@@ -28,3 +43,7 @@ export const SoundWithTimer: FunctionComponent<Props> = ({
     </GradientBackground>
   );
 };
+
+SoundWithTimer = storeEnhancer(SoundWithTimer);
+
+export {SoundWithTimer};
