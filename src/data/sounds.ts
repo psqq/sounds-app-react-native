@@ -1,4 +1,4 @@
-import {Resource} from '../types';
+import {Resource} from './types';
 import {ASSETS_TREE} from 'src/assets';
 
 export interface SoundItem {

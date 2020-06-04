@@ -1,32 +1,13 @@
 import {createAction} from '@reduxjs/toolkit';
+import {SoundMix} from '../../data/mixes';
 
 //---
 // State
 //---
-export type Resource = number;
-
-export interface PlaylistItem {
-  id: string;
-  sound: Resource;
-  previewImg: Resource;
-  title: string;
-}
-
-export interface MusicComposition {
-  title: string;
-  sounds: PlaylistItem[];
-}
-
-export interface PlayableSound {
-  sound: PlaylistItem;
-  volume: number;
-}
-
 export interface SoundManagerState {
-  playlist: PlaylistItem[];
-  currentMusic: {
+  currentMix: {
     isPlaying: boolean;
-    sounds: PlayableSound[];
+    mix: SoundMix;
   };
 }
 
@@ -37,19 +18,19 @@ function withPayloadType<T>() {
   return (t: T) => ({payload: t});
 }
 
-export const clearMusicAction = createAction('ClearMusicAction');
-export const setMusicIsPlayingAction = createAction(
-  'SetMusicIsPlayingAction',
+export const clearCurrentMixAction = createAction('ClearCurrentMixAction');
+export const setCurrentMixIsPlayingAction = createAction(
+  'SetCurrentMixIsPlayingAction',
   withPayloadType<{isPlaying: boolean}>(),
 );
-export const setMusicSoundsAction = createAction(
-  'SetMusicSoundsAction',
-  withPayloadType<{sounds: PlayableSound[]}>(),
+export const setCurrentMixAction = createAction(
+  'SetCurrentMixAction',
+  withPayloadType<{mix: SoundMix}>(),
 );
-export const playMusicAction = createAction(
-  'PlayMusicAction',
+export const playCurrentMixAction = createAction(
+  'PlayCurrentMixAction',
   withPayloadType<{name: string}>(),
 );
-export const pauseMusicAction = createAction('PauseMusicAction');
-export const resumeMusicAction = createAction('ResumeMusicAction');
-export const stopMusicAction = createAction('StopMusicAction');
+export const pauseCurrentMixAction = createAction('PauseCurrentMixAction');
+export const resumeCurrentMixAction = createAction('ResumeCurrentMixAction');
+export const stopCurrentMixAction = createAction('StopCurrentMixAction');

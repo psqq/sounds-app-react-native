@@ -1,33 +1,32 @@
 import {
   SoundManagerState,
-  setMusicSoundsAction,
-  setMusicIsPlayingAction,
-  clearMusicAction,
+  clearCurrentMixAction,
+  setCurrentMixIsPlayingAction,
+  setCurrentMixAction,
 } from './types';
-import {playlist} from './playlist';
+import {empty} from 'src/data/mixes';
 import {createReducer} from '@reduxjs/toolkit';
 
-function getCleanCurrentMusic() {
+function getCleanCurrentMix() {
   return {
     isPlaying: false,
-    sounds: [],
+    mix: empty,
   };
 }
 
 const initialState: SoundManagerState = {
-  playlist,
-  currentMusic: getCleanCurrentMusic(),
+  currentMix: getCleanCurrentMix(),
 };
 
 export const soundManager = createReducer(initialState, (builder) =>
   builder
-    .addCase(setMusicSoundsAction, (state, action) => {
-      state.currentMusic.sounds = action.payload.sounds;
+    .addCase(setCurrentMixAction, (state, action) => {
+      state.currentMix.mix = action.payload.mix;
     })
-    .addCase(setMusicIsPlayingAction, (state, action) => {
-      state.currentMusic.isPlaying = action.payload.isPlaying;
+    .addCase(setCurrentMixIsPlayingAction, (state, action) => {
+      state.currentMix.isPlaying = action.payload.isPlaying;
     })
-    .addCase(clearMusicAction, (state, action) => {
-      state.currentMusic = getCleanCurrentMusic();
+    .addCase(clearCurrentMixAction, (state) => {
+      state.currentMix = getCleanCurrentMix();
     }),
 );

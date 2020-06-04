@@ -1,14 +1,17 @@
-import {put, takeEvery, takeLatest, all, select} from 'redux-saga/effects';
 import Sound from 'react-native-sound';
-
-import {RootState} from '..';
+import {all, put, select, takeEvery} from 'redux-saga/effects';
 import {getOrLoadSound} from 'src/z-modules/sounds-cache';
-import {findInPlaylistByName} from 'src/store/sound-manager/playlist';
+import {RootState} from '..';
+import {soundMixes} from 'src/data/mixes';
+import {SoundItem} from 'src/data/sounds';
 import {
-  resumeMusicAction,
-  pauseMusicAction,
-  playMusicAction,
-  clearMusicAction,
+  clearCurrentMixAction,
+  pauseCurrentMixAction,
+  playCurrentMixAction,
+  resumeCurrentMixAction,
+  setCurrentMixAction,
+  setCurrentMixIsPlayingAction,
+  stopCurrentMixAction,
 } from './types';
 
 Sound.setCategory('Playback');
@@ -21,69 +24,95 @@ function* getState() {
 }
 
 //---
-// Get all sounds of current music
+// Get all sounds as react-native-sound Sound objects
 //---
-function* getAllSoundOfCurrentMusic(state: RootState) {
+function* getAllSounds(sounds: SoundItem[]) {
   let result: Sound[] = [];
-  if (!state.soundManager.currentMusic) {
-    return result;
-  }
-  const promises = [];
-  for (let soundOfMusic of state.soundManager.currentMusic.sounds) {
-    promises.push(getOrLoadSound(soundOfMusic.sound.sound));
+  const promises: Promise<Sound>[] = [];
+  for (let soundItem of sounds) {
+    promises.push(getOrLoadSound(soundItem.sound));
   }
   result = yield Promise.all(promises);
   return result;
 }
 
 //---
-// Play music
+// Stop current mix
 //---
-function* playMusic(action: ReturnType<typeof playMusicAction>) {
+function* stopCurrentMix() {
   const state = yield* getState();
-  const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
-  soundsOfCurrentMusic.forEach((sound) => sound.stop());
-  yield put(clearMusicAction());
-  const sound: Sound = yield getOrLoadSound(
-    findInPlaylistByName(action.payload.name).sound,
+  const soundsOfCurrentMix = yield* getAllSounds(
+    state.soundManager.currentMix.mix.sounds,
   );
-  yield put();
-  sound.play();
+  soundsOfCurrentMix.forEach((sound) => sound.stop());
+  yield put(setCurrentMixIsPlayingAction({isPlaying: false}));
+  yield put(clearCurrentMixAction());
 }
 
-export function* watchPlayMusic() {
-  yield takeEvery(playMusicAction.type, playMusic);
+function* watchStopCurrentMix() {
+  yield takeEvery(stopCurrentMixAction.type, stopCurrentMix);
 }
 
 //---
-// Pause music
+// Play current mix
 //---
-function* pauseMusic(action: ReturnType<typeof pauseMusicAction>) {
+function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
+  yield put(stopCurrentMixAction());
+  const nextMix = soundMixes.find(
+    (x) =>
+      x.title.toLocaleLowerCase() === action.payload.name.toLocaleLowerCase(),
+  );
+  if (!nextMix || nextMix.sounds.length < 1) {
+    return;
+  }
+  const soundsOfNextMix: Sound[] = yield* getAllSounds(nextMix.sounds);
+  yield put(setCurrentMixAction({mix: nextMix}));
+  soundsOfNextMix.forEach((sound) => sound.play());
+  yield put(setCurrentMixIsPlayingAction({isPlaying: false}));
+}
+
+function* watchPlayCurrentMix() {
+  yield takeEvery(playCurrentMixAction.type, playCurrentMix);
+}
+
+//---
+// Pause current mix
+//---
+function* pauseCurrentMix() {
   const state = yield* getState();
-  const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
-  soundsOfCurrentMusic.forEach((sound) => sound.pause());
+  const soundsOfCurrentMix = yield* getAllSounds(
+    state.soundManager.currentMix.mix.sounds,
+  );
+  soundsOfCurrentMix.forEach((sound) => sound.pause());
 }
 
-export function* watchPauseMusic() {
-  yield takeEvery(pauseMusicAction.type, pauseMusic);
+function* watchPauseCurrentMix() {
+  yield takeEvery(pauseCurrentMixAction.type, pauseCurrentMix);
 }
 
 //---
-// Resume music
+// Resume current mix
 //---
-function* resumeMusic(action: ReturnType<typeof resumeMusicAction>) {
+function* resumeCurrentMix() {
   const state = yield* getState();
-  const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
-  soundsOfCurrentMusic.forEach((sound) => sound.play());
+  const soundsOfCurrentMix = yield* getAllSounds(
+    state.soundManager.currentMix.mix.sounds,
+  );
+  soundsOfCurrentMix.forEach((sound) => sound.play());
 }
 
-export function* watchResumeMusic() {
-  yield takeEvery(resumeMusicAction.type, resumeMusic);
+function* watchResumeCurrentMix() {
+  yield takeEvery(resumeCurrentMixAction.type, resumeCurrentMix);
 }
 
 //---
 // Root saga
 //---
 export function* rootSaga() {
-  yield all([watchPlayMusic(), watchPauseMusic(), watchResumeMusic()]);
+  yield all([
+    watchPlayCurrentMix(),
+    watchPauseCurrentMix(),
+    watchResumeCurrentMix(),
+    watchStopCurrentMix(),
+  ]);
 }
