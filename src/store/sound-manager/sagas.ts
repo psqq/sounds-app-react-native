@@ -67,7 +67,10 @@ function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
   }
   const soundsOfNextMix: Sound[] = yield* getAllSounds(nextMix.sounds);
   yield put(setCurrentMixAction({mix: nextMix}));
-  soundsOfNextMix.forEach((sound) => sound.play());
+  soundsOfNextMix.forEach((sound) => {
+    sound.setNumberOfLoops(-1);
+    sound.play();
+  });
   yield put(setCurrentMixIsPlayingAction({isPlaying: true}));
 }
 
