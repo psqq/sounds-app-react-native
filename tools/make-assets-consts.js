@@ -19,8 +19,8 @@ function addToTree(varName, pathFromAssets) {
   obj[treePath[treePath.length - 1]] = varName;
 }
 
-const assetsTree = dirTree('./src/assets', null, (item, PATH, stats) => {
-  if (item.name == 'index.ts') {
+dirTree('./src/assets', null, (item) => {
+  if (item.name === 'index.ts') {
     return;
   }
   const varName = item.path
