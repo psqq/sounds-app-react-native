@@ -1,15 +1,26 @@
-import {createStore, applyMiddleware, combineReducers} from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import {InferableComponentEnhancerWithProps} from 'react-redux';
-
-import * as userWishes from './user-wishes';
-import * as soundManager from './sound-manager';
 import {rootSaga} from './sagas';
+import * as soundManager from './sound-manager';
+import {configureStore, combineReducers} from '@reduxjs/toolkit';
 
 export const rootReducer = combineReducers({
-  userWishes: userWishes.rootReducer,
   soundManager: soundManager.rootReducer,
 });
+
+const sagaMiddleware = createSagaMiddleware();
+
+export const store = configureStore({
+  reducer: rootReducer,
+  middleware: [sagaMiddleware],
+});
+
+sagaMiddleware.run(rootSaga);
+
+//---
+// Store types
+//---
+export type StoreDispatch = typeof store.dispatch;
 
 export type RootState = ReturnType<typeof rootReducer>;
 
@@ -19,11 +30,3 @@ export type TypeOfConnect<T> = T extends InferableComponentEnhancerWithProps<
 >
   ? Props
   : never;
-
-const sagaMiddleware = createSagaMiddleware();
-export const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-
-sagaMiddleware.run(rootSaga);
-
-export * from './user-wishes/actions';
-export * from './sound-manager/actions';

@@ -3,11 +3,18 @@ import {createAction} from '@reduxjs/toolkit';
 //---
 // State
 //---
-type SoundResource = number;
+export type Resource = number;
 
 export interface PlaylistItem {
-  resource: SoundResource;
+  id: string;
+  sound: Resource;
+  previewImg: Resource;
   title: string;
+}
+
+export interface MusicComposition {
+  title: string;
+  sounds: PlaylistItem[];
 }
 
 export interface PlayableSound {
@@ -17,7 +24,7 @@ export interface PlayableSound {
 
 export interface SoundManagerState {
   playlist: PlaylistItem[];
-  currentMusic?: {
+  currentMusic: {
     isPlaying: boolean;
     sounds: PlayableSound[];
   };
@@ -26,51 +33,23 @@ export interface SoundManagerState {
 //---
 // Actions
 //---
-export const ClearMusicAction = createAction('ClearMusicAction');
-export const SetMusicIsPlayingAction = createAction<{isPlaying: boolean}>(
+function withPayloadType<T>() {
+  return (t: T) => ({payload: t});
+}
+
+export const clearMusicAction = createAction('ClearMusicAction');
+export const setMusicIsPlayingAction = createAction(
   'SetMusicIsPlayingAction',
+  withPayloadType<{isPlaying: boolean}>(),
 );
-export const SetMusicSoundsAction = createAction<{sounds: PlayableSound[]}>(
+export const setMusicSoundsAction = createAction(
   'SetMusicSoundsAction',
+  withPayloadType<{sounds: PlayableSound[]}>(),
 );
-export const PlayMusicAction = createAction<{name: string}>('PlayMusicAction');
-export const PauseMusicAction = createAction('PauseMusicAction');
-
-//---
-// Pause music action
-//---
-export const PAUSE_MUSIC = 'PAUSE_MUSIC';
-
-export interface PauseMusicAction {
-  type: typeof PAUSE_MUSIC;
-}
-
-//---
-// Resume music action
-//---
-export const RESUME_MUSIC = 'RESUME_MUSIC';
-
-export interface ResumeMusicAction {
-  type: typeof RESUME_MUSIC;
-}
-
-//---
-// Stop music
-//---
-export const STOP_MUSIC = 'STOP_MUSIC';
-
-export interface StopMusicAction {
-  type: typeof STOP_MUSIC;
-}
-
-//---
-// All actions
-//---
-export type SoundManagerActionTypes =
-  | SetMusicSoundsAction
-  | SetMusicIsPlayingAction
-  | ClearMusicAction
-  | PlayMusicAction
-  | PauseMusicAction
-  | ResumeMusicAction
-  | StopMusicAction;
+export const playMusicAction = createAction(
+  'PlayMusicAction',
+  withPayloadType<{name: string}>(),
+);
+export const pauseMusicAction = createAction('PauseMusicAction');
+export const resumeMusicAction = createAction('ResumeMusicAction');
+export const stopMusicAction = createAction('StopMusicAction');

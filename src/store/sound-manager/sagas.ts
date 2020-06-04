@@ -2,17 +2,14 @@ import {put, takeEvery, takeLatest, all, select} from 'redux-saga/effects';
 import Sound from 'react-native-sound';
 
 import {RootState} from '..';
-import {
-  PLAY_MUSIC,
-  PlayMusicAction,
-  PAUSE_MUSIC,
-  PauseMusicAction,
-  CLEAR_MUSIC,
-  RESUME_MUSIC,
-  ResumeMusicAction,
-} from './types';
 import {getOrLoadSound} from 'src/z-modules/sounds-cache';
 import {findInPlaylistByName} from 'src/store/sound-manager/playlist';
+import {
+  resumeMusicAction,
+  pauseMusicAction,
+  playMusicAction,
+  clearMusicAction,
+} from './types';
 
 Sound.setCategory('Playback');
 
@@ -33,7 +30,7 @@ function* getAllSoundOfCurrentMusic(state: RootState) {
   }
   const promises = [];
   for (let soundOfMusic of state.soundManager.currentMusic.sounds) {
-    promises.push(getOrLoadSound(soundOfMusic.sound.resource));
+    promises.push(getOrLoadSound(soundOfMusic.sound.sound));
   }
   result = yield Promise.all(promises);
   return result;
@@ -42,46 +39,46 @@ function* getAllSoundOfCurrentMusic(state: RootState) {
 //---
 // Play music
 //---
-function* playMusic(action: PlayMusicAction) {
+function* playMusic(action: ReturnType<typeof playMusicAction>) {
   const state = yield* getState();
   const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
   soundsOfCurrentMusic.forEach((sound) => sound.stop());
-  yield put({type: CLEAR_MUSIC});
-  yield put({type: CLEAR_MUSIC});
+  yield put(clearMusicAction());
   const sound: Sound = yield getOrLoadSound(
-    findInPlaylistByName(action.payload.name).resource,
+    findInPlaylistByName(action.payload.name).sound,
   );
+  yield put();
   sound.play();
 }
 
 export function* watchPlayMusic() {
-  yield takeEvery(PLAY_MUSIC, playMusic);
+  yield takeEvery(playMusicAction.type, playMusic);
 }
 
 //---
 // Pause music
 //---
-function* pauseMusic(action: PauseMusicAction) {
+function* pauseMusic(action: ReturnType<typeof pauseMusicAction>) {
   const state = yield* getState();
   const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
   soundsOfCurrentMusic.forEach((sound) => sound.pause());
 }
 
 export function* watchPauseMusic() {
-  yield takeEvery(PAUSE_MUSIC, resumeMusic);
+  yield takeEvery(pauseMusicAction.type, pauseMusic);
 }
 
 //---
 // Resume music
 //---
-function* resumeMusic(action: ResumeMusicAction) {
+function* resumeMusic(action: ReturnType<typeof resumeMusicAction>) {
   const state = yield* getState();
   const soundsOfCurrentMusic = yield* getAllSoundOfCurrentMusic(state);
   soundsOfCurrentMusic.forEach((sound) => sound.play());
 }
 
 export function* watchResumeMusic() {
-  yield takeEvery(RESUME_MUSIC, resumeMusic);
+  yield takeEvery(resumeMusicAction.type, resumeMusic);
 }
 
 //---
