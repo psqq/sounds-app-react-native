@@ -68,7 +68,7 @@ function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
   const soundsOfNextMix: Sound[] = yield* getAllSounds(nextMix.sounds);
   yield put(setCurrentMixAction({mix: nextMix}));
   soundsOfNextMix.forEach((sound) => sound.play());
-  yield put(setCurrentMixIsPlayingAction({isPlaying: false}));
+  yield put(setCurrentMixIsPlayingAction({isPlaying: true}));
 }
 
 function* watchPlayCurrentMix() {
@@ -84,6 +84,7 @@ function* pauseCurrentMix() {
     state.soundManager.currentMix.mix.sounds,
   );
   soundsOfCurrentMix.forEach((sound) => sound.pause());
+  yield put(setCurrentMixIsPlayingAction({isPlaying: false}));
 }
 
 function* watchPauseCurrentMix() {
@@ -99,6 +100,7 @@ function* resumeCurrentMix() {
     state.soundManager.currentMix.mix.sounds,
   );
   soundsOfCurrentMix.forEach((sound) => sound.play());
+  yield put(setCurrentMixIsPlayingAction({isPlaying: true}));
 }
 
 function* watchResumeCurrentMix() {

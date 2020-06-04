@@ -2,13 +2,7 @@ import React, {FunctionComponent, useEffect} from 'react';
 import {StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
 import {PausePlayButton} from 'src/components/PausePlayButton';
-import {
-  pauseMusic as createPauseMusicAction,
-  playMusic as createPlayMusicAction,
-  resumeMusic as createResumeMusicAction,
-  RootState,
-  TypeOfConnect,
-} from 'src/store';
+import {RootState, TypeOfConnect} from 'src/store';
 import {ContainerWithoutStatusBar} from '../../components/ContainerWithoutStatusBar';
 import {GradientBackground} from '../../components/GradientBackground';
 import {Title} from '../../components/Title';
@@ -18,16 +12,21 @@ import {
   SoundWithTimerNavigationProp,
   SoundWithTimerRouteProp,
 } from '../../router';
+import {
+  pauseCurrentMixAction,
+  playCurrentMixAction,
+  resumeCurrentMixAction,
+} from '../../store/sound-manager/types';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
-    isPlaying: state.soundManager.currentMusic?.isPlaying,
+    isPlaying: state.soundManager.currentMix.isPlaying,
   }),
   (dispatch) => {
     return {
-      playMusic: (name: string) => dispatch(createPlayMusicAction(name)),
-      resumeMusic: () => dispatch(createResumeMusicAction()),
-      pauseMusic: () => dispatch(createPauseMusicAction()),
+      playMusic: (name: string) => dispatch(playCurrentMixAction({name})),
+      resumeMusic: () => dispatch(resumeCurrentMixAction()),
+      pauseMusic: () => dispatch(pauseCurrentMixAction()),
     };
   },
 );

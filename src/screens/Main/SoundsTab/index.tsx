@@ -8,9 +8,7 @@ import {
   ICON_COFFEE_CUP,
   ICON_EYE,
   ICON_YOGA,
-  SOUNDS_01_RAIN_PREVIEW,
-  SOUNDS_02_STRONG_WIND_PREVIEW,
-  SOUNDS_03_THUNDER_PREVIEW,
+  ASSETS_TREE,
 } from 'src/assets';
 import {MainTabPage} from 'src/components/MainTabPage';
 import {FixedGrid} from 'src/components/FixedGrid';
@@ -37,40 +35,40 @@ const buttons = [
 
 const items = [
   {
-    img: SOUNDS_01_RAIN_PREVIEW,
-    title: 'Дождь',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_rain_in_forest_,
+    title: 'Дождь в лесу',
   },
   {
-    img: SOUNDS_02_STRONG_WIND_PREVIEW,
-    title: 'Сильный ветер',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_cold_winter_,
+    title: 'Холодная зима',
   },
   {
-    img: SOUNDS_03_THUNDER_PREVIEW,
+    img: ASSETS_TREE.original.images.mixes.pic_mix_thunder_shower_,
     title: 'Гром',
   },
   {
-    img: SOUNDS_01_RAIN_PREVIEW,
-    title: 'Дождь',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_cafe_,
+    title: 'Кафе',
   },
   {
-    img: SOUNDS_02_STRONG_WIND_PREVIEW,
-    title: 'Сильный ветер',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_fire_,
+    title: 'Огонь',
   },
   {
-    img: SOUNDS_03_THUNDER_PREVIEW,
-    title: 'Гром',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_deep_relaxation_,
+    title: 'Расслабление',
   },
   {
-    img: SOUNDS_01_RAIN_PREVIEW,
-    title: 'Дождь',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_city_life_,
+    title: 'Город',
   },
   {
-    img: SOUNDS_02_STRONG_WIND_PREVIEW,
-    title: 'Сильный ветер',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_library_,
+    title: 'Библиотека',
   },
   {
-    img: SOUNDS_03_THUNDER_PREVIEW,
-    title: 'Гром',
+    img: ASSETS_TREE.original.images.mixes.pic_mix_cave_,
+    title: 'Пещера',
   },
 ];
 
