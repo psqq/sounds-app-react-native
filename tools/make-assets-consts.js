@@ -48,5 +48,5 @@ console.log(
       .split('\n')
       .map((s) => s.replace(/"(\w+)",?$/g, '$1,'))
       .join('\n') +
-    ';',
+    ' as const;',
 );

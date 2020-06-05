@@ -124,6 +124,26 @@ export const ORIGINAL_IMAGES_MIXES_PIC_MIX_TRAIN_JOURNEY_: rrtfr = require('./or
 export const ORIGINAL_IMAGES_MIXES_PIC_MIX_UNIVERSE_: rrtfr = require('./original/images/mixes/pic_mix_universe.webp');
 export const ORIGINAL_IMAGES_MIXES_PIC_MIX_YOGA_MUSIC_: rrtfr = require('./original/images/mixes/pic_mix_yoga_music.webp');
 export const ORIGINAL_IMAGES_MIXES_PIC_MIX_ZEN_: rrtfr = require('./original/images/mixes/pic_mix_zen.webp');
+export const ORIGINAL_2_AUTUMN_FOREST_BG: rrtfr = require('./original_2/autumn_forest/bg.jpg');
+export const ORIGINAL_2_AUTUMN_FOREST_ICON: rrtfr = require('./original_2/autumn_forest/icon.png');
+export const ORIGINAL_2_AUTUMN_FOREST_PREVIEW: rrtfr = require('./original_2/autumn_forest/preview.jpg');
+export const ORIGINAL_2_AUTUMN_FOREST_SOUND: rrtfr = require('./original_2/autumn_forest/sound.ogg');
+export const ORIGINAL_2_DESERT_BG: rrtfr = require('./original_2/desert/bg.jpg');
+export const ORIGINAL_2_DESERT_ICON: rrtfr = require('./original_2/desert/icon.png');
+export const ORIGINAL_2_DESERT_PREVIEW: rrtfr = require('./original_2/desert/preview.jpg');
+export const ORIGINAL_2_DESERT_SOUND: rrtfr = require('./original_2/desert/sound.ogg');
+export const ORIGINAL_2_LAKE_BG: rrtfr = require('./original_2/lake/bg.jpg');
+export const ORIGINAL_2_LAKE_ICON: rrtfr = require('./original_2/lake/icon.png');
+export const ORIGINAL_2_LAKE_PREVIEW: rrtfr = require('./original_2/lake/preview.jpg');
+export const ORIGINAL_2_LAKE_SOUND: rrtfr = require('./original_2/lake/sound.ogg');
+export const ORIGINAL_2_RAIN_ON_LEAVES_BG: rrtfr = require('./original_2/rain_on_leaves/bg.jpg');
+export const ORIGINAL_2_RAIN_ON_LEAVES_ICON: rrtfr = require('./original_2/rain_on_leaves/icon.png');
+export const ORIGINAL_2_RAIN_ON_LEAVES_PREVIEW: rrtfr = require('./original_2/rain_on_leaves/preview.jpg');
+export const ORIGINAL_2_RAIN_ON_LEAVES_SOUND: rrtfr = require('./original_2/rain_on_leaves/sound.ogg');
+export const ORIGINAL_2_RAIN_UNDER_UMBRELLA_BG: rrtfr = require('./original_2/rain_under_umbrella/bg.jpg');
+export const ORIGINAL_2_RAIN_UNDER_UMBRELLA_ICON: rrtfr = require('./original_2/rain_under_umbrella/icon.png');
+export const ORIGINAL_2_RAIN_UNDER_UMBRELLA_PREVIEW: rrtfr = require('./original_2/rain_under_umbrella/preview.jpg');
+export const ORIGINAL_2_RAIN_UNDER_UMBRELLA_SOUND: rrtfr = require('./original_2/rain_under_umbrella/sound.ogg');
 export const SOUNDS_RAIN: rrtfr = require('./sounds/rain.mp3');
 export const SOUNDS_STRONG_WIND: rrtfr = require('./sounds/strong-wind.mp3');
 export const SOUNDS_THUNDER: rrtfr = require('./sounds/thunder.mp3');
@@ -262,9 +282,41 @@ export const ASSETS_TREE = {
       },
     },
   },
+  original_2: {
+    autumn_forest: {
+      bg: ORIGINAL_2_AUTUMN_FOREST_BG,
+      icon: ORIGINAL_2_AUTUMN_FOREST_ICON,
+      preview: ORIGINAL_2_AUTUMN_FOREST_PREVIEW,
+      sound: ORIGINAL_2_AUTUMN_FOREST_SOUND,
+    },
+    desert: {
+      bg: ORIGINAL_2_DESERT_BG,
+      icon: ORIGINAL_2_DESERT_ICON,
+      preview: ORIGINAL_2_DESERT_PREVIEW,
+      sound: ORIGINAL_2_DESERT_SOUND,
+    },
+    lake: {
+      bg: ORIGINAL_2_LAKE_BG,
+      icon: ORIGINAL_2_LAKE_ICON,
+      preview: ORIGINAL_2_LAKE_PREVIEW,
+      sound: ORIGINAL_2_LAKE_SOUND,
+    },
+    rain_on_leaves: {
+      bg: ORIGINAL_2_RAIN_ON_LEAVES_BG,
+      icon: ORIGINAL_2_RAIN_ON_LEAVES_ICON,
+      preview: ORIGINAL_2_RAIN_ON_LEAVES_PREVIEW,
+      sound: ORIGINAL_2_RAIN_ON_LEAVES_SOUND,
+    },
+    rain_under_umbrella: {
+      bg: ORIGINAL_2_RAIN_UNDER_UMBRELLA_BG,
+      icon: ORIGINAL_2_RAIN_UNDER_UMBRELLA_ICON,
+      preview: ORIGINAL_2_RAIN_UNDER_UMBRELLA_PREVIEW,
+      sound: ORIGINAL_2_RAIN_UNDER_UMBRELLA_SOUND,
+    },
+  },
   sounds: {
     rain: SOUNDS_RAIN,
     strong_wind: SOUNDS_STRONG_WIND,
     thunder: SOUNDS_THUNDER,
   },
-};
+} as const;
