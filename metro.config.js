@@ -1,7 +1,10 @@
+const defaultAssetExts = require('metro-config/src/defaults/defaults')
+  .assetExts;
+
 module.exports = {
-  // resolver: {
-  //   assetExts: ['ogg'],
-  // },
+  resolver: {
+    assetExts: [...defaultAssetExts, 'ogg'],
+  },
   transformer: {
     getTransformOptions: async () => ({
       transform: {
