@@ -1,16 +1,20 @@
 import {
   UserWishesState,
-  UserWishesActionTypes,
-  ADD_WISH,
-  SET_SAVED,
-  ADD_WISH_BY_NAME,
   PossibleUserWishes,
+  addWishAction,
+  removeWishAction,
+  addWishByNameAction,
+  removeWishByNameAction,
+  setSavedAction,
+  setLoadedAction,
+  clearUserWishesAction,
 } from './types';
-import {addWish} from './actions';
+import {createReducer} from '@reduxjs/toolkit';
 
 const initialState: UserWishesState = {
   wishes: [],
   saved: false,
+  loaded: false,
 };
 
 function wishNameToWish(name: string): PossibleUserWishes | null {
@@ -28,38 +32,33 @@ function wishNameToWish(name: string): PossibleUserWishes | null {
   return null;
 }
 
-export function userWishes(
-  state = initialState,
-  action: UserWishesActionTypes,
-): UserWishesState {
-  switch (action.type) {
-    // Add user wish
-    case ADD_WISH:
-      if (state.wishes.indexOf(action.payload) >= 0) {
-        return state;
-      }
-      return {
-        ...state,
-        wishes: [...state.wishes, action.payload],
-      };
-
-    // Add user wish
-    case ADD_WISH_BY_NAME:
-      const wish = wishNameToWish(action.payload);
+export const userWishes = createReducer(initialState, (builder) =>
+  builder
+    .addCase(addWishAction, (state, action) => {
+      state.wishes.push(action.payload.wish);
+    })
+    .addCase(removeWishAction, (state, action) => {
+      state.wishes = state.wishes.filter((x) => x !== action.payload.wish);
+    })
+    .addCase(addWishByNameAction, (state, action) => {
+      const wish = wishNameToWish(action.payload.wishName);
       if (wish) {
-        return userWishes(state, addWish(wish));
+        state.wishes.push(wish);
       }
-      return state;
-
-    // Set saved
-    case SET_SAVED:
-      return {
-        ...state,
-        saved: action.payload,
-      };
-
-    // otherwise
-    default:
-      return state;
-  }
-}
+    })
+    .addCase(removeWishByNameAction, (state, action) => {
+      const wish = wishNameToWish(action.payload.wishName);
+      if (wish) {
+        state.wishes = state.wishes.filter((x) => x !== wish);
+      }
+    })
+    .addCase(setSavedAction, (state, action) => {
+      state.saved = action.payload.saved;
+    })
+    .addCase(clearUserWishesAction, (state) => {
+      state.wishes = [];
+    })
+    .addCase(setLoadedAction, (state, action) => {
+      state.loaded = action.payload.loaded;
+    }),
+);

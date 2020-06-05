@@ -1,3 +1,5 @@
+import {createAction} from '@reduxjs/toolkit';
+
 //---
 // State
 //---
@@ -11,52 +13,56 @@ export enum PossibleUserWishes {
 export interface UserWishesState {
   wishes: PossibleUserWishes[];
   saved: boolean;
+  loaded: boolean;
 }
 
 //---
-// Add wish action
+// Actions
 //---
-export const ADD_WISH = 'ADD_WISH';
-
-export interface AddWishAction {
-  type: typeof ADD_WISH;
-  payload: PossibleUserWishes;
+function withPayloadType<T>() {
+  return (t: T) => ({payload: t});
 }
 
-//---
-// Add wish by name
-//---
-export const ADD_WISH_BY_NAME = 'ADD_WISH_BY_NAME';
+const PREFFIX = 'user_wishes_';
 
-export interface AddWishByNameAction {
-  type: typeof ADD_WISH_BY_NAME;
-  payload: string;
-}
+export const addWishAction = createAction(
+  PREFFIX + 'addWishAction',
+  withPayloadType<{wish: PossibleUserWishes}>(),
+);
 
-//---
-// Save to storage action
-//---
-export const SAVE_TO_STORAGE = 'SAVE_TO_STORAGE';
+export const removeWishAction = createAction(
+  PREFFIX + 'removeWishAction',
+  withPayloadType<{wish: PossibleUserWishes}>(),
+);
 
-export interface SaveToStorageAction {
-  type: typeof SAVE_TO_STORAGE;
-}
+export const addWishByNameAction = createAction(
+  PREFFIX + 'addWishByNameAction',
+  withPayloadType<{wishName: string}>(),
+);
 
-//---
-// Set saved flag action
-//---
-export const SET_SAVED = 'SET_SAVED';
+export const removeWishByNameAction = createAction(
+  PREFFIX + 'removeWishByNameAction',
+  withPayloadType<{wishName: string}>(),
+);
 
-export interface SetSavedAction {
-  type: typeof SET_SAVED;
-  payload: boolean;
-}
+export const clearUserWishesAction = createAction(
+  PREFFIX + 'clearUserWishesAction',
+);
 
-//---
-// All actions
-//---
-export type UserWishesActionTypes =
-  | AddWishAction
-  | SaveToStorageAction
-  | AddWishByNameAction
-  | SetSavedAction;
+export const initUserWishesAction = createAction(
+  PREFFIX + 'initUserWishesAction',
+);
+
+export const saveUserWishesToStorageAction = createAction(
+  PREFFIX + 'saveUserWishesToStorageAction',
+);
+
+export const setSavedAction = createAction(
+  PREFFIX + 'setSavedAction',
+  withPayloadType<{saved: boolean}>(),
+);
+
+export const setLoadedAction = createAction(
+  PREFFIX + 'setLoadedAction',
+  withPayloadType<{loaded: boolean}>(),
+);

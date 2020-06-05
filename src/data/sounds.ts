@@ -44,7 +44,7 @@ export const desert: SoundItem = {
 };
 
 export const lake: SoundItem = {
-  title: 'Пустыня',
+  title: 'Озеро',
   icon: ASSETS_TREE.original_2.lake.icon,
   sound: ASSETS_TREE.original_2.lake.sound,
   volume: 0.5,

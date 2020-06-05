@@ -1,11 +1,16 @@
-import createSagaMiddleware from 'redux-saga';
+import {combineReducers, configureStore} from '@reduxjs/toolkit';
 import {InferableComponentEnhancerWithProps} from 'react-redux';
+import createSagaMiddleware from 'redux-saga';
 import {rootSaga} from './sagas';
 import * as soundManager from './sound-manager';
-import {configureStore, combineReducers} from '@reduxjs/toolkit';
+import * as userWishes from './user-wishes';
 
+//---
+// Create store with sagas middlewares
+//---
 export const rootReducer = combineReducers({
   soundManager: soundManager.rootReducer,
+  userWishes: userWishes.rootReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();
