@@ -29,4 +29,48 @@ export const thunder: SoundItem = {
   volume: 0.5,
 };
 
-export const sounds: SoundItem[] = [rain, strong_wind, thunder];
+export const autumn_forest: SoundItem = {
+  title: 'Осенний лес',
+  icon: ASSETS_TREE.original_2.autumn_forest.icon,
+  sound: ASSETS_TREE.original_2.autumn_forest.sound,
+  volume: 0.5,
+};
+
+export const desert: SoundItem = {
+  title: 'Пустыня',
+  icon: ASSETS_TREE.original_2.desert.icon,
+  sound: ASSETS_TREE.original_2.desert.sound,
+  volume: 0.5,
+};
+
+export const lake: SoundItem = {
+  title: 'Пустыня',
+  icon: ASSETS_TREE.original_2.lake.icon,
+  sound: ASSETS_TREE.original_2.lake.sound,
+  volume: 0.5,
+};
+
+export const rain_on_leaves: SoundItem = {
+  title: 'Дождь по листьям',
+  icon: ASSETS_TREE.original_2.rain_on_leaves.icon,
+  sound: ASSETS_TREE.original_2.rain_on_leaves.sound,
+  volume: 0.5,
+};
+
+export const rain_under_umbrella: SoundItem = {
+  title: 'Дождь по зонтику',
+  icon: ASSETS_TREE.original_2.rain_under_umbrella.icon,
+  sound: ASSETS_TREE.original_2.rain_under_umbrella.sound,
+  volume: 0.5,
+};
+
+export const sounds: SoundItem[] = [
+  rain,
+  strong_wind,
+  thunder,
+  autumn_forest,
+  desert,
+  lake,
+  rain_on_leaves,
+  rain_under_umbrella,
+];
