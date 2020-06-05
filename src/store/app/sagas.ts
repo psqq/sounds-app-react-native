@@ -1,5 +1,12 @@
-import {put, takeEvery, takeLatest, all, select} from 'redux-saga/effects';
-import {initAppAction} from './types';
+import {
+  put,
+  take,
+  takeEvery,
+  takeLatest,
+  all,
+  select,
+} from 'redux-saga/effects';
+import {initAppAction, setAppInitedAction} from './types';
 import {loadUserWishesFromStorageAction} from '../user-wishes/types';
 import {RootState} from '..';
 
@@ -15,6 +22,9 @@ function* getState() {
 //---
 function* initApp() {
   yield put(loadUserWishesFromStorageAction());
+  yield take(loadUserWishesFromStorageAction.type);
+  console.log('app inited', true);
+  yield put(setAppInitedAction({inited: true}));
 }
 
 export function* watchInitApp() {

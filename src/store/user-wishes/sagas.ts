@@ -44,6 +44,7 @@ function* loadUserWishesFromStorage() {
   }
   yield put(setSavedAction({saved: false}));
   yield put(setLoadedAction({loaded: true}));
+  console.log('loaded', true);
 }
 
 export function* watchLoadUserWishesFromStorage() {

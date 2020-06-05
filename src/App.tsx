@@ -12,6 +12,7 @@ import {initAppAction} from './store/app/types';
 const storeEnhancer = connect(
   (state: RootState) => ({
     wishesLoaded: state.userWishes.loaded,
+    appInited: state.app.inited,
   }),
   (dispatch) => {
     return {
@@ -23,11 +24,18 @@ const storeEnhancer = connect(
 type Props = TypeOfConnect<typeof storeEnhancer>;
 
 let App = storeEnhancer((props: Props) => {
-  const {init, wishesLoaded} = props;
+  const {init, wishesLoaded, appInited} = props;
   useEffect(() => {
-    init();
-    SplashScreen.hide();
-  }, [init]);
+    if (!appInited) {
+      init();
+    }
+    if (appInited) {
+      SplashScreen.hide();
+    }
+  }, [init, appInited]);
+  if (!appInited) {
+    return <></>;
+  }
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
