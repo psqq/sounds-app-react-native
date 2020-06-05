@@ -49,8 +49,8 @@ export const clearUserWishesAction = createAction(
   PREFFIX + 'clearUserWishesAction',
 );
 
-export const initUserWishesAction = createAction(
-  PREFFIX + 'initUserWishesAction',
+export const loadUserWishesFromStorageAction = createAction(
+  PREFFIX + 'loadUserWishesFromStorageAction',
 );
 
 export const saveUserWishesToStorageAction = createAction(

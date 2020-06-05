@@ -2,11 +2,12 @@ import {put, takeEvery, takeLatest, all, select} from 'redux-saga/effects';
 import {
   saveUserWishesToStorageAction,
   setSavedAction,
-  initUserWishesAction,
+  loadUserWishesFromStorageAction,
   setLoadedAction,
   UserWishesState,
   clearUserWishesAction,
   addWishAction,
+  PossibleUserWishes,
 } from './types';
 import {RootState} from '..';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -26,29 +27,30 @@ const USER_WISHES_KEY_IN_STORAGE = 'user-wishes';
 //---
 // Init user wishes from storage
 //---
-function* initUserWishes() {
+function* loadUserWishesFromStorage() {
   const dataFromStorage = yield AsyncStorage.getItem(
     USER_WISHES_KEY_IN_STORAGE,
   );
-  console.log('init 1', dataFromStorage);
   if (!dataFromStorage) {
     return;
   }
-  const userWishes: UserWishesState = JSON.parse(dataFromStorage);
-  console.log('init 2', userWishes);
-  if (!userWishes || !userWishes.wishes) {
+  const wishes: PossibleUserWishes[] = JSON.parse(dataFromStorage);
+  if (!wishes) {
     return;
   }
   yield put(clearUserWishesAction());
-  for (let wish of userWishes.wishes) {
+  for (let wish of wishes) {
     yield put(addWishAction({wish}));
   }
   yield put(setSavedAction({saved: false}));
   yield put(setLoadedAction({loaded: true}));
 }
 
-export function* watchInitUserWishes() {
-  yield takeEvery(initUserWishesAction.type, initUserWishes);
+export function* watchLoadUserWishesFromStorage() {
+  yield takeEvery(
+    loadUserWishesFromStorageAction.type,
+    loadUserWishesFromStorage,
+  );
 }
 
 //---
@@ -59,7 +61,6 @@ function* saveToStorage() {
   const wishes = state.userWishes.wishes;
   const dataToSave = JSON.stringify(wishes);
   yield AsyncStorage.setItem(USER_WISHES_KEY_IN_STORAGE, dataToSave);
-  console.log('saved', dataToSave);
   yield put(setSavedAction({saved: true}));
 }
 
@@ -71,5 +72,5 @@ export function* watchSaveToStorage() {
 // Root saga
 //---
 export function* rootSaga() {
-  yield all([watchSaveToStorage(), watchInitUserWishes()]);
+  yield all([watchSaveToStorage(), watchLoadUserWishesFromStorage()]);
 }

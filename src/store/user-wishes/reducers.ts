@@ -32,7 +32,7 @@ function wishNameToWish(name: string): PossibleUserWishes | null {
   return null;
 }
 
-export const userWishes = createReducer(initialState, (builder) =>
+export const rootReducer = createReducer(initialState, (builder) =>
   builder
     .addCase(addWishAction, (state, action) => {
       state.wishes.push(action.payload.wish);

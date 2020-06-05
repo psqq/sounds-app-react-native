@@ -1,28 +1,52 @@
+import {NavigationContainer} from '@react-navigation/native';
 import React, {useEffect} from 'react';
 import SplashScreen from 'react-native-splash-screen';
-import {NavigationContainer} from '@react-navigation/native';
-import {Provider} from 'react-redux';
-
+import {Provider, connect} from 'react-redux';
 import {Stack} from './router';
-import {store} from './store';
 import {Main} from './screens/Main';
-import {UserWishes} from './screens/UserWishes';
 import {SoundWithTimer} from './screens/SoundWithTimer';
+import {UserWishes} from './screens/UserWishes';
+import {store, RootState, TypeOfConnect} from './store';
+import {initAppAction} from './store/app/types';
 
-const App = () => {
+const storeEnhancer = connect(
+  (state: RootState) => ({
+    wishesLoaded: state.userWishes.loaded,
+  }),
+  (dispatch) => {
+    return {
+      init: () => dispatch(initAppAction()),
+    };
+  },
+);
+
+type Props = TypeOfConnect<typeof storeEnhancer>;
+
+let App = storeEnhancer((props: Props) => {
+  const {init, wishesLoaded} = props;
   useEffect(() => {
+    init();
     SplashScreen.hide();
-  }, []);
+  }, [init]);
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="UserWishes" headerMode="none">
-        <Stack.Screen name="UserWishes" component={UserWishes} />
-        <Stack.Screen name="Main" component={Main} />
-        <Stack.Screen name="SoundWithTimer" component={SoundWithTimer} />
+      <Stack.Navigator headerMode="none">
+        {wishesLoaded ? (
+          <>
+            <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen name="SoundWithTimer" component={SoundWithTimer} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="UserWishes" component={UserWishes} />
+            <Stack.Screen name="Main" component={Main} />
+            <Stack.Screen name="SoundWithTimer" component={SoundWithTimer} />
+          </>
+        )}
       </Stack.Navigator>
     </NavigationContainer>
   );
-};
+});
 
 export default () => (
   <Provider store={store}>

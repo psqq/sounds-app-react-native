@@ -1,4 +1,5 @@
 import React, {FunctionComponent} from 'react';
+import {connect} from 'react-redux';
 import {ICON_COFFEE_CUP, ICON_DAY, ICON_EYE, ICON_YOGA} from 'src/assets';
 import {ContainerWithoutStatusBar} from '../../components/ContainerWithoutStatusBar';
 import {ContinueButton} from '../../components/ContinueButton';
@@ -7,16 +8,15 @@ import {Title} from '../../components/Title';
 import {TransparentStatusBar} from '../../components/TransparentStatusBar';
 import {UserWishesButtons} from '../../components/UserWishesButtons';
 import {config} from '../../config';
+import {Resource} from '../../data/types';
 import {UserWishesNavigationProp} from '../../router';
-import {connect} from 'react-redux';
 import {RootState, TypeOfConnect} from '../../store';
 import {
-  PossibleUserWishes,
   addWishAction,
+  PossibleUserWishes,
   removeWishAction,
   saveUserWishesToStorageAction,
 } from '../../store/user-wishes/types';
-import {Resource} from '../../data/types';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
@@ -43,7 +43,7 @@ interface WishButton {
   checked: boolean;
 }
 
-export const UserWishes: FunctionComponent<Props> = ({
+let UserWishes: FunctionComponent<Props> = ({
   navigation,
   wishes,
   addWish,
@@ -102,3 +102,7 @@ export const UserWishes: FunctionComponent<Props> = ({
     </GradientBackground>
   );
 };
+
+UserWishes = storeEnhancer(UserWishes);
+
+export {UserWishes};
