@@ -72,14 +72,19 @@ async function cacheSounds(
 }
 
 function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
-  yield* stopAndRemoveSoundsInCurrentMix();
   const nextMix = soundMixes.find(
     (x) =>
       x.title.toLocaleLowerCase() === action.payload.name.toLocaleLowerCase(),
   );
-  if (!nextMix || nextMix.sounds.length < 1) {
+  const state = yield* getState();
+  if (
+    !nextMix ||
+    nextMix.sounds.length < 1 ||
+    state.soundManager.currentMix.mix.id === nextMix.id
+  ) {
     return;
   }
+  yield* stopAndRemoveSoundsInCurrentMix();
   const cachedSounds: CachedSound[] = yield cacheSounds(
     nextMix.sounds,
     (sound) => {
