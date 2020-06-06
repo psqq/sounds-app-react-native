@@ -36,7 +36,7 @@ export const Timer: FunctionComponent<Props> = ({timer}) => {
 
 const styles = StyleSheet.create({
   timerText: {
-    fontSize: 40,
+    fontSize: 60,
     fontWeight: '600',
     textAlign: 'center',
     color: '#fff',

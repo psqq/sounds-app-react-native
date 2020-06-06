@@ -17,6 +17,7 @@ import {
   playCurrentMixAction,
   resumeCurrentMixAction,
 } from '../../store/sound-manager/types';
+import {HideScreenAbsoluteButton} from '../../components/HideScreenAbsoluteButton';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
@@ -39,6 +40,7 @@ type Props = {
 } & TypeOfConnect<typeof storeEnhancer>;
 
 let SoundWithTimer: FunctionComponent<Props> = ({
+  navigation,
   route,
   playMusic,
   pauseMusic,
@@ -55,17 +57,20 @@ let SoundWithTimer: FunctionComponent<Props> = ({
       <TransparentStatusBar />
       <ContainerWithoutStatusBar>
         <Title text={route.params.soundName} />
-        <View style={styles.timerContainer}>
-          <Timer timer={timer} />
-        </View>
-        <View style={styles.pausePlayBtnContainer}>
-          <PausePlayButton
-            type={isPlaying ? 'pause' : 'play'}
-            onPause={pauseMusic}
-            onResume={resumeMusic}
-          />
+        <View style={styles.container}>
+          <View style={styles.timerContainer}>
+            <Timer timer={timer} />
+          </View>
+          <View style={styles.pausePlayBtnContainer}>
+            <PausePlayButton
+              type={isPlaying ? 'pause' : 'play'}
+              onPause={pauseMusic}
+              onResume={resumeMusic}
+            />
+          </View>
         </View>
       </ContainerWithoutStatusBar>
+      <HideScreenAbsoluteButton onPress={() => navigation.goBack()} />
     </BackgroundWithImage>
   );
 };
@@ -75,9 +80,17 @@ SoundWithTimer = storeEnhancer(SoundWithTimer);
 export {SoundWithTimer};
 
 const styles = StyleSheet.create({
-  pausePlayBtnContainer: {
+  container: {
+    flex: 1,
+  },
+  timerContainer: {
+    flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  timerContainer: {},
+  pausePlayBtnContainer: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
 });

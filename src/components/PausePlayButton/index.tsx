@@ -32,7 +32,7 @@ export const PausePlayButton: FunctionComponent<Props> = ({
 
 const container: ViewStyle = {
   padding: 10,
-  backgroundColor: 'rgba(200, 200, 200, 0.7)',
+  backgroundColor: 'rgba(200, 200, 200, 0.3)',
   width: 150,
   height: 50,
   alignItems: 'center',
@@ -49,7 +49,8 @@ const styles = StyleSheet.create({
     ...container,
   },
   icon: {
-    width: 25,
-    height: 25,
+    width: 20,
+    height: 20,
+    opacity: 0.9,
   },
 });

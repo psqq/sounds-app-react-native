@@ -4,6 +4,7 @@ type rrtfr = number;
 export const ICON_COFFEE_CUP: rrtfr = require('./icon/coffee-cup.png');
 export const ICON_COMPASS: rrtfr = require('./icon/compass.png');
 export const ICON_DAY: rrtfr = require('./icon/day.png');
+export const ICON_DOWN_ARROW: rrtfr = require('./icon/down-arrow.png');
 export const ICON_EYE: rrtfr = require('./icon/eye.png');
 export const ICON_HOME: rrtfr = require('./icon/home.png');
 export const ICON_PAUSE: rrtfr = require('./icon/pause.png');
@@ -158,6 +159,7 @@ export const ASSETS_TREE = {
     coffee_cup: ICON_COFFEE_CUP,
     compass: ICON_COMPASS,
     day: ICON_DAY,
+    down_arrow: ICON_DOWN_ARROW,
     eye: ICON_EYE,
     home: ICON_HOME,
     pause: ICON_PAUSE,
