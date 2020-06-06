@@ -3,11 +3,10 @@ import {StyleSheet, View} from 'react-native';
 import {connect} from 'react-redux';
 import {PausePlayButton} from 'src/components/PausePlayButton';
 import {RootState, TypeOfConnect} from 'src/store';
+import {BackgroundWithImage} from '../../components/BackgroundWithImage';
 import {ContainerWithoutStatusBar} from '../../components/ContainerWithoutStatusBar';
-import {GradientBackground} from '../../components/GradientBackground';
 import {Title} from '../../components/Title';
 import {TransparentStatusBar} from '../../components/TransparentStatusBar';
-import {config} from '../../config';
 import {
   SoundWithTimerNavigationProp,
   SoundWithTimerRouteProp,
@@ -17,7 +16,6 @@ import {
   playCurrentMixAction,
   resumeCurrentMixAction,
 } from '../../store/sound-manager/types';
-import {BackgroundWithImage} from '../../components/BackgroundWithImage';
 
 const storeEnhancer = connect(
   (state: RootState) => ({

@@ -16,6 +16,11 @@ export const ICON_YOGA: rrtfr = require('./icon/yoga.png');
 export const IMAGES_RAIN_PREVIEW: rrtfr = require('./images/rain-preview.jpg');
 export const IMAGES_STRONG_WIND_PREVIEW: rrtfr = require('./images/strong-wind-preview.jpg');
 export const IMAGES_THUNDER_PREVIEW: rrtfr = require('./images/thunder-preview.jpg');
+export const ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_DISCOVER_: rrtfr = require('./original/images/backgrounds/pic_bg_fragment_discover.webp');
+export const ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SETTING_: rrtfr = require('./original/images/backgrounds/pic_bg_fragment_setting.webp');
+export const ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SOUNDS_: rrtfr = require('./original/images/backgrounds/pic_bg_fragment_sounds.webp');
+export const ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_SOUNDS_TOOLBAR_: rrtfr = require('./original/images/backgrounds/pic_bg_sounds_toolbar.webp');
+export const ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_START_: rrtfr = require('./original/images/backgrounds/pic_bg_start.webp');
 export const ORIGINAL_IMAGES_MIXES_PIC_BIG_MIX_AUTUMN_JUNGLE_: rrtfr = require('./original/images/mixes/pic_big_mix_autumn_jungle.webp');
 export const ORIGINAL_IMAGES_MIXES_PIC_BIG_MIX_BABBLING_BROOK_: rrtfr = require('./original/images/mixes/pic_big_mix_babbling_brook.webp');
 export const ORIGINAL_IMAGES_MIXES_PIC_BIG_MIX_BEACH_: rrtfr = require('./original/images/mixes/pic_big_mix_beach.webp');
@@ -170,6 +175,13 @@ export const ASSETS_TREE = {
   },
   original: {
     images: {
+      backgrounds: {
+        pic_bg_fragment_discover_: ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_DISCOVER_,
+        pic_bg_fragment_setting_: ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SETTING_,
+        pic_bg_fragment_sounds_: ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SOUNDS_,
+        pic_bg_sounds_toolbar_: ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_SOUNDS_TOOLBAR_,
+        pic_bg_start_: ORIGINAL_IMAGES_BACKGROUNDS_PIC_BG_START_,
+      },
       mixes: {
         pic_big_mix_autumn_jungle_: ORIGINAL_IMAGES_MIXES_PIC_BIG_MIX_AUTUMN_JUNGLE_,
         pic_big_mix_babbling_brook_: ORIGINAL_IMAGES_MIXES_PIC_BIG_MIX_BABBLING_BROOK_,

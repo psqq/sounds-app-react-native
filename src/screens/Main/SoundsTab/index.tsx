@@ -80,7 +80,8 @@ export type Props = {
 export const SoundsTab: FunctionComponent<Props> = ({onTopButtonPress}) => {
   const imgSize = Dimensions.get('screen').width / 2;
   return (
-    <MainTabPage>
+    <MainTabPage
+      bg={ASSETS_TREE.original.images.backgrounds.pic_bg_fragment_sounds_}>
       <Title text="Звуки дождя" />
       <RowButtonsWithIcons
         buttons={buttons}
