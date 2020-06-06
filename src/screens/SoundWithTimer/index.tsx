@@ -17,10 +17,12 @@ import {
   playCurrentMixAction,
   resumeCurrentMixAction,
 } from '../../store/sound-manager/types';
+import {BackgroundWithImage} from '../../components/BackgroundWithImage';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
     isPlaying: state.soundManager.currentMix.isPlaying,
+    mix: state.soundManager.currentMix.mix,
   }),
   (dispatch) => {
     return {
@@ -43,12 +45,13 @@ let SoundWithTimer: FunctionComponent<Props> = ({
   pauseMusic,
   resumeMusic,
   isPlaying,
+  mix,
 }) => {
   useEffect(() => {
     playMusic(route.params.soundName);
   }, [playMusic, route.params.soundName]);
   return (
-    <GradientBackground colors={config.backgroundGradient}>
+    <BackgroundWithImage image={mix.fullImg}>
       <TransparentStatusBar />
       <ContainerWithoutStatusBar>
         <Title text={route.params.soundName} />
@@ -60,7 +63,7 @@ let SoundWithTimer: FunctionComponent<Props> = ({
           />
         </View>
       </ContainerWithoutStatusBar>
-    </GradientBackground>
+    </BackgroundWithImage>
   );
 };
 
