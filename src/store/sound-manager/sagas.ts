@@ -54,10 +54,13 @@ function* watchStopCurrentMix() {
 //---
 // Play current mix
 //---
-async function cacheSounds(sounds: SoundItem[]) {
+async function cacheSounds(
+  sounds: SoundItem[],
+  setup?: (sound: Sound) => void,
+) {
   const cachedSounds: CachedSound[] = await Promise.all(
     sounds.map((s) =>
-      soundsCache.loadSound(s.sound).then(
+      soundsCache.loadSound(s.sound, setup).then(
         (id): CachedSound => ({
           soundId: s.id,
           cacheId: id,
@@ -77,7 +80,12 @@ function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
   if (!nextMix || nextMix.sounds.length < 1) {
     return;
   }
-  const cachedSounds: CachedSound[] = yield cacheSounds(nextMix.sounds);
+  const cachedSounds: CachedSound[] = yield cacheSounds(
+    nextMix.sounds,
+    (sound) => {
+      sound.setNumberOfLoops(-1);
+    },
+  );
   yield put(setCurrentMixAction({mix: nextMix}));
   cachedSounds.forEach((s) => {
     soundsCache.getSound(s.cacheId).play();

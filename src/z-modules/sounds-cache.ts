@@ -5,7 +5,10 @@ Sound.setCategory('Playback');
 
 const sounds: {[key: string]: Sound} = {};
 
-export function loadSound(resource: number): Promise<string> {
+export function loadSound(
+  resource: number,
+  setup?: (sound: Sound) => void,
+): Promise<string> {
   return new Promise((res, rej) => {
     const callback = (error: any, sound: Sound) => {
       if (error) {
@@ -14,6 +17,9 @@ export function loadSound(resource: number): Promise<string> {
       } else {
         const id = shortid();
         sounds[id] = sound;
+        if (setup) {
+          setup(sound);
+        }
         return res(id);
       }
     };
