@@ -1,7 +1,9 @@
 import {Resource} from './types';
 import {ASSETS_TREE} from 'src/assets';
+import shortid from 'shortid';
 
 export interface SoundItem {
+  id: string;
   title: string;
   icon: Resource;
   sound: Resource;
@@ -9,6 +11,7 @@ export interface SoundItem {
 }
 
 export const rain: SoundItem = {
+  id: shortid(),
   title: 'Дождь',
   icon: ASSETS_TREE.icon.rain,
   sound: ASSETS_TREE.sounds.rain,
@@ -16,6 +19,7 @@ export const rain: SoundItem = {
 };
 
 export const strong_wind: SoundItem = {
+  id: shortid(),
   title: 'Сильный ветер',
   icon: ASSETS_TREE.icon.wind,
   sound: ASSETS_TREE.sounds.strong_wind,
@@ -23,6 +27,7 @@ export const strong_wind: SoundItem = {
 };
 
 export const thunder: SoundItem = {
+  id: shortid(),
   title: 'Гром',
   icon: ASSETS_TREE.icon.thunder,
   sound: ASSETS_TREE.sounds.thunder,
@@ -30,6 +35,7 @@ export const thunder: SoundItem = {
 };
 
 export const autumn_forest: SoundItem = {
+  id: shortid(),
   title: 'Осенний лес',
   icon: ASSETS_TREE.original_2.autumn_forest.icon,
   sound: ASSETS_TREE.original_2.autumn_forest.sound,
@@ -37,6 +43,7 @@ export const autumn_forest: SoundItem = {
 };
 
 export const desert: SoundItem = {
+  id: shortid(),
   title: 'Пустыня',
   icon: ASSETS_TREE.original_2.desert.icon,
   sound: ASSETS_TREE.original_2.desert.sound,
@@ -44,6 +51,7 @@ export const desert: SoundItem = {
 };
 
 export const lake: SoundItem = {
+  id: shortid(),
   title: 'Озеро',
   icon: ASSETS_TREE.original_2.lake.icon,
   sound: ASSETS_TREE.original_2.lake.sound,
@@ -51,6 +59,7 @@ export const lake: SoundItem = {
 };
 
 export const rain_on_leaves: SoundItem = {
+  id: shortid(),
   title: 'Дождь по листьям',
   icon: ASSETS_TREE.original_2.rain_on_leaves.icon,
   sound: ASSETS_TREE.original_2.rain_on_leaves.sound,
@@ -58,6 +67,7 @@ export const rain_on_leaves: SoundItem = {
 };
 
 export const rain_under_umbrella: SoundItem = {
+  id: shortid(),
   title: 'Дождь по зонтику',
   icon: ASSETS_TREE.original_2.rain_under_umbrella.icon,
   sound: ASSETS_TREE.original_2.rain_under_umbrella.sound,

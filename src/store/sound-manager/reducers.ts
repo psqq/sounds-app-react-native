@@ -3,14 +3,19 @@ import {
   clearCurrentMixAction,
   setCurrentMixIsPlayingAction,
   setCurrentMixAction,
+  CurrentMix,
+  setCachedSoundsAction,
+  setIsCachedAction,
 } from './types';
 import {empty} from 'src/data/mixes';
 import {createReducer} from '@reduxjs/toolkit';
 
-function getCleanCurrentMix() {
+function getCleanCurrentMix(): CurrentMix {
   return {
     isPlaying: false,
     mix: empty,
+    cached: false,
+    soundsInCache: [],
   };
 }
 
@@ -28,5 +33,11 @@ export const soundManager = createReducer(initialState, (builder) =>
     })
     .addCase(clearCurrentMixAction, (state) => {
       state.currentMix = getCleanCurrentMix();
+    })
+    .addCase(setCachedSoundsAction, (state, action) => {
+      state.currentMix.soundsInCache = action.payload.soundsInCache;
+    })
+    .addCase(setIsCachedAction, (state, action) => {
+      state.currentMix.cached = action.payload.cached;
     }),
 );

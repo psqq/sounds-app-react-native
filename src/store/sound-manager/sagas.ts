@@ -1,6 +1,6 @@
 import Sound from 'react-native-sound';
 import {all, put, select, takeEvery} from 'redux-saga/effects';
-import {getOrLoadSound} from 'src/z-modules/sounds-cache';
+import * as soundsCache from 'src/z-modules/sounds-cache';
 import {RootState} from '..';
 import {soundMixes} from 'src/data/mixes';
 import {SoundItem} from 'src/data/sounds';
@@ -12,6 +12,9 @@ import {
   setCurrentMixAction,
   setCurrentMixIsPlayingAction,
   stopCurrentMixAction,
+  CachedSound,
+  setCachedSoundsAction,
+  setIsCachedAction,
 } from './types';
 
 Sound.setCategory('Playback');
@@ -24,28 +27,23 @@ function* getState() {
 }
 
 //---
-// Get all sounds as react-native-sound Sound objects
+// Stop and remove sound in current mix
 //---
-function* getAllSounds(sounds: SoundItem[]) {
-  let result: Sound[] = [];
-  const promises: Promise<Sound>[] = [];
-  for (let soundItem of sounds) {
-    promises.push(getOrLoadSound(soundItem.sound));
+function* stopAndRemoveSoundsInCurrentMix() {
+  const state = yield* getState();
+  const currentMix = state.soundManager.currentMix;
+  if (currentMix.cached && currentMix.soundsInCache) {
+    yield Promise.all(
+      currentMix.soundsInCache.map((s) => soundsCache.stopAndRemove(s.cacheId)),
+    );
   }
-  result = yield Promise.all(promises);
-  return result;
 }
 
 //---
 // Stop current mix
 //---
 function* stopCurrentMix() {
-  const state = yield* getState();
-  const soundsOfCurrentMix = yield* getAllSounds(
-    state.soundManager.currentMix.mix.sounds,
-  );
-  soundsOfCurrentMix.forEach((sound) => sound.stop());
-  yield put(setCurrentMixIsPlayingAction({isPlaying: false}));
+  yield* stopAndRemoveSoundsInCurrentMix();
   yield put(clearCurrentMixAction());
 }
 
@@ -56,8 +54,22 @@ function* watchStopCurrentMix() {
 //---
 // Play current mix
 //---
+async function cacheSounds(sounds: SoundItem[]) {
+  const cachedSounds: CachedSound[] = await Promise.all(
+    sounds.map((s) =>
+      soundsCache.loadSound(s.sound).then(
+        (id): CachedSound => ({
+          soundId: s.id,
+          cacheId: id,
+        }),
+      ),
+    ),
+  );
+  return cachedSounds;
+}
+
 function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
-  yield put(stopCurrentMixAction());
+  yield* stopAndRemoveSoundsInCurrentMix();
   const nextMix = soundMixes.find(
     (x) =>
       x.title.toLocaleLowerCase() === action.payload.name.toLocaleLowerCase(),
@@ -65,12 +77,13 @@ function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
   if (!nextMix || nextMix.sounds.length < 1) {
     return;
   }
-  const soundsOfNextMix: Sound[] = yield* getAllSounds(nextMix.sounds);
+  const cachedSounds: CachedSound[] = yield cacheSounds(nextMix.sounds);
   yield put(setCurrentMixAction({mix: nextMix}));
-  soundsOfNextMix.forEach((sound) => {
-    sound.setNumberOfLoops(-1);
-    sound.play();
+  cachedSounds.forEach((s) => {
+    soundsCache.getSound(s.cacheId).play();
   });
+  yield put(setCachedSoundsAction({soundsInCache: cachedSounds}));
+  yield put(setIsCachedAction({cached: true}));
   yield put(setCurrentMixIsPlayingAction({isPlaying: true}));
 }
 
@@ -83,10 +96,9 @@ function* watchPlayCurrentMix() {
 //---
 function* pauseCurrentMix() {
   const state = yield* getState();
-  const soundsOfCurrentMix = yield* getAllSounds(
-    state.soundManager.currentMix.mix.sounds,
-  );
-  soundsOfCurrentMix.forEach((sound) => sound.pause());
+  state.soundManager.currentMix.soundsInCache.forEach((s) => {
+    soundsCache.getSound(s.cacheId).pause();
+  });
   yield put(setCurrentMixIsPlayingAction({isPlaying: false}));
 }
 
@@ -99,10 +111,9 @@ function* watchPauseCurrentMix() {
 //---
 function* resumeCurrentMix() {
   const state = yield* getState();
-  const soundsOfCurrentMix = yield* getAllSounds(
-    state.soundManager.currentMix.mix.sounds,
-  );
-  soundsOfCurrentMix.forEach((sound) => sound.play());
+  state.soundManager.currentMix.soundsInCache.forEach((s) => {
+    soundsCache.getSound(s.cacheId).play();
+  });
   yield put(setCurrentMixIsPlayingAction({isPlaying: true}));
 }
 

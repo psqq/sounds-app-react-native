@@ -4,11 +4,20 @@ import {SoundMix} from '../../data/mixes';
 //---
 // State
 //---
+export interface CachedSound {
+  soundId: string;
+  cacheId: string;
+}
+
+export interface CurrentMix {
+  isPlaying: boolean;
+  mix: SoundMix;
+  cached: boolean;
+  soundsInCache: CachedSound[];
+}
+
 export interface SoundManagerState {
-  currentMix: {
-    isPlaying: boolean;
-    mix: SoundMix;
-  };
+  currentMix: CurrentMix;
 }
 
 //---
@@ -18,18 +27,28 @@ function withPayloadType<T>() {
   return (t: T) => ({payload: t});
 }
 
+const SOUND_MANAGER = 'SOUND_MANAGER_';
+
 export const clearCurrentMixAction = createAction('ClearCurrentMixAction');
 export const setCurrentMixIsPlayingAction = createAction(
-  'SetCurrentMixIsPlayingAction',
+  SOUND_MANAGER + 'SetCurrentMixIsPlayingAction',
   withPayloadType<{isPlaying: boolean}>(),
 );
 export const setCurrentMixAction = createAction(
-  'SetCurrentMixAction',
+  SOUND_MANAGER + 'SetCurrentMixAction',
   withPayloadType<{mix: SoundMix}>(),
 );
 export const playCurrentMixAction = createAction(
-  'PlayCurrentMixAction',
+  SOUND_MANAGER + 'PlayCurrentMixAction',
   withPayloadType<{name: string}>(),
+);
+export const setCachedSoundsAction = createAction(
+  SOUND_MANAGER + 'setCachedSoundsAction',
+  withPayloadType<{soundsInCache: CachedSound[]}>(),
+);
+export const setIsCachedAction = createAction(
+  SOUND_MANAGER + 'setIsCachedAction',
+  withPayloadType<{cached: boolean}>(),
 );
 export const pauseCurrentMixAction = createAction('PauseCurrentMixAction');
 export const resumeCurrentMixAction = createAction('ResumeCurrentMixAction');

@@ -1,8 +1,10 @@
 import {Resource} from './types';
 import * as sounds from './sounds';
 import {ASSETS_TREE} from 'src/assets';
+import shortid from 'shortid';
 
 export interface SoundMix {
+  id: string;
   title: string;
   previewImg: Resource;
   fullImg: Resource;
@@ -10,6 +12,7 @@ export interface SoundMix {
 }
 
 export const empty: SoundMix = {
+  id: shortid(),
   title: '',
   previewImg: NaN,
   fullImg: NaN,
@@ -17,6 +20,7 @@ export const empty: SoundMix = {
 };
 
 export const sleep: SoundMix = {
+  id: shortid(),
   title: 'Сон',
   previewImg: ASSETS_TREE.original.images.mixes.pic_mix_rainy_day_,
   fullImg: ASSETS_TREE.original.images.mixes.pic_big_mix_rainy_day_,
@@ -24,6 +28,7 @@ export const sleep: SoundMix = {
 };
 
 export const relax: SoundMix = {
+  id: shortid(),
   title: 'Расслабиться',
   previewImg: ASSETS_TREE.original_2.autumn_forest.preview,
   fullImg: ASSETS_TREE.original_2.autumn_forest.bg,
@@ -31,6 +36,7 @@ export const relax: SoundMix = {
 };
 
 export const work: SoundMix = {
+  id: shortid(),
   title: 'Работа',
   previewImg: ASSETS_TREE.original_2.desert.preview,
   fullImg: ASSETS_TREE.original_2.desert.bg,
@@ -38,6 +44,7 @@ export const work: SoundMix = {
 };
 
 export const meditation: SoundMix = {
+  id: shortid(),
   title: 'Медитация',
   previewImg: ASSETS_TREE.original_2.lake.preview,
   fullImg: ASSETS_TREE.original_2.lake.bg,

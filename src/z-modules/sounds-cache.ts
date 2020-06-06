@@ -1,22 +1,40 @@
 import Sound from 'react-native-sound';
+import shortid from 'shortid';
 
 Sound.setCategory('Playback');
 
-const sounds: {[key: number]: Sound} = {};
+const sounds: {[key: string]: Sound} = {};
 
-export function getOrLoadSound(resource: number): Promise<Sound> {
-  if (sounds[resource]) {
-    return Promise.resolve(sounds[resource]);
-  }
+export function loadSound(resource: number): Promise<string> {
   return new Promise((res, rej) => {
     const callback = (error: any, sound: Sound) => {
       if (error) {
+        console.error(error);
         return rej(error);
       } else {
-        sounds[resource] = sound;
-        return res(sound);
+        const id = shortid();
+        sounds[id] = sound;
+        return res(id);
       }
     };
     const sound: Sound = new Sound(resource, (error) => callback(error, sound));
+  });
+}
+
+export function getSound(id: string): Sound {
+  return sounds[id];
+}
+
+export function stopAndRemove(id: string): Promise<string> {
+  if (!sounds[id]) {
+    return Promise.resolve('');
+  }
+  return new Promise((res, rej) => {
+    try {
+      sounds[id].stop(() => res(id));
+    } catch (err) {
+      console.error(err);
+      rej(err);
+    }
   });
 }
