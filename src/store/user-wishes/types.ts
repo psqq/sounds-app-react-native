@@ -14,6 +14,7 @@ export interface UserWishesState {
   wishes: PossibleUserWishes[];
   saved: boolean;
   loaded: boolean;
+  inited: boolean;
 }
 
 //---
@@ -23,46 +24,53 @@ function withPayloadType<T>() {
   return (t: T) => ({payload: t});
 }
 
-const PREFFIX = 'user_wishes_';
+const USER_WISHES_ = 'USER_WISHES_';
 
 export const addWishAction = createAction(
-  PREFFIX + 'addWishAction',
+  USER_WISHES_ + 'addWishAction',
   withPayloadType<{wish: PossibleUserWishes}>(),
 );
 
 export const removeWishAction = createAction(
-  PREFFIX + 'removeWishAction',
+  USER_WISHES_ + 'removeWishAction',
   withPayloadType<{wish: PossibleUserWishes}>(),
 );
 
 export const addWishByNameAction = createAction(
-  PREFFIX + 'addWishByNameAction',
+  USER_WISHES_ + 'addWishByNameAction',
   withPayloadType<{wishName: string}>(),
 );
 
 export const removeWishByNameAction = createAction(
-  PREFFIX + 'removeWishByNameAction',
+  USER_WISHES_ + 'removeWishByNameAction',
   withPayloadType<{wishName: string}>(),
 );
 
 export const clearUserWishesAction = createAction(
-  PREFFIX + 'clearUserWishesAction',
+  USER_WISHES_ + 'clearUserWishesAction',
 );
 
 export const loadUserWishesFromStorageAction = createAction(
-  PREFFIX + 'loadUserWishesFromStorageAction',
+  USER_WISHES_ + 'loadUserWishesFromStorageAction',
 );
 
 export const saveUserWishesToStorageAction = createAction(
-  PREFFIX + 'saveUserWishesToStorageAction',
+  USER_WISHES_ + 'saveUserWishesToStorageAction',
 );
 
 export const setSavedAction = createAction(
-  PREFFIX + 'setSavedAction',
+  USER_WISHES_ + 'setSavedAction',
   withPayloadType<{saved: boolean}>(),
 );
 
 export const setLoadedAction = createAction(
-  PREFFIX + 'setLoadedAction',
+  USER_WISHES_ + 'setLoadedAction',
   withPayloadType<{loaded: boolean}>(),
+);
+
+export const initAction = createAction(USER_WISHES_ + 'initAction');
+
+export const setInitedAction = createAction(
+  USER_WISHES_ + 'setInitedAction',
+  withPayloadType<{inited: boolean}>(),
 );

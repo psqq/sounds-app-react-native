@@ -1,4 +1,11 @@
-import {put, takeEvery, takeLatest, all, select} from 'redux-saga/effects';
+import {
+  put,
+  takeEvery,
+  takeLatest,
+  all,
+  select,
+  fork,
+} from 'redux-saga/effects';
 import {
   saveUserWishesToStorageAction,
   setSavedAction,
@@ -8,6 +15,8 @@ import {
   clearUserWishesAction,
   addWishAction,
   PossibleUserWishes,
+  initAction,
+  setInitedAction,
 } from './types';
 import {RootState} from '..';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -25,7 +34,7 @@ function* getState() {
 const USER_WISHES_KEY_IN_STORAGE = 'user-wishes';
 
 //---
-// Init user wishes from storage
+// Load user wishes from storage
 //---
 function* loadUserWishesFromStorage() {
   const dataFromStorage = yield AsyncStorage.getItem(
@@ -44,6 +53,7 @@ function* loadUserWishesFromStorage() {
   }
   yield put(setSavedAction({saved: false}));
   yield put(setLoadedAction({loaded: true}));
+  yield put(setInitedAction({inited: true}));
   console.log('loaded', true);
 }
 
@@ -70,8 +80,21 @@ export function* watchSaveToStorage() {
 }
 
 //---
+// Init user wishes module
+//---
+function* init() {
+  const state = yield* getState();
+  yield* saveToStorage();
+  yield put(setInitedAction({inited: true}));
+}
+
+export function* watchInit() {
+  yield takeEvery(initAction.type, init);
+}
+
+//---
 // Root saga
 //---
 export function* rootSaga() {
-  yield all([watchSaveToStorage(), watchLoadUserWishesFromStorage()]);
+  yield all([watchSaveToStorage, watchLoadUserWishesFromStorage].map(fork));
 }

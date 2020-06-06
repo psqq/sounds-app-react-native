@@ -8,6 +8,7 @@ import {
   setSavedAction,
   setLoadedAction,
   clearUserWishesAction,
+  setInitedAction,
 } from './types';
 import {createReducer} from '@reduxjs/toolkit';
 
@@ -15,6 +16,7 @@ const initialState: UserWishesState = {
   wishes: [],
   saved: false,
   loaded: false,
+  inited: false,
 };
 
 function wishNameToWish(name: string): PossibleUserWishes | null {
@@ -60,5 +62,8 @@ export const rootReducer = createReducer(initialState, (builder) =>
     })
     .addCase(setLoadedAction, (state, action) => {
       state.loaded = action.payload.loaded;
+    })
+    .addCase(setInitedAction, (state, action) => {
+      state.inited = action.payload.inited;
     }),
 );

@@ -8,11 +8,12 @@ import {SoundWithTimer} from './screens/SoundWithTimer';
 import {UserWishes} from './screens/UserWishes';
 import {store, RootState, TypeOfConnect} from './store';
 import {initAppAction} from './store/app/types';
+import {isAppInitedSelector} from './store/selectors';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
     wishesLoaded: state.userWishes.loaded,
-    appInited: state.app.inited,
+    isAppInited: isAppInitedSelector(state),
   }),
   (dispatch) => {
     return {
@@ -24,16 +25,16 @@ const storeEnhancer = connect(
 type Props = TypeOfConnect<typeof storeEnhancer>;
 
 let App = storeEnhancer((props: Props) => {
-  const {init, wishesLoaded, appInited} = props;
+  const {init, wishesLoaded, isAppInited} = props;
   useEffect(() => {
-    if (!appInited) {
+    if (!isAppInited) {
       init();
     }
-    if (appInited) {
+    if (isAppInited) {
       SplashScreen.hide();
     }
-  }, [init, appInited]);
-  if (!appInited) {
+  }, [init, isAppInited]);
+  if (!isAppInited) {
     return <></>;
   }
   return (
