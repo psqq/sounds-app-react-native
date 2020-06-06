@@ -5,6 +5,7 @@ import {PausePlayButton} from 'src/components/PausePlayButton';
 import {RootState, TypeOfConnect} from 'src/store';
 import {BackgroundWithImage} from '../../components/BackgroundWithImage';
 import {ContainerWithoutStatusBar} from '../../components/ContainerWithoutStatusBar';
+import {Timer} from '../../components/Timer';
 import {Title} from '../../components/Title';
 import {TransparentStatusBar} from '../../components/TransparentStatusBar';
 import {
@@ -21,6 +22,7 @@ const storeEnhancer = connect(
   (state: RootState) => ({
     isPlaying: state.soundManager.currentMix.isPlaying,
     mix: state.soundManager.currentMix.mix,
+    timer: state.timer,
   }),
   (dispatch) => {
     return {
@@ -37,13 +39,13 @@ type Props = {
 } & TypeOfConnect<typeof storeEnhancer>;
 
 let SoundWithTimer: FunctionComponent<Props> = ({
-  navigation,
   route,
   playMusic,
   pauseMusic,
   resumeMusic,
   isPlaying,
   mix,
+  timer,
 }) => {
   useEffect(() => {
     playMusic(route.params.soundName);
@@ -53,6 +55,9 @@ let SoundWithTimer: FunctionComponent<Props> = ({
       <TransparentStatusBar />
       <ContainerWithoutStatusBar>
         <Title text={route.params.soundName} />
+        <View style={styles.timerContainer}>
+          <Timer timer={timer} />
+        </View>
         <View style={styles.pausePlayBtnContainer}>
           <PausePlayButton
             type={isPlaying ? 'pause' : 'play'}
@@ -74,4 +79,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  timerContainer: {},
 });

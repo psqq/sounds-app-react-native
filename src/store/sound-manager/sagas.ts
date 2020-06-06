@@ -1,20 +1,21 @@
 import Sound from 'react-native-sound';
 import {all, put, select, takeEvery} from 'redux-saga/effects';
+import {findMixByName} from 'src/data/mixes';
+import {SoundItem} from 'src/data/sounds';
 import * as soundsCache from 'src/z-modules/sounds-cache';
 import {RootState} from '..';
-import {soundMixes} from 'src/data/mixes';
-import {SoundItem} from 'src/data/sounds';
+import {initTimerAction, resumeTimerAction} from '../timer/types';
 import {
+  CachedSound,
   clearCurrentMixAction,
   pauseCurrentMixAction,
   playCurrentMixAction,
   resumeCurrentMixAction,
+  setCachedSoundsAction,
   setCurrentMixAction,
   setCurrentMixIsPlayingAction,
-  stopCurrentMixAction,
-  CachedSound,
-  setCachedSoundsAction,
   setIsCachedAction,
+  stopCurrentMixAction,
 } from './types';
 
 Sound.setCategory('Playback');
@@ -72,10 +73,7 @@ async function cacheSounds(
 }
 
 function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
-  const nextMix = soundMixes.find(
-    (x) =>
-      x.title.toLocaleLowerCase() === action.payload.name.toLocaleLowerCase(),
-  );
+  const nextMix = findMixByName(action.payload.name);
   const state = yield* getState();
   if (
     !nextMix ||
@@ -85,6 +83,7 @@ function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
     return;
   }
   yield* stopAndRemoveSoundsInCurrentMix();
+  yield put(initTimerAction({duration: 15 * 60 * 1000, paused: true}));
   const cachedSounds: CachedSound[] = yield cacheSounds(
     nextMix.sounds,
     (sound) => {
@@ -98,6 +97,7 @@ function* playCurrentMix(action: ReturnType<typeof playCurrentMixAction>) {
   yield put(setCachedSoundsAction({soundsInCache: cachedSounds}));
   yield put(setIsCachedAction({cached: true}));
   yield put(setCurrentMixIsPlayingAction({isPlaying: true}));
+  yield put(resumeTimerAction());
 }
 
 function* watchPlayCurrentMix() {

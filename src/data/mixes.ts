@@ -52,3 +52,9 @@ export const meditation: SoundMix = {
 };
 
 export const soundMixes: SoundMix[] = [sleep, relax, work, meditation];
+
+export function findMixByName(name: string): SoundMix | undefined {
+  return soundMixes.find(
+    (mix) => mix.title.toLowerCase() === name.toLowerCase(),
+  );
+}
