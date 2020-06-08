@@ -1,7 +1,12 @@
 import React, {FunctionComponent} from 'react';
-import {StyleSheet, Image, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  View,
+  Text,
+  TouchableNativeFeedback,
+} from 'react-native';
 import {FixedGrid} from '../FixedGrid';
-import {TouchableNativeFeedback} from 'react-native-gesture-handler';
 import {config} from '../../config';
 
 type Props = {

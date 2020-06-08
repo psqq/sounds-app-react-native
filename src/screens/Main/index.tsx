@@ -7,6 +7,7 @@ import {DiscoveriesTab} from './DiscoveriesTab';
 import {SettingsTab} from './SettingsTab';
 import {MainTabBar} from 'src/components/MainTabBar';
 import {ICON_HOME, ICON_COMPASS, ICON_SETTINGS} from 'src/assets';
+import {MainMiniPlayer} from '../../components/MainMiniPlayer';
 
 type Props = {
   navigation: MainNavigationProp;
@@ -85,6 +86,7 @@ export const Main: FunctionComponent<Props> = ({navigation}) => {
         swipeEnabled={false}
         lazy={false}
       />
+      <MainMiniPlayer />
       <MainTabBar
         buttons={tabBarButtons}
         current={state.index}

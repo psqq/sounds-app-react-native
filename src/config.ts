@@ -1,7 +1,9 @@
 import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 export const config = {
-  backgroundGradient: ['#192f6a', '#3b5998', '#4c669f'],
+  get backgroundGradient() {
+    return ['#192f6a', '#3b5998', '#4c669f'];
+  },
   tabBar: {
     iconSize: 20,
     textFontSize: 12,
