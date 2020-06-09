@@ -1,7 +1,13 @@
 import React, {FunctionComponent} from 'react';
-import {StyleSheet, Image, View, Text} from 'react-native';
+import {
+  StyleSheet,
+  Image,
+  View,
+  Text,
+  TouchableNativeFeedback,
+} from 'react-native';
 import {FixedGrid} from '../FixedGrid';
-import {TouchableNativeFeedback} from 'react-native-gesture-handler';
+import {config} from '../../config';
 
 type Props = {
   buttons: readonly {title: string; icon: number}[];
@@ -55,15 +61,14 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
-    paddingTop: 10,
-    paddingBottom: 10,
+    height: config.tabBar.height,
   },
   icon: {
-    width: 20,
-    height: 20,
+    width: config.tabBar.iconSize,
+    height: config.tabBar.iconSize,
   },
   text: {
-    fontSize: 12,
+    fontSize: config.tabBar.textFontSize,
     textAlign: 'center',
     color: '#fff',
   },

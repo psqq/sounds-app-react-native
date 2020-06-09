@@ -1,25 +1,17 @@
-import {
-  put,
-  takeEvery,
-  takeLatest,
-  all,
-  select,
-  fork,
-} from 'redux-saga/effects';
-import {
-  saveUserWishesToStorageAction,
-  setSavedAction,
-  loadUserWishesFromStorageAction,
-  setLoadedAction,
-  UserWishesState,
-  clearUserWishesAction,
-  addWishAction,
-  PossibleUserWishes,
-  initAction,
-  setInitedAction,
-} from './types';
-import {RootState} from '..';
 import AsyncStorage from '@react-native-community/async-storage';
+import {all, fork, put, select, takeEvery} from 'redux-saga/effects';
+import {RootState} from '..';
+import {
+  addWishAction,
+  clearUserWishesAction,
+  initAction,
+  loadUserWishesFromStorageAction,
+  PossibleUserWishes,
+  saveUserWishesToStorageAction,
+  setInitedAction,
+  setLoadedAction,
+  setSavedAction,
+} from './types';
 
 //---
 // Get store state for type resolving
@@ -54,7 +46,6 @@ function* loadUserWishesFromStorage() {
   yield put(setSavedAction({saved: false}));
   yield put(setLoadedAction({loaded: true}));
   yield put(setInitedAction({inited: true}));
-  console.log('loaded', true);
 }
 
 export function* watchLoadUserWishesFromStorage() {

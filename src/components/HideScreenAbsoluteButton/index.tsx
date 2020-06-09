@@ -11,7 +11,6 @@ type Props = {
 export const HideScreenAbsoluteButton: FunctionComponent<Props> = ({
   onPress,
 }) => {
-  console.log('press 1');
   return (
     <View style={styles.container}>
       <TouchableNativeFeedback
@@ -19,7 +18,6 @@ export const HideScreenAbsoluteButton: FunctionComponent<Props> = ({
           if (onPress) {
             onPress();
           }
-          console.log('press 2');
         }}>
         <View style={styles.btnContainer}>
           <Image source={ASSETS_TREE.icon.down_arrow} style={styles.btnIcon} />
