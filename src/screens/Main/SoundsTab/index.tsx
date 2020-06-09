@@ -82,7 +82,7 @@ export const SoundsTab: FunctionComponent<Props> = ({onTopButtonPress}) => {
   return (
     <MainTabPage
       bg={ASSETS_TREE.original.images.backgrounds.pic_bg_fragment_sounds_}>
-      <Title text="Звуки дождя" />
+      <Title text="Звуки природы" />
       <RowButtonsWithIcons
         buttons={buttons}
         onPress={(i) => {

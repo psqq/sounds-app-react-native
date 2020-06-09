@@ -18,15 +18,19 @@ export const Timer: FunctionComponent<Props> = ({timer, textStyle}) => {
     }
     setSecondsLeft(setRealTimeForTimer);
     let timeout = 1000 - (t % 1000) + 10;
+    let timeoutId: NodeJS.Timeout;
     const go = () => {
       if (!timer.pause) {
         setSecondsLeft(setRealTimeForTimer);
         t = Date.now();
         timeout = 1000 - (t % 1000) + 10;
-        setTimeout(go, timeout);
+        timeoutId = setTimeout(go, timeout);
       }
     };
     go();
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [timer]);
   if (secondsLeft < 1) {
     return <Text style={styles.timerText}>{'00:00'}</Text>;
