@@ -49,9 +49,10 @@ let SoundWithTimer: FunctionComponent<Props> = ({
   mix,
   timer,
 }) => {
+  const soundName = route.params.soundName || mix.title;
   useEffect(() => {
-    playMusic(route.params.soundName);
-  }, [playMusic, route.params.soundName]);
+    playMusic(soundName);
+  }, [playMusic, soundName]);
   return (
     <BackgroundWithImage image={mix.fullImg}>
       <TransparentStatusBar />

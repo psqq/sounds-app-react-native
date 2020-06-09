@@ -9,6 +9,8 @@ export const config = {
     textFontSize: 12,
     height: 60,
   },
-  paddingForTabBar: 80,
+  get paddingForTabBar() {
+    return this.tabBar.height * 2 + 10;
+  },
   statusBarHeight: getStatusBarHeight(),
 } as const;

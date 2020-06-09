@@ -1,37 +1,45 @@
 import React, {FunctionComponent, useState, useEffect} from 'react';
-import {StyleSheet, Text} from 'react-native';
+import {StyleSheet, Text, TextStyle} from 'react-native';
 import {TimerState} from '../../store/timer/types';
 
 type Props = {
   timer: TimerState;
+  textStyle?: TextStyle;
 };
 
-export const Timer: FunctionComponent<Props> = ({timer}) => {
+export const Timer: FunctionComponent<Props> = ({timer, textStyle}) => {
   const [secondsLeft, setSecondsLeft] = useState<number>(0);
   useEffect(() => {
-    setSecondsLeft(() =>
-      timer.startTime
-        ? (timer.duration - (Date.now() - timer.startTime)) / 1000
-        : timer.duration / 1000,
-    );
-    const intervalId = setInterval(() => {
-      if (timer.pause) {
-        return;
+    let t = Date.now();
+    function setRealTimeForTimer() {
+      return timer.startTime
+        ? (timer.duration - (t - timer.startTime)) / 1000
+        : timer.duration / 1000;
+    }
+    setSecondsLeft(setRealTimeForTimer);
+    let timeout = 1000 - (t % 1000) + 10;
+    const go = () => {
+      if (!timer.pause) {
+        setSecondsLeft(setRealTimeForTimer);
+        t = Date.now();
+        timeout = 1000 - (t % 1000) + 10;
+        setTimeout(go, timeout);
       }
-      setSecondsLeft((s) => s - 1);
-    }, 1000);
-    return () => {
-      clearInterval(intervalId);
     };
+    go();
   }, [timer]);
   if (secondsLeft < 1) {
     return <Text style={styles.timerText}>{'00:00'}</Text>;
   }
-  const text = new Date(Math.ceil(secondsLeft) * 1000)
+  let sl = secondsLeft;
+  if (timer.pause) {
+    sl = timer.duration;
+  }
+  const text = new Date(Math.ceil(sl) * 1000)
     .toISOString()
     .substr(11, 8)
     .replace('00:', '');
-  return <Text style={styles.timerText}>{text}</Text>;
+  return <Text style={[styles.timerText, textStyle]}>{text}</Text>;
 };
 
 const styles = StyleSheet.create({

@@ -1,52 +1,67 @@
 import React, {FunctionComponent, useState} from 'react';
 import {TabView} from 'react-native-tab-view';
-
+import {connect} from 'react-redux';
+import {ICON_COMPASS, ICON_HOME, ICON_SETTINGS} from 'src/assets';
+import {MainTabBar} from 'src/components/MainTabBar';
 import {MainNavigationProp} from 'src/router';
-import {SoundsTab} from './SoundsTab';
+import {MainMiniPlayer} from '../../components/MainMiniPlayer';
+import {RootState, TypeOfConnect} from '../../store';
 import {DiscoveriesTab} from './DiscoveriesTab';
 import {SettingsTab} from './SettingsTab';
-import {MainTabBar} from 'src/components/MainTabBar';
-import {ICON_HOME, ICON_COMPASS, ICON_SETTINGS} from 'src/assets';
-import {MainMiniPlayer} from '../../components/MainMiniPlayer';
+import {SoundsTab} from './SoundsTab';
+
+const storeEnhancer = connect(
+  (state: RootState) => ({
+    isPlaying: state.soundManager.currentMix.isPlaying,
+    mix: state.soundManager.currentMix.mix,
+    timer: state.timer,
+  }),
+  (dispatch) => {
+    return {};
+  },
+);
 
 type Props = {
   navigation: MainNavigationProp;
-};
+} & TypeOfConnect<typeof storeEnhancer>;
 
-const tabBarButtons = [
+const tabs = [
   {
+    id: 'sounds',
     title: 'Звуки',
-    icon: ICON_HOME,
+    tabbarIcon: ICON_HOME,
   },
   {
+    id: 'discoveries',
     title: 'Открытия',
-    icon: ICON_COMPASS,
+    tabbarIcon: ICON_COMPASS,
   },
   {
+    id: 'settings',
     title: 'Настройки',
-    icon: ICON_SETTINGS,
+    tabbarIcon: ICON_SETTINGS,
   },
-];
+] as const;
+
+type TabIds = typeof tabs[number]['id'];
 
 interface TabBarState {
   index: number;
   routes: {
-    key: 'sounds' | 'discoveries' | 'settings';
+    key: TabIds;
     title: string;
   }[];
 }
 
-export const Main: FunctionComponent<Props> = ({navigation}) => {
+let Main: FunctionComponent<Props> = ({navigation, isPlaying, mix, timer}) => {
   //---
   // Tab bar state
   //---
   const [state, setState] = useState<TabBarState>({
     index: 0,
-    routes: [
-      {key: 'sounds', title: 'Звуки'},
-      {key: 'discoveries', title: 'Открытия'},
-      {key: 'settings', title: 'Настройки'},
-    ],
+    routes: tabs.map((tab) => {
+      return {key: tab.id, title: tab.title};
+    }),
   });
   const _handleIndexChange = (index: number) => goto(index);
   function goto(index: number) {
@@ -86,12 +101,25 @@ export const Main: FunctionComponent<Props> = ({navigation}) => {
         swipeEnabled={false}
         lazy={false}
       />
-      <MainMiniPlayer />
+      {mix.sounds.length >= 1 && (
+        <MainMiniPlayer
+          title={mix.title}
+          icon={mix.previewImg}
+          timer={timer}
+          plaingStatus={isPlaying ? 'play' : 'pause'}
+        />
+      )}
       <MainTabBar
-        buttons={tabBarButtons}
+        buttons={tabs.map((tab) => {
+          return {title: tab.title, icon: tab.tabbarIcon};
+        })}
         current={state.index}
         onPress={(i) => goto(i)}
       />
     </>
   );
 };
+
+Main = storeEnhancer(Main);
+
+export {Main};

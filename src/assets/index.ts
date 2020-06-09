@@ -1,6 +1,7 @@
 // Require return type for resource
 type rrtfr = number;
 
+export const ICON_CANCEL: rrtfr = require('./icon/cancel.png');
 export const ICON_COFFEE_CUP: rrtfr = require('./icon/coffee-cup.png');
 export const ICON_COMPASS: rrtfr = require('./icon/compass.png');
 export const ICON_DAY: rrtfr = require('./icon/day.png');
@@ -156,6 +157,7 @@ export const SOUNDS_THUNDER: rrtfr = require('./sounds/thunder.mp3');
 
 export const ASSETS_TREE = {
   icon: {
+    cancel: ICON_CANCEL,
     coffee_cup: ICON_COFFEE_CUP,
     compass: ICON_COMPASS,
     day: ICON_DAY,
