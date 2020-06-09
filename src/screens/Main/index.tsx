@@ -9,6 +9,12 @@ import {RootState, TypeOfConnect} from '../../store';
 import {DiscoveriesTab} from './DiscoveriesTab';
 import {SettingsTab} from './SettingsTab';
 import {SoundsTab} from './SoundsTab';
+import {
+  playCurrentMixAction,
+  resumeCurrentMixAction,
+  pauseCurrentMixAction,
+  stopCurrentMixAction,
+} from '../../store/sound-manager/types';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
@@ -17,7 +23,12 @@ const storeEnhancer = connect(
     timer: state.timer,
   }),
   (dispatch) => {
-    return {};
+    return {
+      playMusic: (name: string) => dispatch(playCurrentMixAction({name})),
+      resumeMusic: () => dispatch(resumeCurrentMixAction()),
+      pauseMusic: () => dispatch(pauseCurrentMixAction()),
+      stopMusic: () => dispatch(stopCurrentMixAction()),
+    };
   },
 );
 
@@ -53,7 +64,15 @@ interface TabBarState {
   }[];
 }
 
-let Main: FunctionComponent<Props> = ({navigation, isPlaying, mix, timer}) => {
+let Main: FunctionComponent<Props> = ({
+  navigation,
+  isPlaying,
+  mix,
+  timer,
+  pauseMusic,
+  resumeMusic,
+  stopMusic,
+}) => {
   //---
   // Tab bar state
   //---
@@ -107,6 +126,12 @@ let Main: FunctionComponent<Props> = ({navigation, isPlaying, mix, timer}) => {
           icon={mix.previewImg}
           timer={timer}
           plaingStatus={isPlaying ? 'play' : 'pause'}
+          onPause={pauseMusic}
+          onPlay={resumeMusic}
+          onCancel={stopMusic}
+          pressOnIconTitleOrTimer={() =>
+            navigation.navigate('SoundWithTimer', {soundName: mix.title})
+          }
         />
       )}
       <MainTabBar

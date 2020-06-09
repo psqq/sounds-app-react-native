@@ -5,12 +5,17 @@ import {TimerState} from '../../store/timer/types';
 import {Timer} from '../Timer';
 import {Resource} from '../../data/types';
 import {ASSETS_TREE} from '../../assets';
+import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 
 type Props = {
   title: string;
   timer: TimerState;
   icon: Resource;
   plaingStatus: 'play' | 'pause';
+  pressOnIconTitleOrTimer?: () => void;
+  onPause?: () => void;
+  onPlay?: () => void;
+  onCancel?: () => void;
 };
 
 export const MainMiniPlayer: FunctionComponent<Props> = ({
@@ -18,24 +23,48 @@ export const MainMiniPlayer: FunctionComponent<Props> = ({
   timer,
   icon,
   plaingStatus,
+  pressOnIconTitleOrTimer,
+  onPause,
+  onPlay,
+  onCancel,
 }) => {
   return (
     <View style={styles.container}>
-      <Image source={icon} style={styles.icon} />
-      <View style={styles.titleTimerContainer}>
-        <Text style={styles.titleText}>{title}</Text>
-        <Timer timer={timer} textStyle={styles.timerTextStyle} />
-      </View>
+      <TouchableWithoutFeedback
+        onPress={pressOnIconTitleOrTimer}
+        style={styles.touchable1}
+        containerStyle={styles.touchable1}>
+        <View style={styles.iconTitleTimerContainer}>
+          <Image source={icon} style={styles.icon} />
+          <View style={styles.titleTimerContainer}>
+            <Text style={styles.titleText}>{title}</Text>
+            <Timer timer={timer} textStyle={styles.timerTextStyle} />
+          </View>
+        </View>
+      </TouchableWithoutFeedback>
       <View style={styles.playPauseStopButtonsConatiner}>
-        <Image
-          source={
-            plaingStatus === 'play'
-              ? ASSETS_TREE.icon.pause
-              : ASSETS_TREE.icon.play
-          }
-          style={styles.playPauseIcon}
-        />
-        <Image source={ASSETS_TREE.icon.cancel} style={styles.playPauseIcon} />
+        <TouchableWithoutFeedback
+          onPress={plaingStatus === 'play' ? onPause : onPlay}
+          style={styles.touchable0}
+          containerStyle={styles.touchable0}>
+          <Image
+            source={
+              plaingStatus === 'play'
+                ? ASSETS_TREE.icon.pause
+                : ASSETS_TREE.icon.play
+            }
+            style={styles.playPauseIcon}
+          />
+        </TouchableWithoutFeedback>
+        <TouchableWithoutFeedback
+          onPress={onCancel}
+          style={styles.touchable0}
+          containerStyle={styles.touchable0}>
+          <Image
+            source={ASSETS_TREE.icon.cancel}
+            style={styles.playPauseIcon}
+          />
+        </TouchableWithoutFeedback>
       </View>
     </View>
   );
@@ -57,6 +86,16 @@ const styles = StyleSheet.create({
     right: 0,
     height: config.tabBar.height,
     flexDirection: 'row',
+  },
+  iconTitleTimerContainer: {
+    flex: 1,
+    flexDirection: 'row',
+  },
+  touchable1: {
+    flex: 1,
+  },
+  touchable0: {
+    flex: 0,
   },
   icon: {
     flex: 0,
