@@ -24,7 +24,9 @@ const AppStackScreen: FunctionComponent = storeEnhancer((props: Props) => {
     return <></>;
   }
   return (
-    <AppStack.Navigator headerMode="none">
+    <AppStack.Navigator
+      headerMode="none"
+      screenOptions={{animationEnabled: false}}>
       {wishesLoaded ? (
         <>
           <AppStack.Screen name="Main" component={Main} />
