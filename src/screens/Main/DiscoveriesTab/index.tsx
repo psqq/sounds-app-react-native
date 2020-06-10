@@ -10,15 +10,6 @@ export const DiscoveriesTab: FunctionComponent = ({}) => {
     <MainTabPage
       bg={ASSETS_TREE.original.images.backgrounds.pic_bg_fragment_discover_}>
       <View>
-        <Title text="Выбор редакции" />
-      </View>
-      <View>
-        <Title text="Больше звуков" />
-      </View>
-      <View>
-        <Title text="Популярные" />
-      </View>
-      <View>
         <Title text="Мои звуки" />
       </View>
     </MainTabPage>

@@ -1,9 +1,10 @@
 import {NavigationContainer} from '@react-navigation/native';
-import React from 'react';
+import React, {FunctionComponent} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {connect, Provider} from 'react-redux';
-import {Stack} from './router';
+import {AppStack, RootStack} from './router';
 import {Main} from './screens/Main';
+import {ModalTimer} from './screens/ModalTimer';
 import {SoundWithTimer} from './screens/SoundWithTimer';
 import {UserWishes} from './screens/UserWishes';
 import {RootState, store, TypeOfConnect} from './store';
@@ -17,31 +18,43 @@ const storeEnhancer = connect((state: RootState) => ({
 
 type Props = TypeOfConnect<typeof storeEnhancer>;
 
-// Main application component
-let App = storeEnhancer((props: Props) => {
+const AppStackScreen: FunctionComponent = storeEnhancer((props: Props) => {
   const {wishesLoaded, isAppInited} = props;
   if (!isAppInited) {
     return <></>;
   }
   return (
-    <NavigationContainer>
-      <Stack.Navigator headerMode="none">
-        {wishesLoaded ? (
-          <>
-            <Stack.Screen name="Main" component={Main} />
-            <Stack.Screen name="SoundWithTimer" component={SoundWithTimer} />
-          </>
-        ) : (
-          <>
-            <Stack.Screen name="UserWishes" component={UserWishes} />
-            <Stack.Screen name="Main" component={Main} />
-            <Stack.Screen name="SoundWithTimer" component={SoundWithTimer} />
-          </>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <AppStack.Navigator headerMode="none">
+      {wishesLoaded ? (
+        <>
+          <AppStack.Screen name="Main" component={Main} />
+          <AppStack.Screen name="SoundWithTimer" component={SoundWithTimer} />
+        </>
+      ) : (
+        <>
+          <AppStack.Screen name="UserWishes" component={UserWishes} />
+          <AppStack.Screen name="Main" component={Main} />
+          <AppStack.Screen name="SoundWithTimer" component={SoundWithTimer} />
+        </>
+      )}
+    </AppStack.Navigator>
   );
 });
+
+// Main application component
+let App: FunctionComponent = () => {
+  return (
+    <NavigationContainer>
+      <RootStack.Navigator
+        mode="modal"
+        headerMode="none"
+        screenOptions={{animationEnabled: false}}>
+        <RootStack.Screen name="MainRootScreen" component={AppStackScreen} />
+        <RootStack.Screen name="ModalTimer" component={ModalTimer} />
+      </RootStack.Navigator>
+    </NavigationContainer>
+  );
+};
 
 // Init app
 store.dispatch(initAppAction());

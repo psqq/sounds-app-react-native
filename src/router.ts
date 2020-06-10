@@ -2,9 +2,21 @@ import {
   createStackNavigator,
   StackNavigationProp,
 } from '@react-navigation/stack';
-import {RouteProp} from '@react-navigation/native';
+import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
+
+const MAIN_ROOT_SCREEN = 'MainRootScreen';
+const MODAL_TIMER = 'ModalTimer';
 
 export type RootStackParamList = {
+  [MAIN_ROOT_SCREEN]: undefined;
+  [MODAL_TIMER]: undefined;
+};
+
+const MAIN = 'Main';
+const USER_WISHES = '';
+const SOUND_WITH_TIMER = '';
+
+export type AppStackParamList = {
   Main: undefined;
   UserWishes: undefined;
   SoundWithTimer: {
@@ -13,23 +25,21 @@ export type RootStackParamList = {
 };
 
 export type UserWishesNavigationProp = StackNavigationProp<
-  RootStackParamList,
+  AppStackParamList,
   'UserWishes'
 >;
 
-export type MainNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'Main'
->;
+export type MainNavigationProp = StackNavigationProp<AppStackParamList, 'Main'>;
 
-export type SoundWithTimerNavigationProp = StackNavigationProp<
-  RootStackParamList,
-  'SoundWithTimer'
+export type SoundWithTimerNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<AppStackParamList, 'SoundWithTimer'>,
+  StackNavigationProp<RootStackParamList>
 >;
 
 export type SoundWithTimerRouteProp = RouteProp<
-  RootStackParamList,
+  AppStackParamList,
   'SoundWithTimer'
 >;
 
-export const Stack = createStackNavigator<RootStackParamList>();
+export const AppStack = createStackNavigator<AppStackParamList>();
+export const RootStack = createStackNavigator<RootStackParamList>();

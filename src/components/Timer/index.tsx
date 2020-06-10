@@ -5,10 +5,16 @@ import {TimerState} from '../../store/timer/types';
 type Props = {
   timer: TimerState;
   textStyle?: TextStyle;
+  onFinish?: () => void;
 };
 
-export const Timer: FunctionComponent<Props> = ({timer, textStyle}) => {
+export const Timer: FunctionComponent<Props> = ({
+  timer,
+  textStyle,
+  onFinish,
+}) => {
   const [secondsLeft, setSecondsLeft] = useState<number>(0);
+  const [finished, setFinished] = useState<boolean>(false);
   useEffect(() => {
     let t = Date.now();
     function setRealTimeForTimer() {
@@ -33,6 +39,10 @@ export const Timer: FunctionComponent<Props> = ({timer, textStyle}) => {
     };
   }, [timer]);
   if (secondsLeft < 1) {
+    if (!finished && onFinish) {
+      setFinished(true);
+      onFinish();
+    }
     return <Text style={styles.timerText}>{'00:00'}</Text>;
   }
   let sl = secondsLeft;

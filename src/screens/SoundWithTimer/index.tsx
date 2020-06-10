@@ -1,5 +1,5 @@
 import React, {FunctionComponent, useEffect} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, View, Text, TouchableWithoutFeedback} from 'react-native';
 import {connect} from 'react-redux';
 import {PausePlayButton} from 'src/components/PausePlayButton';
 import {RootState, TypeOfConnect} from 'src/store';
@@ -61,6 +61,12 @@ let SoundWithTimer: FunctionComponent<Props> = ({
         <View style={styles.container}>
           <View style={styles.timerContainer}>
             <Timer timer={timer} />
+            <TouchableWithoutFeedback
+              onPress={() => {
+                navigation.navigate('ModalTimer');
+              }}>
+              <Text style={styles.timerText}>Таймер</Text>
+            </TouchableWithoutFeedback>
           </View>
           <View style={styles.pausePlayBtnContainer}>
             <PausePlayButton
@@ -93,5 +99,12 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  timerText: {
+    color: 'white',
+    fontSize: 17,
+    paddingTop: 30,
+    textDecorationLine: 'underline',
+    textDecorationStyle: 'solid',
   },
 });

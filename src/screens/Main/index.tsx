@@ -6,15 +6,15 @@ import {MainTabBar} from 'src/components/MainTabBar';
 import {MainNavigationProp} from 'src/router';
 import {MainMiniPlayer} from '../../components/MainMiniPlayer';
 import {RootState, TypeOfConnect} from '../../store';
+import {
+  pauseCurrentMixAction,
+  playCurrentMixAction,
+  resumeCurrentMixAction,
+  stopCurrentMixAction,
+} from '../../store/sound-manager/types';
 import {DiscoveriesTab} from './DiscoveriesTab';
 import {SettingsTab} from './SettingsTab';
 import {SoundsTab} from './SoundsTab';
-import {
-  playCurrentMixAction,
-  resumeCurrentMixAction,
-  pauseCurrentMixAction,
-  stopCurrentMixAction,
-} from '../../store/sound-manager/types';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
@@ -118,14 +118,13 @@ let Main: FunctionComponent<Props> = ({
         renderTabBar={() => null}
         onIndexChange={_handleIndexChange}
         swipeEnabled={false}
-        lazy={false}
       />
       {mix.sounds.length >= 1 && (
         <MainMiniPlayer
           title={mix.title}
           icon={mix.previewImg}
           timer={timer}
-          plaingStatus={isPlaying ? 'play' : 'pause'}
+          playingStatus={isPlaying ? 'play' : 'pause'}
           onPause={pauseMusic}
           onPlay={resumeMusic}
           onCancel={stopMusic}

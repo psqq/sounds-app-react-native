@@ -11,7 +11,7 @@ type Props = {
   title: string;
   timer: TimerState;
   icon: Resource;
-  plaingStatus: 'play' | 'pause';
+  playingStatus: 'play' | 'pause';
   pressOnIconTitleOrTimer?: () => void;
   onPause?: () => void;
   onPlay?: () => void;
@@ -22,7 +22,7 @@ export const MainMiniPlayer: FunctionComponent<Props> = ({
   title,
   timer,
   icon,
-  plaingStatus,
+  playingStatus: plaingStatus,
   pressOnIconTitleOrTimer,
   onPause,
   onPlay,

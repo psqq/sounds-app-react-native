@@ -15,6 +15,11 @@ export const ICON_SETTINGS: rrtfr = require('./icon/settings.png');
 export const ICON_THUNDER: rrtfr = require('./icon/thunder.png');
 export const ICON_WIND: rrtfr = require('./icon/wind.png');
 export const ICON_YOGA: rrtfr = require('./icon/yoga.png');
+export const IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_DISCOVER_: rrtfr = require('./images/backgrounds/pic_bg_fragment_discover.webp');
+export const IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SETTING_: rrtfr = require('./images/backgrounds/pic_bg_fragment_setting.webp');
+export const IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SOUNDS_: rrtfr = require('./images/backgrounds/pic_bg_fragment_sounds.webp');
+export const IMAGES_BACKGROUNDS_PIC_BG_SOUNDS_TOOLBAR_: rrtfr = require('./images/backgrounds/pic_bg_sounds_toolbar.webp');
+export const IMAGES_BACKGROUNDS_PIC_BG_START_: rrtfr = require('./images/backgrounds/pic_bg_start.webp');
 export const IMAGES_RAIN_PREVIEW: rrtfr = require('./images/rain-preview.jpg');
 export const IMAGES_STRONG_WIND_PREVIEW: rrtfr = require('./images/strong-wind-preview.jpg');
 export const IMAGES_THUNDER_PREVIEW: rrtfr = require('./images/thunder-preview.jpg');
@@ -173,6 +178,13 @@ export const ASSETS_TREE = {
     yoga: ICON_YOGA,
   },
   images: {
+    backgrounds: {
+      pic_bg_fragment_discover_: IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_DISCOVER_,
+      pic_bg_fragment_setting_: IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SETTING_,
+      pic_bg_fragment_sounds_: IMAGES_BACKGROUNDS_PIC_BG_FRAGMENT_SOUNDS_,
+      pic_bg_sounds_toolbar_: IMAGES_BACKGROUNDS_PIC_BG_SOUNDS_TOOLBAR_,
+      pic_bg_start_: IMAGES_BACKGROUNDS_PIC_BG_START_,
+    },
     rain_preview: IMAGES_RAIN_PREVIEW,
     strong_wind_preview: IMAGES_STRONG_WIND_PREVIEW,
     thunder_preview: IMAGES_THUNDER_PREVIEW,
