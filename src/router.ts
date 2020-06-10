@@ -12,6 +12,16 @@ export type RootStackParamList = {
   [MODAL_TIMER]: undefined;
 };
 
+export type MainRootScreenNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  typeof MAIN_ROOT_SCREEN
+>;
+
+export type ModalTimerNavigationProp = StackNavigationProp<
+  RootStackParamList,
+  typeof MODAL_TIMER
+>;
+
 const MAIN = 'Main';
 const USER_WISHES = '';
 const SOUND_WITH_TIMER = '';

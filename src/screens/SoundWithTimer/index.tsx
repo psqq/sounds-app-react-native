@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
   },
   timerText: {
     color: 'white',
-    fontSize: 17,
+    fontSize: 15,
     paddingTop: 30,
     textDecorationLine: 'underline',
     textDecorationStyle: 'solid',
