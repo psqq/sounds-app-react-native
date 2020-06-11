@@ -10,7 +10,7 @@ export interface SoundItem {
   volume: number;
 }
 
-export const rain: SoundItem = {
+export const rain: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Дождь',
   icon: ASSETS_TREE.icon.rain,
@@ -18,7 +18,7 @@ export const rain: SoundItem = {
   volume: 0.5,
 };
 
-export const strong_wind: SoundItem = {
+export const strong_wind: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Сильный ветер',
   icon: ASSETS_TREE.icon.wind,
@@ -26,7 +26,7 @@ export const strong_wind: SoundItem = {
   volume: 0.5,
 };
 
-export const thunder: SoundItem = {
+export const thunder: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Гром',
   icon: ASSETS_TREE.icon.thunder,
@@ -34,7 +34,7 @@ export const thunder: SoundItem = {
   volume: 0.5,
 };
 
-export const autumn_forest: SoundItem = {
+export const autumn_forest: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Осенний лес',
   icon: ASSETS_TREE.original_2.autumn_forest.icon,
@@ -42,7 +42,7 @@ export const autumn_forest: SoundItem = {
   volume: 0.5,
 };
 
-export const desert: SoundItem = {
+export const desert: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Пустыня',
   icon: ASSETS_TREE.original_2.desert.icon,
@@ -50,7 +50,7 @@ export const desert: SoundItem = {
   volume: 0.5,
 };
 
-export const lake: SoundItem = {
+export const lake: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Озеро',
   icon: ASSETS_TREE.original_2.lake.icon,
@@ -58,7 +58,7 @@ export const lake: SoundItem = {
   volume: 0.5,
 };
 
-export const rain_on_leaves: SoundItem = {
+export const rain_on_leaves: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Дождь по листьям',
   icon: ASSETS_TREE.original_2.rain_on_leaves.icon,
@@ -66,7 +66,7 @@ export const rain_on_leaves: SoundItem = {
   volume: 0.5,
 };
 
-export const rain_under_umbrella: SoundItem = {
+export const rain_under_umbrella: Readonly<SoundItem> = {
   id: shortid(),
   title: 'Дождь по зонтику',
   icon: ASSETS_TREE.original_2.rain_under_umbrella.icon,
@@ -74,7 +74,7 @@ export const rain_under_umbrella: SoundItem = {
   volume: 0.5,
 };
 
-export const sounds: SoundItem[] = [
+export const sounds: ReadonlyArray<Readonly<SoundItem>> = [
   rain,
   strong_wind,
   thunder,

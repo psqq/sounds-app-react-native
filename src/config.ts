@@ -10,7 +10,7 @@ export const config = {
     height: 60,
   },
   get paddingForTabBar() {
-    return this.tabBar.height * 2 + 10;
+    return this.tabBar.height * 2;
   },
   statusBarHeight: getStatusBarHeight(),
 } as const;

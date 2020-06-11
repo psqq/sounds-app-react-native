@@ -18,6 +18,8 @@ import {
   resumeCurrentMixAction,
 } from '../../store/sound-manager/types';
 import {HideScreenAbsoluteButton} from '../../components/HideScreenAbsoluteButton';
+import {SoundIconWithVolume as CurrentMixScreenSoundIcon} from '../../components/CurrentMixScreenSoundIcon';
+import {ASSETS_TREE} from '../../assets';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
@@ -53,6 +55,7 @@ let SoundWithTimer: FunctionComponent<Props> = ({
   useEffect(() => {
     playMusic(soundName);
   }, [playMusic, soundName]);
+  const gotoMixEditor = () => {};
   return (
     <BackgroundWithImage image={mix.fullImg}>
       <TransparentStatusBar />
@@ -69,6 +72,32 @@ let SoundWithTimer: FunctionComponent<Props> = ({
             </TouchableWithoutFeedback>
           </View>
           <View style={styles.pausePlayBtnContainer}>
+            <View style={styles.soundsIconsContinaer}>
+              {mix.sounds.map((sound, index) => {
+                if (index > 1) {
+                  return;
+                }
+                return (
+                  <View key={sound.id} style={styles.soundIconContainer}>
+                    <CurrentMixScreenSoundIcon
+                      icon={sound.icon}
+                      text={Math.floor(sound.volume * 100) + '%'}
+                      onPress={gotoMixEditor}
+                    />
+                  </View>
+                );
+              })}
+              <View key={'change'} style={styles.soundIconContainer}>
+                <CurrentMixScreenSoundIcon
+                  icon={ASSETS_TREE.icon.launchpad}
+                  text={'Изменить'}
+                  topRightText={
+                    mix.sounds.length > 2 ? mix.sounds.length + '' : undefined
+                  }
+                  onPress={gotoMixEditor}
+                />
+              </View>
+            </View>
             <PausePlayButton
               type={isPlaying ? 'pause' : 'play'}
               onPause={pauseMusic}
@@ -106,5 +135,13 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     textDecorationLine: 'underline',
     textDecorationStyle: 'solid',
+  },
+  soundsIconsContinaer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  soundIconContainer: {
+    margin: 10,
   },
 });

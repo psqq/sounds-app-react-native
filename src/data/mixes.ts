@@ -8,10 +8,10 @@ export interface SoundMix {
   title: string;
   previewImg: Resource;
   fullImg: Resource;
-  sounds: sounds.SoundItem[];
+  sounds: ReadonlyArray<Readonly<sounds.SoundItem>>;
 }
 
-export const empty: SoundMix = {
+export const empty: Readonly<SoundMix> = {
   id: shortid(),
   title: '',
   previewImg: NaN,
@@ -19,15 +19,15 @@ export const empty: SoundMix = {
   sounds: [],
 };
 
-export const sleep: SoundMix = {
+export const sleep: Readonly<SoundMix> = {
   id: shortid(),
   title: 'Сон',
   previewImg: ASSETS_TREE.original.images.mixes.pic_mix_rainy_day_,
   fullImg: ASSETS_TREE.original.images.mixes.pic_big_mix_rainy_day_,
-  sounds: [sounds.rain],
+  sounds: [sounds.rain, sounds.thunder, sounds.rain_on_leaves],
 };
 
-export const relax: SoundMix = {
+export const relax: Readonly<SoundMix> = {
   id: shortid(),
   title: 'Расслабиться',
   previewImg: ASSETS_TREE.original_2.autumn_forest.preview,
@@ -35,7 +35,7 @@ export const relax: SoundMix = {
   sounds: [sounds.autumn_forest],
 };
 
-export const work: SoundMix = {
+export const work: Readonly<SoundMix> = {
   id: shortid(),
   title: 'Работа',
   previewImg: ASSETS_TREE.original_2.desert.preview,
@@ -43,7 +43,7 @@ export const work: SoundMix = {
   sounds: [sounds.desert],
 };
 
-export const meditation: SoundMix = {
+export const meditation: Readonly<SoundMix> = {
   id: shortid(),
   title: 'Медитация',
   previewImg: ASSETS_TREE.original_2.lake.preview,
@@ -51,10 +51,16 @@ export const meditation: SoundMix = {
   sounds: [sounds.lake],
 };
 
-export const soundMixes: SoundMix[] = [sleep, relax, work, meditation];
+export const soundMixes: ReadonlyArray<Readonly<SoundMix>> = [
+  sleep,
+  relax,
+  work,
+  meditation,
+];
 
 export function findMixByName(name: string): SoundMix | undefined {
-  return soundMixes.find(
+  const foundMix = soundMixes.find(
     (mix) => mix.title.toLowerCase() === name.toLowerCase(),
   );
+  return foundMix;
 }
