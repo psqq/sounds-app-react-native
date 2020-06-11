@@ -60,7 +60,7 @@ let SoundWithTimer: FunctionComponent<Props> = ({
         <Title text={route.params.soundName} />
         <View style={styles.container}>
           <View style={styles.timerContainer}>
-            <Timer timer={timer} />
+            {!timer.disabled && <Timer timer={timer} />}
             <TouchableWithoutFeedback
               onPress={() => {
                 navigation.navigate('ModalTimer');

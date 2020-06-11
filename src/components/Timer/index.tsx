@@ -49,7 +49,7 @@ export const Timer: FunctionComponent<Props> = ({
   if (timer.pause) {
     sl = timer.duration;
   }
-  let text = new Date(Math.ceil(sl) * 1000).toISOString().substr(11, 8);
+  let text = new Date(Math.ceil(sl * 1000)).toISOString().substr(11, 8);
   if (text.startsWith('00:')) {
     text = text.replace('00:', '');
   }

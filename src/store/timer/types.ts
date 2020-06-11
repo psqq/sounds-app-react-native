@@ -7,6 +7,7 @@ export interface TimerState {
   startTime?: number;
   duration: number;
   pause: boolean;
+  disabled: boolean;
 }
 
 //---
@@ -24,3 +25,6 @@ export const initTimerAction = createAction(
 );
 export const pauseTimerAction = createAction(TIMER + 'pauseTimerAction');
 export const resumeTimerAction = createAction(TIMER + 'resumeTimerAction');
+
+export const disableTimerAction = createAction(TIMER + 'disableTimerAction');
+export const enableTimerAction = createAction(TIMER + 'enableTimerAction');

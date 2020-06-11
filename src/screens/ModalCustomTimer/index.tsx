@@ -6,7 +6,7 @@ import {ASSETS_TREE} from 'src/assets';
 import {BackgroundWithImage} from '../../components/BackgroundWithImage';
 import {RootState, TypeOfConnect} from '../../store';
 import {ModalTimerNavigationProp} from '../../router';
-import {initTimerAction, disableTimerAction} from '../../store/timer/types';
+import {initTimerAction} from '../../store/timer/types';
 
 const storeEnhancer = connect(
   (state: RootState) => ({}),
@@ -14,7 +14,6 @@ const storeEnhancer = connect(
     return {
       setTimer: (duration: number) =>
         dispatch(initTimerAction({duration, paused: false})),
-      disableTimer: () => dispatch(disableTimerAction()),
     };
   },
 );
@@ -23,11 +22,7 @@ type Props = {navigation: ModalTimerNavigationProp} & TypeOfConnect<
   typeof storeEnhancer
 >;
 
-let ModalTimer: FunctionComponent<Props> = ({
-  navigation,
-  setTimer,
-  disableTimer,
-}) => {
+let ModalCustomTimer: FunctionComponent<Props> = ({navigation, setTimer}) => {
   const buttons = [
     {
       title: '15 мин.',
@@ -59,16 +54,9 @@ let ModalTimer: FunctionComponent<Props> = ({
     },
     {
       title: 'Настраиваемый',
-      onPress: () => {
-        navigation.goBack();
-      },
     },
     {
       title: 'Выкл',
-      onPress: () => {
-        disableTimer();
-        navigation.goBack();
-      },
     },
   ];
   return (
@@ -93,9 +81,9 @@ let ModalTimer: FunctionComponent<Props> = ({
   );
 };
 
-ModalTimer = storeEnhancer(ModalTimer);
+ModalCustomTimer = storeEnhancer(ModalCustomTimer);
 
-export {ModalTimer};
+export {ModalCustomTimer};
 
 const styles = StyleSheet.create({
   container: {
