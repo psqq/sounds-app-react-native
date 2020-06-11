@@ -991,6 +991,13 @@
     sudo-prompt "^9.0.0"
     wcwidth "^1.0.1"
 
+"@react-native-community/datetimepicker@^2.4.1":
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/@react-native-community/datetimepicker/-/datetimepicker-2.4.1.tgz#fc8b0d037ee7bb11c4b4c31504eb523709a0c1b9"
+  integrity sha512-tOLm4GBLvDJlRbroeF/QCkBDvMpETBDiJ8auBN9AiUVCziXrDl8R/UCSAcbaWqiRKuo4Tc0L8hwqm3/rvJWayA==
+  dependencies:
+    invariant "^2.2.4"
+
 "@react-native-community/eslint-config@^1.0.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@react-native-community/eslint-config/-/eslint-config-1.1.0.tgz#2dacad06dd44d13e778510864473fc6091f080c0"
@@ -5396,6 +5403,11 @@ react-native-linear-gradient@^2.5.6:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
   integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
+
+react-native-number-selector@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-native-number-selector/-/react-native-number-selector-1.0.1.tgz#8a53f7ff5221d712b78a5e2221a8d85bc2908396"
+  integrity sha512-kqYkEUGbmehm9NXa9f1T2bM3Y4k0QDfPYj9+RcZuwXZxxhL+R25rdCpH5KJiIv6Rx1chyVy8cA/YW27g77VAYg==
 
 react-native-reanimated@^1.9.0:
   version "1.9.0"

@@ -4,12 +4,14 @@ import {
 } from '@react-navigation/stack';
 import {RouteProp, CompositeNavigationProp} from '@react-navigation/native';
 
-const MAIN_ROOT_SCREEN = 'MainRootScreen';
-const MODAL_TIMER = 'ModalTimer';
+export const MAIN_ROOT_SCREEN = 'MainRootScreen';
+export const MODAL_TIMER = 'ModalTimer';
+export const MODAL_CUSTOM_TIMER = 'ModalCustomTimer';
 
 export type RootStackParamList = {
   [MAIN_ROOT_SCREEN]: undefined;
   [MODAL_TIMER]: undefined;
+  [MODAL_CUSTOM_TIMER]: undefined;
 };
 
 export type MainRootScreenNavigationProp = StackNavigationProp<
@@ -20,6 +22,11 @@ export type MainRootScreenNavigationProp = StackNavigationProp<
 export type ModalTimerNavigationProp = StackNavigationProp<
   RootStackParamList,
   typeof MODAL_TIMER
+>;
+
+export type ModalCustomTimerNavigationProp = CompositeNavigationProp<
+  StackNavigationProp<RootStackParamList, typeof MODAL_CUSTOM_TIMER>,
+  StackNavigationProp<AppStackParamList>
 >;
 
 const MAIN = 'Main';

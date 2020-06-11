@@ -1,12 +1,14 @@
-import React, {FunctionComponent} from 'react';
+import React, {FunctionComponent, useState} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {TouchableNativeFeedback} from 'react-native-gesture-handler';
 import {connect} from 'react-redux';
 import {ASSETS_TREE} from 'src/assets';
 import {BackgroundWithImage} from '../../components/BackgroundWithImage';
 import {RootState, TypeOfConnect} from '../../store';
-import {ModalTimerNavigationProp} from '../../router';
+import {ModalTimerNavigationProp, MODAL_CUSTOM_TIMER} from '../../router';
 import {initTimerAction, disableTimerAction} from '../../store/timer/types';
+import DateTimePicker from '@react-native-community/datetimepicker';
+import {min} from 'lodash';
 
 const storeEnhancer = connect(
   (state: RootState) => ({}),
@@ -28,6 +30,9 @@ let ModalTimer: FunctionComponent<Props> = ({
   setTimer,
   disableTimer,
 }) => {
+  const [timepickerState, setTimepickerState] = useState({
+    show: false,
+  });
   const buttons = [
     {
       title: '15 мин.',
@@ -60,7 +65,10 @@ let ModalTimer: FunctionComponent<Props> = ({
     {
       title: 'Настраиваемый',
       onPress: () => {
-        navigation.goBack();
+        setTimepickerState({
+          ...timepickerState,
+          show: true,
+        });
       },
     },
     {
@@ -76,19 +84,46 @@ let ModalTimer: FunctionComponent<Props> = ({
       <View style={styles.container}>
         <Text style={styles.title}>Установить таймер</Text>
         {buttons.map((btn) => (
-          <TouchableNativeFeedback
-            key={btn.title}
-            onPress={() => {
-              if (btn.onPress) {
-                btn.onPress();
-              }
-            }}>
-            <View style={styles.btnContainer}>
+          <View style={styles.btnContainer}>
+            <TouchableNativeFeedback
+              key={btn.title}
+              onPress={() => {
+                if (btn.onPress) {
+                  btn.onPress();
+                }
+              }}>
               <Text style={styles.btnText}>{btn.title}</Text>
-            </View>
-          </TouchableNativeFeedback>
+            </TouchableNativeFeedback>
+          </View>
         ))}
       </View>
+      <View style={styles.cancelContainer}>
+        <TouchableNativeFeedback
+          onPress={() => {
+            navigation.goBack();
+          }}
+          style={styles.touchable0}
+          containerStyle={styles.touchable0}>
+          <Text style={styles.cancelText}>Отмена</Text>
+        </TouchableNativeFeedback>
+      </View>
+      {timepickerState.show && (
+        <DateTimePicker
+          testID="dateTimePicker"
+          value={new Date()}
+          mode={'time'}
+          is24Hour={true}
+          display="default"
+          onChange={(event, selectedDate) => {
+            if (event.type === 'set') {
+              const hours = selectedDate?.getHours() || 0;
+              const minutes = selectedDate?.getMinutes() || 0;
+              setTimer(hours * 60 * 60 * 1000 + minutes * 60 * 1000);
+              navigation.goBack();
+            }
+          }}
+        />
+      )}
     </BackgroundWithImage>
   );
 };
@@ -103,6 +138,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignContent: 'center',
     flexDirection: 'column',
+  },
+  cancelContainer: {
+    flex: 0,
+    justifyContent: 'center',
+    alignContent: 'center',
+    flexDirection: 'row',
+    marginBottom: 30,
   },
   title: {
     color: '#bbb',
@@ -125,5 +167,19 @@ const styles = StyleSheet.create({
     color: 'white',
     textAlign: 'center',
     fontSize: 17,
+  },
+  cancelText: {
+    color: '#bbb',
+    textAlign: 'center',
+    flex: 0,
+    fontSize: 15,
+    marginLeft: 'auto',
+    marginRight: 'auto',
+  },
+  touchable1: {
+    flex: 1,
+  },
+  touchable0: {
+    flex: 0,
   },
 });

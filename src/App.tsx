@@ -2,7 +2,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import React, {FunctionComponent} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {connect, Provider} from 'react-redux';
-import {AppStack, RootStack} from './router';
+import {AppStack, RootStack, MODAL_CUSTOM_TIMER} from './router';
 import {Main} from './screens/Main';
 import {ModalTimer} from './screens/ModalTimer';
 import {SoundWithTimer} from './screens/SoundWithTimer';
@@ -10,6 +10,7 @@ import {UserWishes} from './screens/UserWishes';
 import {RootState, store, TypeOfConnect} from './store';
 import {initAppAction} from './store/app/types';
 import {isAppInitedSelector} from './store/selectors';
+import {ModalCustomTimer} from './screens/ModalCustomTimer';
 
 const storeEnhancer = connect((state: RootState) => ({
   wishesLoaded: state.userWishes.loaded,
@@ -53,6 +54,10 @@ let App: FunctionComponent = () => {
         screenOptions={{animationEnabled: false}}>
         <RootStack.Screen name="MainRootScreen" component={AppStackScreen} />
         <RootStack.Screen name="ModalTimer" component={ModalTimer} />
+        <RootStack.Screen
+          name={MODAL_CUSTOM_TIMER}
+          component={ModalCustomTimer}
+        />
       </RootStack.Navigator>
     </NavigationContainer>
   );
