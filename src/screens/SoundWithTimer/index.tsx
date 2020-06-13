@@ -11,6 +11,7 @@ import {TransparentStatusBar} from '../../components/TransparentStatusBar';
 import {
   SoundWithTimerNavigationProp,
   SoundWithTimerRouteProp,
+  MIX_EDITOR,
 } from '../../router';
 import {
   pauseCurrentMixAction,
@@ -55,7 +56,9 @@ let SoundWithTimer: FunctionComponent<Props> = ({
   useEffect(() => {
     playMusic(soundName);
   }, [playMusic, soundName]);
-  const gotoMixEditor = () => {};
+  const gotoMixEditor = () => {
+    navigation.navigate(MIX_EDITOR);
+  };
   return (
     <BackgroundWithImage image={mix.fullImg}>
       <TransparentStatusBar />

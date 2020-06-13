@@ -7,7 +7,7 @@ import {
   setCachedSoundsAction,
   setIsCachedAction,
 } from './types';
-import {empty} from 'src/data/mixes';
+import {empty, meditation, relax, sleep, work} from 'src/data/mixes';
 import {createReducer} from '@reduxjs/toolkit';
 
 function getCleanCurrentMix(): CurrentMix {
@@ -21,6 +21,10 @@ function getCleanCurrentMix(): CurrentMix {
 
 const initialState: SoundManagerState = {
   currentMix: getCleanCurrentMix(),
+  mixes: [meditation, relax, sleep, work],
+  baseMixes: [meditation.id, relax.id, sleep.id, work.id],
+  defaultMixes: [],
+  userMixes: [],
 };
 
 export const soundManager = createReducer(initialState, (builder) =>

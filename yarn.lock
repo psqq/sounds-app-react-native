@@ -1237,6 +1237,13 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.0.11.tgz#61d4886e2424da73b7b25547f59fdcb534c165a3"
   integrity sha512-lCvvI24L21ZVeIiyIUHZ5Oflv1hhHQ5E1S25IRlKIXaRkVgmXpJMI3wUJkmym2bTbCe+WoIibQnMVAU3FguaOg==
 
+"@types/path-parse@^1.0.19":
+  version "1.0.19"
+  resolved "https://registry.yarnpkg.com/@types/path-parse/-/path-parse-1.0.19.tgz#8c8e4829a56c6fba498745079b7c3fc9c040647c"
+  integrity sha1-jI5IKaVsb7pJh0UHm3w/ycBAZHw=
+  dependencies:
+    "@types/node" "*"
+
 "@types/prop-types@*":
   version "15.7.3"
   resolved "https://registry.yarnpkg.com/@types/prop-types/-/prop-types-15.7.3.tgz#2ab0d5da2e5815f94b0b9d4b95d1e5f243ab2ca7"
@@ -5403,11 +5410,6 @@ react-native-linear-gradient@^2.5.6:
   version "2.5.6"
   resolved "https://registry.yarnpkg.com/react-native-linear-gradient/-/react-native-linear-gradient-2.5.6.tgz#96215cbc5ec7a01247a20890888aa75b834d44a0"
   integrity sha512-HDwEaXcQIuXXCV70O+bK1rizFong3wj+5Q/jSyifKFLg0VWF95xh8XQgfzXwtq0NggL9vNjPKXa016KuFu+VFg==
-
-react-native-number-selector@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/react-native-number-selector/-/react-native-number-selector-1.0.1.tgz#8a53f7ff5221d712b78a5e2221a8d85bc2908396"
-  integrity sha512-kqYkEUGbmehm9NXa9f1T2bM3Y4k0QDfPYj9+RcZuwXZxxhL+R25rdCpH5KJiIv6Rx1chyVy8cA/YW27g77VAYg==
 
 react-native-reanimated@^1.9.0:
   version "1.9.0"

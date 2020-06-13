@@ -1,5 +1,5 @@
 import {createAction} from '@reduxjs/toolkit';
-import {SoundMix} from '../../data/mixes';
+import {SoundMix, MixId} from '../../data/mixes';
 
 //---
 // State
@@ -18,6 +18,10 @@ export interface CurrentMix {
 
 export interface SoundManagerState {
   currentMix: CurrentMix;
+  mixes: SoundMix[];
+  baseMixes: MixId[];
+  defaultMixes: MixId[];
+  userMixes: MixId[];
 }
 
 //---

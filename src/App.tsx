@@ -2,7 +2,15 @@ import {NavigationContainer} from '@react-navigation/native';
 import React, {FunctionComponent} from 'react';
 import SplashScreen from 'react-native-splash-screen';
 import {connect, Provider} from 'react-redux';
-import {AppStack, RootStack, MODAL_CUSTOM_TIMER} from './router';
+import {
+  AppStack,
+  RootStack,
+  MODAL_CUSTOM_TIMER,
+  MAIN,
+  SOUND_WITH_TIMER,
+  USER_WISHES,
+  MIX_EDITOR,
+} from './router';
 import {Main} from './screens/Main';
 import {ModalTimer} from './screens/ModalTimer';
 import {SoundWithTimer} from './screens/SoundWithTimer';
@@ -11,6 +19,7 @@ import {RootState, store, TypeOfConnect} from './store';
 import {initAppAction} from './store/app/types';
 import {isAppInitedSelector} from './store/selectors';
 import {ModalCustomTimer} from './screens/ModalCustomTimer';
+import {MixEditor} from './screens/MixEditor';
 
 const storeEnhancer = connect((state: RootState) => ({
   wishesLoaded: state.userWishes.loaded,
@@ -28,18 +37,12 @@ const AppStackScreen: FunctionComponent = storeEnhancer((props: Props) => {
     <AppStack.Navigator
       headerMode="none"
       screenOptions={{animationEnabled: false}}>
-      {wishesLoaded ? (
-        <>
-          <AppStack.Screen name="Main" component={Main} />
-          <AppStack.Screen name="SoundWithTimer" component={SoundWithTimer} />
-        </>
-      ) : (
-        <>
-          <AppStack.Screen name="UserWishes" component={UserWishes} />
-          <AppStack.Screen name="Main" component={Main} />
-          <AppStack.Screen name="SoundWithTimer" component={SoundWithTimer} />
-        </>
+      {!wishesLoaded && (
+        <AppStack.Screen name={USER_WISHES} component={UserWishes} />
       )}
+      <AppStack.Screen name={MAIN} component={Main} />
+      <AppStack.Screen name={SOUND_WITH_TIMER} component={SoundWithTimer} />
+      <AppStack.Screen name={MIX_EDITOR} component={MixEditor} />
     </AppStack.Navigator>
   );
 });

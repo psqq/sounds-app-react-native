@@ -29,33 +29,43 @@ export type ModalCustomTimerNavigationProp = CompositeNavigationProp<
   StackNavigationProp<AppStackParamList>
 >;
 
-const MAIN = 'Main';
-const USER_WISHES = '';
-const SOUND_WITH_TIMER = '';
+export const MAIN = 'Main';
+export const USER_WISHES = 'UserWishes';
+export const SOUND_WITH_TIMER = 'SoundWithTimer';
+export const MIX_EDITOR = 'MixEditor';
 
 export type AppStackParamList = {
-  Main: undefined;
-  UserWishes: undefined;
-  SoundWithTimer: {
+  [MAIN]: undefined;
+  [USER_WISHES]: undefined;
+  [SOUND_WITH_TIMER]: {
     soundName: string;
   };
+  [MIX_EDITOR]: undefined;
 };
 
 export type UserWishesNavigationProp = StackNavigationProp<
   AppStackParamList,
-  'UserWishes'
+  typeof USER_WISHES
 >;
 
-export type MainNavigationProp = StackNavigationProp<AppStackParamList, 'Main'>;
+export type MixEditorNavigationProp = StackNavigationProp<
+  AppStackParamList,
+  typeof MIX_EDITOR
+>;
+
+export type MainNavigationProp = StackNavigationProp<
+  AppStackParamList,
+  typeof MAIN
+>;
 
 export type SoundWithTimerNavigationProp = CompositeNavigationProp<
-  StackNavigationProp<AppStackParamList, 'SoundWithTimer'>,
+  StackNavigationProp<AppStackParamList, typeof SOUND_WITH_TIMER>,
   StackNavigationProp<RootStackParamList>
 >;
 
 export type SoundWithTimerRouteProp = RouteProp<
   AppStackParamList,
-  'SoundWithTimer'
+  typeof SOUND_WITH_TIMER
 >;
 
 export const AppStack = createStackNavigator<AppStackParamList>();

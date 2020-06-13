@@ -3,15 +3,17 @@ import * as sounds from './sounds';
 import {ASSETS_TREE} from 'src/assets';
 import shortid from 'shortid';
 
+export type MixId = string;
+
 export interface SoundMix {
-  id: string;
+  id: MixId;
   title: string;
   previewImg: Resource;
   fullImg: Resource;
   sounds: sounds.SoundItem[];
 }
 
-export const empty: Readonly<SoundMix> = {
+export const empty: SoundMix = {
   id: shortid(),
   title: '',
   previewImg: NaN,
@@ -19,7 +21,7 @@ export const empty: Readonly<SoundMix> = {
   sounds: [],
 };
 
-export const sleep: Readonly<SoundMix> = {
+export const sleep: SoundMix = {
   id: shortid(),
   title: 'Сон',
   previewImg: ASSETS_TREE.original.images.mixes.pic_mix_rainy_day_,
@@ -27,7 +29,7 @@ export const sleep: Readonly<SoundMix> = {
   sounds: [sounds.rain, sounds.thunder, sounds.rain_on_leaves],
 };
 
-export const relax: Readonly<SoundMix> = {
+export const relax: SoundMix = {
   id: shortid(),
   title: 'Расслабиться',
   previewImg: ASSETS_TREE.original_2.autumn_forest.preview,
@@ -35,7 +37,7 @@ export const relax: Readonly<SoundMix> = {
   sounds: [sounds.autumn_forest],
 };
 
-export const work: Readonly<SoundMix> = {
+export const work: SoundMix = {
   id: shortid(),
   title: 'Работа',
   previewImg: ASSETS_TREE.original_2.desert.preview,
@@ -43,7 +45,7 @@ export const work: Readonly<SoundMix> = {
   sounds: [sounds.desert],
 };
 
-export const meditation: Readonly<SoundMix> = {
+export const meditation: SoundMix = {
   id: shortid(),
   title: 'Медитация',
   previewImg: ASSETS_TREE.original_2.lake.preview,
@@ -51,7 +53,7 @@ export const meditation: Readonly<SoundMix> = {
   sounds: [sounds.lake],
 };
 
-export const soundMixes: ReadonlyArray<Readonly<SoundMix>> = [
+export const soundMixes: ReadonlyArray<SoundMix> = [
   sleep,
   relax,
   work,
