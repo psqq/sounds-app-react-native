@@ -8,7 +8,7 @@ export interface SoundMix {
   title: string;
   previewImg: Resource;
   fullImg: Resource;
-  sounds: ReadonlyArray<Readonly<sounds.SoundItem>>;
+  sounds: sounds.SoundItem[];
 }
 
 export const empty: Readonly<SoundMix> = {
