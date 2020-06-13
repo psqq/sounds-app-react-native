@@ -6,6 +6,7 @@ import * as soundManager from './sound-manager';
 import * as userWishes from './user-wishes';
 import * as app from './app';
 import * as timer from './timer';
+import * as mixEditor from './mix-editor';
 
 //---
 // Create store with sagas middlewares
@@ -15,6 +16,7 @@ export const rootReducer = combineReducers({
   userWishes: userWishes.rootReducer,
   app: app.rootReducer,
   timer: timer.rootReducer,
+  mixEditor: mixEditor.rootReducer,
 });
 
 const sagaMiddleware = createSagaMiddleware();

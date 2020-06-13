@@ -7,7 +7,7 @@ const initialState: MixEditor = {
   originalMix: '',
 };
 
-export const soundManager = createReducer(initialState, (builder) => {
+export const mixEditor = createReducer(initialState, (builder) => {
   builder.addCase(setMixForEditAction, (state, action) => {
     state.mix = action.payload.mix;
   });

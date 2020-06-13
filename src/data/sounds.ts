@@ -74,7 +74,7 @@ export const rain_under_umbrella: Readonly<SoundItem> = {
   volume: 0.5,
 };
 
-export const sounds: ReadonlyArray<Readonly<SoundItem>> = [
+export const sounds: SoundItem[] = [
   rain,
   strong_wind,
   thunder,

@@ -1,2 +1,2 @@
-export {soundManager as rootReducer} from './reducers';
+export {mixEditor as rootReducer} from './reducers';
 export {rootSaga} from './sagas';

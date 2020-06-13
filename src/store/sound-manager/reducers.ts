@@ -9,6 +9,7 @@ import {
 } from './types';
 import {empty, meditation, relax, sleep, work} from 'src/data/mixes';
 import {createReducer} from '@reduxjs/toolkit';
+import {sounds} from '../../data/sounds';
 
 function getCleanCurrentMix(): CurrentMix {
   return {
@@ -22,6 +23,7 @@ function getCleanCurrentMix(): CurrentMix {
 const initialState: SoundManagerState = {
   currentMix: getCleanCurrentMix(),
   mixes: [meditation, relax, sleep, work],
+  sounds,
   baseMixes: [meditation.id, relax.id, sleep.id, work.id],
   defaultMixes: [],
   userMixes: [],

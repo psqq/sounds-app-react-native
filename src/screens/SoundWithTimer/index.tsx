@@ -21,6 +21,8 @@ import {
 import {HideScreenAbsoluteButton} from '../../components/HideScreenAbsoluteButton';
 import {SoundIconWithVolume as CurrentMixScreenSoundIcon} from '../../components/CurrentMixScreenSoundIcon';
 import {ASSETS_TREE} from '../../assets';
+import {setMixForEditAction} from '../../store/mix-editor/types';
+import {SoundMix} from '../../data/mixes';
 
 const storeEnhancer = connect(
   (state: RootState) => ({
@@ -33,6 +35,7 @@ const storeEnhancer = connect(
       playMusic: (name: string) => dispatch(playCurrentMixAction({name})),
       resumeMusic: () => dispatch(resumeCurrentMixAction()),
       pauseMusic: () => dispatch(pauseCurrentMixAction()),
+      setMixForEdit: (mix: SoundMix) => dispatch(setMixForEditAction({mix})),
     };
   },
 );
@@ -48,6 +51,7 @@ let SoundWithTimer: FunctionComponent<Props> = ({
   playMusic,
   pauseMusic,
   resumeMusic,
+  setMixForEdit,
   isPlaying,
   mix,
   timer,
@@ -57,6 +61,7 @@ let SoundWithTimer: FunctionComponent<Props> = ({
     playMusic(soundName);
   }, [playMusic, soundName]);
   const gotoMixEditor = () => {
+    setMixForEdit(mix);
     navigation.navigate(MIX_EDITOR);
   };
   return (
