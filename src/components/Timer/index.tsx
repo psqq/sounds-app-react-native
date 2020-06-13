@@ -43,7 +43,7 @@ export const Timer: FunctionComponent<Props> = ({
       setFinished(true);
       onFinish();
     }
-    return <Text style={styles.timerText}>{'00:00'}</Text>;
+    return <Text style={[styles.timerText, textStyle]}>{'00:00'}</Text>;
   }
   let sl = secondsLeft;
   if (timer.pause) {
